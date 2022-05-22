@@ -12,6 +12,8 @@ import Utilities from '../../utils/utilities';
 })
 export class View1Component implements OnInit, OnDestroy {
   sub: any;
+
+  //TODO: make this object[]
   formData: { [key: string]: any } = {
                                       'firstName': '',
                                       'lastName': '',

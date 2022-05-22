@@ -9,7 +9,7 @@ class Utilities{
 
   subscribeLogic(state: { [key: string]: any }, formData: { [key: string]: any }){
     const { currRoute, routeMapping, type } = state;
-    if(type === Actions.CLICK_NEXT || type === Actions.CLICK_PREVIOUS){
+    if(type === Actions.CLICK_NEXT || type === Actions.CLICK_PREVIOUS || type === Actions.SPLASH_DONE){
       this.router.navigateByUrl('/' + currRoute);
     } else if (type === Actions.GET_DATA){
       const mapping = routeMapping[currRoute || ''] || {};

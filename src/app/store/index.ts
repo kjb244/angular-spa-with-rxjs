@@ -22,9 +22,14 @@ interface InitialState {
 
 let state: InitialState = {
   type: null,
-  routes: ['view1','view2'],
-  currRoute: 'view1',
+  routes: ['splash','view1','view2'],
+  currRoute: 'splash',
   routeMapping:{
+    'splash': {
+      next: 'view1',
+      prev: null,
+      formData: {}
+    },
     'view1': {
       next: 'view2',
       prev: null,
@@ -50,7 +55,7 @@ function mapStateAndReturnIt(action: string, payload: object, state: InitialStat
   let currRoute = state.currRoute;
   const routeMapping = state.routeMapping[currRoute || ''];
   routeMapping.formData = payload || {};
-  const nextRoute = action === Actions.CLICK_NEXT ? routeMapping.next: routeMapping.prev;
+  const nextRoute = (action === Actions.CLICK_NEXT || action === Actions.SPLASH_DONE) ? routeMapping.next: routeMapping.prev;
   return {...state, currRoute: nextRoute, type: action};
 
 }
@@ -74,6 +79,13 @@ eventDispatcher.subscribe((data: Event) => {
       state = mapStateAndReturnIt(Actions.CLICK_PREVIOUS, data.payload || {}, state);
       store.next(state);
       break;
+
+    case Actions.SPLASH_DONE:
+      state = {...state};
+      state = mapStateAndReturnIt(Actions.SPLASH_DONE, {}, state);
+      store.next(state);
+      break;
+
 
 
     default:

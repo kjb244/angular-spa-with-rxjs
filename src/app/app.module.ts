@@ -10,10 +10,14 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CurrencyComponent } from './components/currency/currency.component';
 import { ButtonsComponent } from './components/buttons/buttons.component';
 import { View2Component } from './components/view2/view2.component';
+import { SplashComponent } from './components/splash/splash.component';
 
 const appRoutes: Routes = [
   {path: 'view1',  component: View1Component},
-  {path: 'view2', component: View2Component}
+  {path: 'view2', component: View2Component},
+  {path: 'splash', component: SplashComponent},
+  {path: '', redirectTo: '/splash', pathMatch: 'full' },
+
 ];
 
 @NgModule({
@@ -22,7 +26,8 @@ const appRoutes: Routes = [
     View1Component,
     CurrencyComponent,
     ButtonsComponent,
-    View2Component
+    View2Component,
+    SplashComponent
   ],
   imports: [
     BrowserModule,
