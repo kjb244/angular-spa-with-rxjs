@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -11,6 +13,7 @@ import { CurrencyComponent } from './components/currency/currency.component';
 import { ButtonsComponent } from './components/buttons/buttons.component';
 import { View2Component } from './components/view2/view2.component';
 import { SplashComponent } from './components/splash/splash.component';
+import { FormErrorsComponent } from './components/form-errors/form-errors.component';
 
 const appRoutes: Routes = [
   {path: 'view1',  component: View1Component},
@@ -27,14 +30,16 @@ const appRoutes: Routes = [
     CurrencyComponent,
     ButtonsComponent,
     View2Component,
-    SplashComponent
+    SplashComponent,
+    FormErrorsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbModule,
     FormsModule,
-    RouterModule.forRoot(appRoutes ,{enableTracing: true})
+    CommonModule,
+    RouterModule.forRoot(appRoutes ,{enableTracing: false})
   ],
   providers: [],
   bootstrap: [AppComponent]

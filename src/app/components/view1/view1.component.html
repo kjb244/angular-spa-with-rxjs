@@ -1,12 +1,15 @@
-<form>
+<form #contactForm="ngForm" class="form-group">
 
   <div class="row mt-4">
     <div class="col-xs-12 col-sm-10">
       <div class="form-group">
         <label for="firstName">First Name</label>
-        <input type="text" [(ngModel)]="formData['firstName']" name="firstName" id="firstName" class="form-control"/>
-
+        <input type="text" [(ngModel)]="formData['firstName']" required minlength="2" pattern="^\S+$" name="firstName"
+               id="firstName" #firstName="ngModel" class="form-control"/>
       </div>
+      <app-form-errors [formError]="firstName"></app-form-errors>
+
+
     </div>
   </div>
 
@@ -14,22 +17,25 @@
     <div class="col-xs-12 col-sm-10">
       <div class="form-group">
         <label for="lastName">Last Name</label>
-        <input type="text" [(ngModel)]="formData['lastName']" name="lastName" id="lastName" class="form-control"/>
+        <input type="text" [(ngModel)]="formData['lastName']" required minlength="2" maxlength="20" name="lastName"
+               id="lastName" #lastName="ngModel" class="form-control"/>
       </div>
     </div>
   </div>
+  <app-form-errors [formError]="lastName"></app-form-errors>
 
   <div class="row mt-4">
     <div class="col-xs-12 col-sm-10">
       <div class="form-group">
-        <app-currency [amount]="formData['currency']" (onCurrencyChange)="currencyChange($event)"></app-currency>
+        <app-currency [amount]="formData['currency']" required minlength="2" (onCurrencyChange)="currencyChange($event)"></app-currency>
       </div>
     </div>
   </div>
 
+
   <div class="row mt-4">
     <div class="col-xs-12 col-sm-10">
-      <app-buttons [formData]="formData"></app-buttons>
+      <app-buttons [beforeClickActions]="checkFormValidity" [formData]="formData"></app-buttons>
     </div>
   </div>
 

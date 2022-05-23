@@ -1,8 +1,9 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import {Component, OnInit, OnDestroy, ViewChild} from '@angular/core';
 import { eventDispatcher, store } from "../../store/index";
 import { Actions } from "../../store/actions";
 import { Router } from '@angular/router';
 import Utilities from '../../utils/utilities';
+import {NgForm} from "@angular/forms";
 
 
 @Component({
@@ -12,6 +13,8 @@ import Utilities from '../../utils/utilities';
 })
 export class View1Component implements OnInit, OnDestroy {
   sub: any;
+  @ViewChild('contactForm') contactForm: NgForm;
+
 
   //TODO: make this object[]
   formData: { [key: string]: any } = {
@@ -41,6 +44,16 @@ export class View1Component implements OnInit, OnDestroy {
 
   currencyChange(currency: string){
     this.formData['currency'] = currency;
+  }
+
+  checkFormValidity = () =>{
+    const controls = this.contactForm.controls;
+    Object.keys(controls).forEach((e) =>{
+      controls[e].markAsTouched();
+    });
+
+    return this.contactForm.valid || false;
+
   }
 
 }

@@ -1,0 +1,13 @@
+<div *ngIf="!formError?.['valid'] && (formError?.['touched'])" class="error">
+
+  <div class="field-error" *ngIf="getFirstKey(formError) === 'required' else patternTemplate">Field is required</div>
+
+  <ng-template #patternTemplate>
+    <div class="field-error" *ngIf="getFirstKey(formError) === 'pattern' else defaultTemplate">Field pattern validation failed</div>
+  </ng-template>
+
+  <ng-template #defaultTemplate>
+    <div class="field-error">Field validation failed with constraint problem: {{getFirstKey(formError)}}</div>
+  </ng-template>
+
+</div>

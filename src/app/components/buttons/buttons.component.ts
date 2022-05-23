@@ -11,6 +11,7 @@ import { Actions } from "../../store/actions";
 export class ButtonsComponent implements OnInit {
 
   @Input() formData: { [key: string]: any };
+  @Input() beforeClickActions?: () => boolean;
   showPrev: boolean = false;
   showNext: boolean = false;
 
@@ -36,10 +37,16 @@ export class ButtonsComponent implements OnInit {
   }
 
   clickButton(type: string){
-    if(type === 'next'){
-      eventDispatcher.next({type: Actions.CLICK_NEXT, payload: this.formData});
-    } else if (type === 'prev'){
-      eventDispatcher.next({type: Actions.CLICK_PREVIOUS, payload: this.formData});
+    let moveForward = true;
+    if(this.beforeClickActions && typeof this.beforeClickActions === 'function'){
+      moveForward = this.beforeClickActions();
+    }
+    if(moveForward) {
+      if (type === 'next') {
+        eventDispatcher.next({type: Actions.CLICK_NEXT, payload: this.formData});
+      } else if (type === 'prev') {
+        eventDispatcher.next({type: Actions.CLICK_PREVIOUS, payload: this.formData});
+      }
     }
   }
 

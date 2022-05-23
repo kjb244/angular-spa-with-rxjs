@@ -69,7 +69,7 @@ eventDispatcher.subscribe((data: Event) => {
       break;
 
     case Actions.CLICK_NEXT:
-      state = {...state};;
+      state = {...state};
       state = mapStateAndReturnIt(Actions.CLICK_NEXT, data.payload || {}, state);
       store.next(state);
       break;
@@ -85,8 +85,6 @@ eventDispatcher.subscribe((data: Event) => {
       state = mapStateAndReturnIt(Actions.SPLASH_DONE, {}, state);
       store.next(state);
       break;
-
-
 
     default:
       break;
