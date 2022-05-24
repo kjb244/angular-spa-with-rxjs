@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -16,9 +17,9 @@ import { SplashComponent } from './components/splash/splash.component';
 import { FormErrorsComponent } from './components/form-errors/form-errors.component';
 
 const appRoutes: Routes = [
-  {path: 'view1',  component: View1Component},
-  {path: 'view2', component: View2Component},
-  {path: 'splash', component: SplashComponent},
+  {path: 'view1',  component: View1Component, data: { animationState: 'One' }},
+  {path: 'view2', component: View2Component, data: { animationState: 'Two' }},
+  {path: 'splash', component: SplashComponent, data: { animationState: 'Splash' }},
   {path: '', redirectTo: '/splash', pathMatch: 'full' },
 
 ];
@@ -39,6 +40,7 @@ const appRoutes: Routes = [
     NgbModule,
     FormsModule,
     CommonModule,
+    BrowserAnimationsModule,
     RouterModule.forRoot(appRoutes ,{enableTracing: false})
   ],
   providers: [],

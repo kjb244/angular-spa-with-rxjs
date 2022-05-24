@@ -42,6 +42,7 @@ export class View1Component implements OnInit, OnDestroy {
     this.sub.unsubscribe();
   }
 
+  //TODO possible write directive to handle currency
   currencyChange(currency: string){
     this.formData['currency'] = currency;
   }
