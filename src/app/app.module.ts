@@ -16,6 +16,7 @@ import { View2Component } from './components/view2/view2.component';
 import { SplashComponent } from './components/splash/splash.component';
 import { FormErrorsComponent } from './components/form-errors/form-errors.component';
 import { View3Component } from './components/view3/view3.component';
+import { CurrencyDirective } from './directives/currency.directive';
 
 const appRoutes: Routes = [
   {path: 'view1',  component: View1Component, data: { animationState: 'One' }},
@@ -35,7 +36,8 @@ const appRoutes: Routes = [
     View2Component,
     SplashComponent,
     FormErrorsComponent,
-    View3Component
+    View3Component,
+    CurrencyDirective
   ],
   imports: [
     BrowserModule,

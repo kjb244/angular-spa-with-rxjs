@@ -20,7 +20,8 @@ export class View1Component implements OnInit, OnDestroy {
   formData: { [key: string]: any } = {
                                       'firstName': '',
                                       'lastName': '',
-                                      'currency': ''
+                                      'currency': '',
+                                      'currencyWithDirective': '',
                                     };
 
 
