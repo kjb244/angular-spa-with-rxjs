@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {Component, OnInit, Input, OnDestroy} from '@angular/core';
 import { eventDispatcher, store } from "../../store/index";
 import { Actions } from "../../store/actions";
 
@@ -8,15 +8,17 @@ import { Actions } from "../../store/actions";
   templateUrl: './buttons.component.html',
   styleUrls: ['./buttons.component.css']
 })
-export class ButtonsComponent implements OnInit {
+export class ButtonsComponent implements OnInit, OnDestroy {
 
-  @Input() formData: { [key: string]: any };
+  @Input() formData?: { [key: string]: any };
   @Input() beforeClickActions?: () => boolean;
   showPrev: boolean = false;
   showNext: boolean = false;
+  sub: any;
 
   constructor() {
-    store.subscribe((state) => {
+
+    this.sub = store.subscribe((state) => {
       const { currRoute, routeMapping, type } = state;
       if(type === Actions.GET_DATA){
         if(currRoute && routeMapping[currRoute].next){
@@ -36,6 +38,10 @@ export class ButtonsComponent implements OnInit {
 
   }
 
+  ngOnDestroy(){
+    this.sub.unsubscribe();
+  }
+
   clickButton(type: string){
     let moveForward = true;
     if(this.beforeClickActions && typeof this.beforeClickActions === 'function'){
@@ -43,9 +49,9 @@ export class ButtonsComponent implements OnInit {
     }
     if(moveForward) {
       if (type === 'next') {
-        eventDispatcher.next({type: Actions.CLICK_NEXT, payload: this.formData});
+        eventDispatcher.next({type: Actions.CLICK_NEXT, payload: this.formData || {}});
       } else if (type === 'prev') {
-        eventDispatcher.next({type: Actions.CLICK_PREVIOUS, payload: this.formData});
+        eventDispatcher.next({type: Actions.CLICK_PREVIOUS, payload: this.formData || {}});
       }
     }
   }

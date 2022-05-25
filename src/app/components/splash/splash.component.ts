@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MockService } from '../../services/mock.service';
 import { eventDispatcher, store } from "../../store/index";
@@ -13,7 +13,7 @@ import Utilities from '../../utils/utilities';
   templateUrl: './splash.component.html',
   styleUrls: ['./splash.component.css']
 })
-export class SplashComponent implements OnInit, AfterViewInit {
+export class SplashComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('content') content: ElementRef;
   startMs: number;
   endMs: number;
@@ -28,6 +28,11 @@ export class SplashComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+  }
+
+  ngAfterViewInit(){
+    this.startMs = new Date().getTime();
+    this.modalService.open(this.content, {ariaLabelledBy: 'modal-basic-title'});
     this.mockService.getData().then(() =>{
       this.endMs = new Date().getTime();
       const diff = this.endMs - this.startMs;
@@ -39,12 +44,10 @@ export class SplashComponent implements OnInit, AfterViewInit {
         eventDispatcher.next({type: Actions.SPLASH_DONE});
       },moreTime);
     })
-
   }
 
-  ngAfterViewInit(){
-    this.startMs = new Date().getTime();
-    this.modalService.open(this.content, {ariaLabelledBy: 'modal-basic-title'})
+  ngOnDestroy(){
+    this.sub.unsubscribe();
   }
 
 }

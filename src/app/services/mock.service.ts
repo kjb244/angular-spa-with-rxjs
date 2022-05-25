@@ -5,19 +5,20 @@ import { Injectable } from '@angular/core';
 })
 export class MockService {
 
-  dummyData : Object[] = [
-    {
-      id: 1,
-      description: 'testing 1',
-    },
-    {
-      id: 2,
-      description: 'testing 2',
-    },
-  ];
+  dummyData : Object[];
 
 
-  constructor() { }
+  constructor() {
+    const friends = ['mark','sally','june','sarah','bob'];
+    this.dummyData = Array.from(Array(100).keys()).map((e) =>{
+      return {
+        id: e+1,
+        description: 'description ' + (e + 1 + ''),
+        friend: friends[Math.floor(Math.random()*5)],
+      }
+    })
+
+  }
 
   getData(){
       const promise = new Promise((resolve) =>{

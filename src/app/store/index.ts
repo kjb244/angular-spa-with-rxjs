@@ -22,7 +22,7 @@ interface InitialState {
 
 let state: InitialState = {
   type: null,
-  routes: ['splash','view1','view2'],
+  routes: ['splash','view1','view2', 'view3'],
   currRoute: 'splash',
   routeMapping:{
     'splash': {
@@ -36,9 +36,14 @@ let state: InitialState = {
       formData: {}
     },
     'view2': {
-      next: null,
+      next: 'view3',
       prev: 'view1',
       formData: {}
+    },
+    'view3': {
+      next: null,
+      prev: 'view2',
+      formData: {},
     }
   }
 };

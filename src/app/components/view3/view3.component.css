@@ -1,0 +1,20 @@
+.links a{
+  font-size: 20px;
+  margin-right: 10px;
+}
+
+.links a.active{
+  color: green;
+
+}
+
+.links a:not(.active){
+  text-decoration: none;
+  color: lightgray;
+}
+
+tbody tr:not(.show){
+  display: none;
+}
+
+
