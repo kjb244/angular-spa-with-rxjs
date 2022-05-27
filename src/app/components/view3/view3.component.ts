@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { MockService } from '../../services/mock.service';
-import {store} from "../../store/index";
+import {eventDispatcher, store} from "../../store/index";
 import { Router } from '@angular/router';
 import Utilities from '../../utils/utilities';
+import {Actions} from "../../store/actions";
+import {GetPayload} from "../../models/getpayload";
+import {BeControllersService} from "../../services/be-controllers.service";
 
 
 
@@ -22,7 +25,7 @@ export class View3Component implements OnInit {
   sub: any;
   showSpinner: boolean = true;
 
-  constructor(private mockService: MockService, private router: Router) {
+  constructor(private mockService: MockService, private router: Router, private beControllersService: BeControllersService) {
     const utils = new Utilities(router);
     this.sub = store.subscribe((state) => {
       utils.subscribeLogic(state, {});
@@ -37,7 +40,14 @@ export class View3Component implements OnInit {
       this.links = Array.from(Array(maxLink).keys());
       this.currentView = 1;
       this.filteredData = this.filterData(this.currentView);
-    })
+    });
+
+    this.beControllersService.getRouteData().subscribe((getPayload: GetPayload) =>{
+      eventDispatcher.next({type: Actions.GET_DATA, payload: getPayload});
+      eventDispatcher.next({type: Actions.GET_BUTTON_DATA});
+    });
+
+
   }
 
   filterData(currView: number){

@@ -3,4 +3,6 @@ export enum Actions{
   CLICK_NEXT = 'click next',
   CLICK_PREVIOUS = 'click prev',
   SPLASH_DONE = 'splash done',
+  NEXT_VIEW = 'next view',
+  GET_BUTTON_DATA = 'get button data',
 }

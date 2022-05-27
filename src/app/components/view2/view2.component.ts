@@ -4,6 +4,8 @@ import {eventDispatcher, store} from "../../store/index";
 import {Actions} from "../../store/actions";
 import { Router } from '@angular/router';
 import Utilities from '../../utils/utilities';
+import {BeControllersService} from "../../services/be-controllers.service";
+import {GetPayload} from "../../models/getpayload";
 
 
 
@@ -21,7 +23,7 @@ export class View2Component implements OnInit, OnDestroy {
     'friends': [],
   };
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private beControllersService: BeControllersService) {
     const utils = new Utilities(router);
     this.sub = store.subscribe((state) => {
       utils.subscribeLogic(state, this.formData);
@@ -30,7 +32,11 @@ export class View2Component implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    eventDispatcher.next({type: Actions.GET_DATA});
+    this.beControllersService.getRouteData().subscribe((getPayload: GetPayload) =>{
+      eventDispatcher.next({type: Actions.GET_DATA, payload: getPayload});
+      eventDispatcher.next({type: Actions.GET_BUTTON_DATA});
+    });
+
   }
 
   ngOnDestroy(){

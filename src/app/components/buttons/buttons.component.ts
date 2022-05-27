@@ -1,6 +1,9 @@
 import {Component, OnInit, Input, OnDestroy} from '@angular/core';
 import { eventDispatcher, store } from "../../store/index";
 import { Actions } from "../../store/actions";
+import {PostPayload} from "../../models/postpayload";
+import {Router} from "@angular/router";
+import {BeControllersService} from "../../services/be-controllers.service";
 
 
 @Component({
@@ -15,18 +18,14 @@ export class ButtonsComponent implements OnInit, OnDestroy {
   showPrev: boolean = false;
   showNext: boolean = false;
   sub: any;
+  postPayload: PostPayload = {formData: {}, forward: false, currRoute: ''};
 
-  constructor() {
+  constructor(private router: Router, private beControllersService: BeControllersService) {
 
     this.sub = store.subscribe((state) => {
-      const { currRoute, routeMapping, type } = state;
-      if(type === Actions.GET_DATA){
-        if(currRoute && routeMapping[currRoute].next){
-          this.showNext = true;
-        }
-        if (currRoute && routeMapping[currRoute].prev){
-          this.showPrev = true;
-        }
+      if (state.type === Actions.GET_BUTTON_DATA){
+        this.showPrev = state.showPrev;
+        this.showNext = state.showNext;
       }
 
 
@@ -34,7 +33,6 @@ export class ButtonsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    eventDispatcher.next({type: Actions.GET_DATA});
 
   }
 
@@ -48,11 +46,18 @@ export class ButtonsComponent implements OnInit, OnDestroy {
       moveForward = this.beforeClickActions();
     }
     if(moveForward) {
+      this.postPayload.formData = this.formData || {};
+      this.postPayload.currRoute =  this.router.url.replace('/','');
       if (type === 'next') {
-        eventDispatcher.next({type: Actions.CLICK_NEXT, payload: this.formData || {}});
+        this.postPayload.forward = true;
       } else if (type === 'prev') {
-        eventDispatcher.next({type: Actions.CLICK_PREVIOUS, payload: this.formData || {}});
+        this.postPayload.forward = false;
+
       }
+      this.beControllersService.postRouteData(this.postPayload).subscribe((res) =>{
+        eventDispatcher.next({type: Actions.NEXT_VIEW, payload: res});
+
+      });
     }
   }
 
