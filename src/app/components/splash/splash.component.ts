@@ -5,6 +5,7 @@ import { eventDispatcher, store } from "../../store/index";
 import { Actions } from "../../store/actions";
 import { Router } from '@angular/router';
 import Utilities from '../../utils/utilities';
+import {Brewery} from '../../models/breweries';
 
 
 
@@ -18,6 +19,7 @@ export class SplashComponent implements OnInit, AfterViewInit, OnDestroy {
   startMs: number;
   endMs: number;
   sub: any;
+  breweries: Brewery[] = [];
 
   constructor(private modalService: NgbModal, private mockService: MockService, private router: Router) {
     const utils = new Utilities(router);
@@ -43,6 +45,13 @@ export class SplashComponent implements OnInit, AfterViewInit, OnDestroy {
         this.modalService.dismissAll();
         eventDispatcher.next({type: Actions.SPLASH_DONE});
       },moreTime);
+    });
+
+    console.log('about to make real data call');
+    this.mockService.getRealData().subscribe((breweries) =>{
+      this.breweries = breweries;
+      const first = this.breweries[0];
+      console.log('making live call with data', first.id, first.name, first.brewery_type);
     })
   }
 

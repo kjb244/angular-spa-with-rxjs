@@ -1,4 +1,7 @@
 import { Injectable } from '@angular/core';
+import {HttpClient} from "@angular/common/http";
+import {Observable} from "rxjs";
+import {Brewery} from '../models/breweries';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +11,7 @@ export class MockService {
   dummyData : Object[];
 
 
-  constructor() {
+  constructor(private http: HttpClient) {
     const friends = ['mark','sally','june','sarah','bob'];
     this.dummyData = Array.from(Array(100).keys()).map((e) =>{
       return {
@@ -28,6 +31,10 @@ export class MockService {
       });
 
       return promise;
+  }
+
+  getRealData(): Observable<Brewery[]>{
+    return this.http.get<Brewery[]>('https://api.openbrewerydb.org/breweries');
 
   }
 }
