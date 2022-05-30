@@ -33,12 +33,14 @@ eventDispatcher.subscribe((data: {[key: string]: any}) => {
   switch (data['type']) {
 
     case Actions.NEXT_VIEW:
+      state = {...state};
       state.type = Actions.NEXT_VIEW;
       state.currRoute = data['payload'].nextRoute;
       store.next(state);
       break;
 
     case Actions.GET_DATA:
+      state = {...state};
       state.type = Actions.GET_DATA;
       state.formData = data['payload'].formData;
       state.showNext = data['payload'].showNext;
@@ -47,6 +49,7 @@ eventDispatcher.subscribe((data: {[key: string]: any}) => {
       break;
 
     case Actions.GET_BUTTON_DATA:
+      state = {...state};
       state.type = Actions.GET_BUTTON_DATA;
       store.next(state);
       break;
