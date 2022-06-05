@@ -18,8 +18,13 @@ const state = {
       formData: {}
     },
     'view3': {
-      next: null,
+      next: 'view4',
       prev: 'view2',
+      formData: {}
+    },
+    'view4': {
+      next: null,
+      prev: 'view3',
       formData: {}
     }
   }

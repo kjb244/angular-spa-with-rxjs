@@ -1,0 +1,36 @@
+
+<form [formGroup]="view4Form" >
+  <div formArrayName="lessons" *ngIf="loadingForm == false">
+    <div class="row mt-4 mb-4" [formGroupName]="i" *ngFor="let lesson of lessons.controls;let i = index">
+        <div class="col col-xs-6">
+          <input id="{{i}}title" type="text" formControlName="title" class="form-control" placeholder="title"/>
+          <app-form-errors [formError]="getTitleControls(lesson)"></app-form-errors>
+
+        </div>
+        <div class="col col-xs-5">
+          <select class="form-select" formControlName="level">
+            <option *ngFor="let rec of levels" [ngValue]="rec">{{rec}}</option>
+          </select>
+        </div>
+      <div class="col col-xs-1">
+        <button type="button" (click)="remove(i)" class="btn-close" aria-label="Close"></button>
+      </div>
+
+
+
+    </div>
+
+  </div>
+
+
+
+
+  <button (click)="addAnother()" type="button" class="btn btn-primary prev-button">Add</button>
+
+  <div class="row mt-4">
+    <div class="col-xs-12 col-sm-10">
+      <app-buttons [beforeClickActions]="checkFormValidity"  [formData]="formData"></app-buttons>
+    </div>
+  </div>
+
+</form>

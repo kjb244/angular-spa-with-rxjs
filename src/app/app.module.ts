@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -18,11 +18,13 @@ import { SplashComponent } from './components/splash/splash.component';
 import { FormErrorsComponent } from './components/form-errors/form-errors.component';
 import { View3Component } from './components/view3/view3.component';
 import { CurrencyDirective } from './directives/currency.directive';
+import { View4Component } from './components/view4/view4.component';
 
 const appRoutes: Routes = [
   {path: 'view1',  component: View1Component, data: { animationState: 'One' }},
   {path: 'view2', component: View2Component, data: { animationState: 'Two' }},
   {path: 'view3', component: View3Component, data: { animationState: 'Three'}},
+  {path: 'view4', component: View4Component, data: { animationState: 'Four'}},
   {path: 'splash', component: SplashComponent, data: { animationState: 'Splash' }},
   {path: '', redirectTo: '/splash', pathMatch: 'full' },
 
@@ -38,7 +40,8 @@ const appRoutes: Routes = [
     SplashComponent,
     FormErrorsComponent,
     View3Component,
-    CurrencyDirective
+    CurrencyDirective,
+    View4Component
   ],
   imports: [
     BrowserModule,
@@ -46,6 +49,7 @@ const appRoutes: Routes = [
     NgbModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     CommonModule,
     BrowserAnimationsModule,
     RouterModule.forRoot(appRoutes ,{enableTracing: false})
