@@ -1,5 +1,13 @@
 
 <form [formGroup]="view4Form" >
+
+  <div  class="mt-4" [@slideInOut]="testAnimation">
+    <p>Testing 1</p>
+    <p>Testing 2</p>
+  </div>
+  <button (click)="testAnimationClick()" type="button" class="mb-4 btn btn-primary prev-button">Test animation</button>
+
+
   <div formArrayName="lessons" *ngIf="loadingForm == false">
     <div class="row mt-4 mb-4" [formGroupName]="i" *ngFor="let lesson of lessons.controls;let i = index">
         <div class="col col-xs-6">

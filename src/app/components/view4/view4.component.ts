@@ -5,12 +5,16 @@ import {Router} from "@angular/router";
 import {GetPayload} from "../../models/getpayload";
 import {eventDispatcher, store} from "../../store/index";
 import {Actions} from "../../store/actions";
+import {animations} from "../../animations/animations";
 
 
 @Component({
   selector: 'app-view4',
   templateUrl: './view4.component.html',
-  styleUrls: ['./view4.component.css']
+  styleUrls: ['./view4.component.css'],
+  animations: [
+    animations
+  ]
 })
 export class View4Component implements OnInit, OnDestroy {
 
@@ -20,6 +24,7 @@ export class View4Component implements OnInit, OnDestroy {
   levels: string[] = ['beginner','intermediate', 'advanced'];
   formData: { [key: string]: any } = {};
   loadingForm: boolean = true;
+  testAnimation: string = 'in';
 
 
 
@@ -115,6 +120,10 @@ export class View4Component implements OnInit, OnDestroy {
 
     return this.view4Form.valid || false;
 
+  }
+
+  testAnimationClick(){
+    this.testAnimation = this.testAnimation === 'in'? 'out': 'in';
   }
 
 
