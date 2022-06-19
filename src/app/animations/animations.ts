@@ -11,6 +11,5 @@ export const animations = trigger('slideInOut', [
     overflow: 'hidden',
     opacity: '0'
   })),
-  transition('in => out', animate('400ms 200ms')),
-  transition('out => in', animate('400ms 200ms'))
+  transition('in <=> out', animate('400ms 200ms'))
 ]);

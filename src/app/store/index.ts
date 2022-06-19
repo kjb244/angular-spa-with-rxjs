@@ -1,15 +1,9 @@
 
 import {Subject} from 'rxjs';
 import { Actions } from './actions';
+import { InitialState } from '../models/state';
 
 
-interface InitialState {
-  type: string | null;
-  currRoute: string | null;
-  formData: { [key: string]: any};
-  showPrev: boolean;
-  showNext: boolean;
-}
 
 
 let state: InitialState = {
@@ -17,7 +11,33 @@ let state: InitialState = {
   currRoute: null,
   formData: {},
   showPrev: false,
-  showNext: false
+  showNext: false,
+  accounts: [
+    {
+      name: 'ret 1',
+      editing: false,
+      benes: [
+        {
+          type: 'test',
+          name: 'john b'
+        },
+        {
+          type: 'test',
+          name: 'harry'
+        }
+      ]
+    },
+    {
+      name: 'ret 2',
+      editing: false,
+      benes: [
+        {
+          type: 'test',
+          name: 'harry h'
+        }
+      ]
+    },
+  ]
 };
 
 interface Event {
@@ -51,6 +71,25 @@ eventDispatcher.subscribe((data: {[key: string]: any}) => {
     case Actions.GET_BUTTON_DATA:
       state = {...state};
       state.type = Actions.GET_BUTTON_DATA;
+      store.next(state);
+      break;
+
+
+    case Actions.GET_ACCOUNT_INFO:
+      state = {...state};
+      state.type = Actions.GET_ACCOUNT_INFO;
+      store.next(state);
+      break;
+
+    case Actions.EDIT_CARD:
+      state = {...state};
+      state.type = Actions.EDIT_CARD;
+      const accounts = state.accounts.map((e) => {
+        return {...e, editing: false};
+      });
+      const accountId = data['payload'].accountId;
+      accounts[accountId].editing = true;
+      state.accounts = accounts;
       store.next(state);
       break;
 

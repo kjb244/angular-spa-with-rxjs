@@ -9,6 +9,8 @@ app.use(cors());
 let cachedState;
 
 app.get('/initializeApp', function(req, res){
+  var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
+  console.log(fullUrl);
   res.redirect(301, 'http://localhost:4200/splash');
 });
 

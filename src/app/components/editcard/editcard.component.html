@@ -1,0 +1,59 @@
+<form [formGroup]="editForm" *ngIf="loadingForm == false" >
+
+  <div formArrayName="benes" >
+    <div class="row mt-4 mb-4" [formGroupName]="i" *ngFor="let bene of benes.controls;let i = index">
+      <label for="{{i}}name">Name</label>
+      <input id="{{i}}name" (blur)="onBlurInput(i)" type="text" formControlName="name" class="form-control" placeholder="title"/>
+      <div *ngIf="error[i]" class="error">Name duplicate</div>
+
+    </div>
+
+  </div>
+  <button  (click)="clickButton()" type="button" class="btn btn-primary mt-4">Previous</button>
+
+
+
+
+
+</form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

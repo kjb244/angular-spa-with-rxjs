@@ -1,0 +1,9 @@
+<div class="card mt-4">
+  <a href="javascript:void(0)" (click)="clickEdit()">Edit</a>
+  <div class="card-body">
+    <h5 class="card-title">{{accountInfo.name}}</h5>
+    <p *ngFor="let bene of accountInfo.benes" class="card-text">
+      {{bene.name}}
+    </p>
+  </div>
+</div>

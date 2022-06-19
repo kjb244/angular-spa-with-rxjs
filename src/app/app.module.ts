@@ -19,12 +19,17 @@ import { FormErrorsComponent } from './components/form-errors/form-errors.compon
 import { View3Component } from './components/view3/view3.component';
 import { CurrencyDirective } from './directives/currency.directive';
 import { View4Component } from './components/view4/view4.component';
+import { View5Component } from './components/view5/view5.component';
+import { CardComponent } from './components/card/card.component';
+import { EditcardComponent } from './components/editcard/editcard.component';
 
 const appRoutes: Routes = [
   {path: 'view1',  component: View1Component, data: { animationState: 'One' }},
   {path: 'view2', component: View2Component, data: { animationState: 'Two' }},
   {path: 'view3', component: View3Component, data: { animationState: 'Three'}},
   {path: 'view4', component: View4Component, data: { animationState: 'Four'}},
+  {path: 'view5', component: View5Component, data: { animationState: 'Five'}},
+  {path: 'editcard', component: EditcardComponent, data: { animationState: 'EditCard'}},
   {path: 'splash', component: SplashComponent, data: { animationState: 'Splash' }},
   {path: '', redirectTo: '/splash', pathMatch: 'full' },
 
@@ -41,7 +46,10 @@ const appRoutes: Routes = [
     FormErrorsComponent,
     View3Component,
     CurrencyDirective,
-    View4Component
+    View4Component,
+    View5Component,
+    CardComponent,
+    EditcardComponent
   ],
   imports: [
     BrowserModule,

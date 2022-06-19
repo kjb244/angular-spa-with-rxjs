@@ -5,4 +5,6 @@ export enum Actions{
   SPLASH_DONE = 'splash done',
   NEXT_VIEW = 'next view',
   GET_BUTTON_DATA = 'get button data',
+  GET_ACCOUNT_INFO = 'get account info',
+  EDIT_CARD = 'edit card',
 }

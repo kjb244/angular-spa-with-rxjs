@@ -36,7 +36,7 @@ const routeMapping: {[key: string]: any} = {
     formData: {}
   },
   view4: {
-    next: null,
+    next: 'view5',
     prev: 'view3',
     formData: {}
   }
