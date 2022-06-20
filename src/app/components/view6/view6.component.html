@@ -1,0 +1,20 @@
+<div class="row" [formGroup]="view6Form">
+  <div class="xs-12 sm-10 cols">
+    <input placeholder="search" class="form-control" type="text" (input)="searchIt()" formControlName="search"/>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>State</th>
+        </tr>
+
+      </thead>
+      <tbody>
+        <tr *ngFor="let rec of breweries" [ngClass]="{hide: rec.shown === false}">
+          <td>{{rec.name}}</td>
+          <td>{{rec.state}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

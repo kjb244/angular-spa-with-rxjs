@@ -22,6 +22,7 @@ import { View4Component } from './components/view4/view4.component';
 import { View5Component } from './components/view5/view5.component';
 import { CardComponent } from './components/card/card.component';
 import { EditcardComponent } from './components/editcard/editcard.component';
+import { View6Component } from './components/view6/view6.component';
 
 const appRoutes: Routes = [
   {path: 'view1',  component: View1Component, data: { animationState: 'One' }},
@@ -29,6 +30,7 @@ const appRoutes: Routes = [
   {path: 'view3', component: View3Component, data: { animationState: 'Three'}},
   {path: 'view4', component: View4Component, data: { animationState: 'Four'}},
   {path: 'view5', component: View5Component, data: { animationState: 'Five'}},
+  {path: 'view6', component: View6Component },
   {path: 'editcard', component: EditcardComponent, data: { animationState: 'EditCard'}},
   {path: 'splash', component: SplashComponent, data: { animationState: 'Splash' }},
   {path: '', redirectTo: '/splash', pathMatch: 'full' },
@@ -49,7 +51,8 @@ const appRoutes: Routes = [
     View4Component,
     View5Component,
     CardComponent,
-    EditcardComponent
+    EditcardComponent,
+    View6Component
   ],
   imports: [
     BrowserModule,
