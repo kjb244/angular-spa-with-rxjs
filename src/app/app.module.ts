@@ -23,6 +23,9 @@ import { View5Component } from './components/view5/view5.component';
 import { CardComponent } from './components/card/card.component';
 import { EditcardComponent } from './components/editcard/editcard.component';
 import { View6Component } from './components/view6/view6.component';
+import { View7Component } from './components/view7/view7.component';
+import { StringmatcherPipe } from './pipes/stringmatcher.pipe';
+import { View8Component } from './components/view8/view8.component';
 
 const appRoutes: Routes = [
   {path: 'view1',  component: View1Component, data: { animationState: 'One' }},
@@ -31,6 +34,7 @@ const appRoutes: Routes = [
   {path: 'view4', component: View4Component, data: { animationState: 'Four'}},
   {path: 'view5', component: View5Component, data: { animationState: 'Five'}},
   {path: 'view6', component: View6Component },
+  {path: 'view7', component: View7Component },
   {path: 'editcard', component: EditcardComponent, data: { animationState: 'EditCard'}},
   {path: 'splash', component: SplashComponent, data: { animationState: 'Splash' }},
   {path: '', redirectTo: '/splash', pathMatch: 'full' },
@@ -52,7 +56,10 @@ const appRoutes: Routes = [
     View5Component,
     CardComponent,
     EditcardComponent,
-    View6Component
+    View6Component,
+    View7Component,
+    StringmatcherPipe,
+    View8Component
   ],
   imports: [
     BrowserModule,

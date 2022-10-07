@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Brewery} from '../models/breweries';
+import {of} from "rxjs";
+import {delay} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
@@ -36,5 +38,36 @@ export class MockService {
   getRealData(): Observable<Brewery[]>{
     return this.http.get<Brewery[]>('https://api.openbrewerydb.org/breweries');
 
+  }
+
+  getAddressData(): Observable<any[]>{
+    const payload = [
+      {
+        line1: '112 kitley pl',
+        city: 'charlotte',
+        state: 'NC',
+        zip: '28210'
+      },
+      {
+        line1: '112 kitley st',
+        city: 'charlotte',
+        state: 'NC',
+        zip: '28210'
+      },
+      {
+        line1: '1120 kitley st',
+        city: 'charlotte',
+        state: 'NC',
+        zip: '28210'
+      },
+      {
+        line1: '112 cooper st',
+        city: 'test town',
+        state: 'PA',
+        zip: '19311'
+      },
+    ];
+    const obs: Observable<any[]> = of(payload).pipe(delay(100));
+    return obs;
   }
 }
