@@ -25,7 +25,7 @@ import { EditcardComponent } from './components/editcard/editcard.component';
 import { View6Component } from './components/view6/view6.component';
 import { View7Component } from './components/view7/view7.component';
 import { StringmatcherPipe } from './pipes/stringmatcher.pipe';
-import { View8Component } from './components/view8/view8.component';
+import { SimpleChildComponent } from './components/simple-child/simple-child.component';
 
 const appRoutes: Routes = [
   {path: 'view1',  component: View1Component, data: { animationState: 'One' }},
@@ -59,7 +59,7 @@ const appRoutes: Routes = [
     View6Component,
     View7Component,
     StringmatcherPipe,
-    View8Component
+    SimpleChildComponent
   ],
   imports: [
     BrowserModule,

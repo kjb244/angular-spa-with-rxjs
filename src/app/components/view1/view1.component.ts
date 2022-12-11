@@ -6,6 +6,7 @@ import Utilities from '../../utils/utilities';
 import {NgForm} from "@angular/forms";
 import {BeControllersService} from "../../services/be-controllers.service";
 import {GetPayload} from "../../models/getpayload";
+import {SimpleChildComponent} from "../simple-child/simple-child.component";
 
 
 @Component({
@@ -16,6 +17,7 @@ import {GetPayload} from "../../models/getpayload";
 export class View1Component implements OnInit, OnDestroy {
   sub: any;
   @ViewChild('contactForm') contactForm: NgForm;
+  @ViewChild(SimpleChildComponent) simpleChildComponent : SimpleChildComponent;
 
 
   //TODO: make this object[]
@@ -42,11 +44,15 @@ export class View1Component implements OnInit, OnDestroy {
       eventDispatcher.next({type: Actions.GET_BUTTON_DATA});
     });
 
-
   }
 
   ngOnDestroy(){
     this.sub.unsubscribe();
+  }
+
+  callChild(){
+    this.simpleChildComponent.callMe();
+
   }
 
   //TODO possible write directive to handle currency

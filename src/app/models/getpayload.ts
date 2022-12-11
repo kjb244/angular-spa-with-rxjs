@@ -1,6 +1,6 @@
 export interface GetPayload{
   formData: {
-    object: any;
+    [key: string]: string
   };
   showNext: boolean;
   showPrev: boolean;
