@@ -39,12 +39,16 @@ export class View7Component implements OnInit {
       'line2': [this.line2],
       'city': [this.city],
       'state': [this.state],
-      'zip': [this.zip]
+      'zip': [this.zip],
+      'checkMe': [true]
     })
   }
 
   ngOnInit(): void {
 
+  }
+  get checkMe() {
+    return this.view7Form.get("checkMe");
   }
 
   focusOut(): void{
