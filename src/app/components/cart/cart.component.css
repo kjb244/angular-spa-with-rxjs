@@ -1,0 +1,5 @@
+.individual-products, .individual-cart{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}

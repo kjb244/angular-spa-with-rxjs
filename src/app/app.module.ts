@@ -26,6 +26,8 @@ import { View6Component } from './components/view6/view6.component';
 import { View7Component } from './components/view7/view7.component';
 import { StringmatcherPipe } from './pipes/stringmatcher.pipe';
 import { SimpleChildComponent } from './components/simple-child/simple-child.component';
+import { CartComponent } from './components/cart/cart.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 const appRoutes: Routes = [
   {path: 'view1',  component: View1Component, data: { animationState: 'One' }},
@@ -37,6 +39,7 @@ const appRoutes: Routes = [
   {path: 'view7', component: View7Component },
   {path: 'editcard', component: EditcardComponent, data: { animationState: 'EditCard'}},
   {path: 'splash', component: SplashComponent, data: { animationState: 'Splash' }},
+  {path: 'cart', component: CartComponent },
   {path: '', redirectTo: '/splash', pathMatch: 'full' },
 
 ];
@@ -59,7 +62,9 @@ const appRoutes: Routes = [
     View6Component,
     View7Component,
     StringmatcherPipe,
-    SimpleChildComponent
+    SimpleChildComponent,
+    CartComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,

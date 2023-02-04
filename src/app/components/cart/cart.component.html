@@ -1,0 +1,24 @@
+<div class="row mt-4">
+  <div class="col-xs-12 col-md-6 products">
+    <h3>Products</h3>
+    <div  *ngFor="let product of products$ | async">
+      <div class="individual-products" *ngIf="product.inCart === false">
+        <div>{{product.description}}</div>
+        <button type="button" (click)="addToCart(product)" class="btn btn-primary">Add to Cart</button>
+      </div>
+
+    </div>
+
+  </div>
+  <div class="col-xs-12 col-md-6 cart">
+    <h3>Cart</h3>
+    <div  *ngFor="let product of products$ | async">
+      <div class="individual-cart" *ngIf="product.inCart">
+        <div>{{product.description}}</div>
+        <button type="button" (click)="removeFromCart(product)" class="btn btn-primary">Remove from Cart</button>
+      </div>
+
+    </div>
+
+  </div>
+</div>
