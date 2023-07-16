@@ -1,0 +1,14 @@
+<form [formGroup]="formGroup">
+  <div class="row">
+    <div class="col-12" *ngFor="let control of getControls(); let i=index">
+      <app-inner-checkbox [index]="i"
+                          [editedAddress]="editedAddress"
+                          [selectedAddress]="getSelectedAddress(i)"
+                          [control]="control"
+                          (onCheckboxChange)="handleCheckboxChange($event)"
+              >
+      </app-inner-checkbox>
+    </div>
+  </div>
+
+</form>

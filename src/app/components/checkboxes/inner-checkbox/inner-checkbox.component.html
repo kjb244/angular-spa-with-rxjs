@@ -1,0 +1,5 @@
+<label for="checkbox{{index}}" [innerHTML]="addressToShow | addressformatter"></label>
+<input id="checkbox{{index}}"
+       type="checkbox"
+       [formControl]="control"
+       (change)="checkboxChange($event)">

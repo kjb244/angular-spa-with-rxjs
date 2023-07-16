@@ -28,6 +28,10 @@ import { StringmatcherPipe } from './pipes/stringmatcher.pipe';
 import { SimpleChildComponent } from './components/simple-child/simple-child.component';
 import { CartComponent } from './components/cart/cart.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { CheckboxesComponent } from './components/checkboxes/checkboxes.component';
+import { InnerCheckboxComponent } from './components/checkboxes/inner-checkbox/inner-checkbox.component';
+import { AddressformatterPipe } from './pipes/addressformatter.pipe';
+import { TableComponent } from './components/table/table.component';
 
 const appRoutes: Routes = [
   {path: 'view1',  component: View1Component, data: { animationState: 'One' }},
@@ -37,9 +41,11 @@ const appRoutes: Routes = [
   {path: 'view5', component: View5Component, data: { animationState: 'Five'}},
   {path: 'view6', component: View6Component },
   {path: 'view7', component: View7Component },
+  {path: 'view8', component: TableComponent},
   {path: 'editcard', component: EditcardComponent, data: { animationState: 'EditCard'}},
   {path: 'splash', component: SplashComponent, data: { animationState: 'Splash' }},
   {path: 'cart', component: CartComponent },
+  {path: 'checkboxes', component: CheckboxesComponent },
   {path: '', redirectTo: '/splash', pathMatch: 'full' },
 
 ];
@@ -64,7 +70,11 @@ const appRoutes: Routes = [
     StringmatcherPipe,
     SimpleChildComponent,
     CartComponent,
-    NavbarComponent
+    NavbarComponent,
+    CheckboxesComponent,
+    InnerCheckboxComponent,
+    AddressformatterPipe,
+    TableComponent
   ],
   imports: [
     BrowserModule,

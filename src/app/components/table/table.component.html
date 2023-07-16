@@ -1,0 +1,18 @@
+<div [formGroup]="searchForm" class="mb-3 pt-2">
+  <input class="form-control" (input)="searchIt()" type="text" placeholder="search" formControlName="search">
+</div>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col" *ngFor="let rec of tableData.header">{{rec}}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let rec of tableData.data; trackBy: trackByIndex">
+      <td *ngFor="let rec2 of rec">{{rec2}}</td>
+    </tr>
+  </tbody>
+
+
+</table>
