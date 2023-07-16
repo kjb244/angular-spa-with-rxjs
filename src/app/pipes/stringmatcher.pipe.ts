@@ -8,7 +8,7 @@ export class StringmatcherPipe implements PipeTransform {
   transform(value: string, innerStr: string): string {
     const re = new RegExp(innerStr);
     return value.replace(re,function(e){
-      return '<b>' + e + '</b>';
+      return '<b class="yellow">' + e + '</b>';
     });
   }
 

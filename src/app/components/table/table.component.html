@@ -10,7 +10,10 @@
   </thead>
   <tbody>
     <tr *ngFor="let rec of tableData.data; trackBy: trackByIndex">
-      <td *ngFor="let rec2 of rec">{{rec2}}</td>
+      <td *ngFor="let rec2 of rec">
+        <span
+          [innerHtml]="rec2 | stringmatcher: this.searchForm.controls['search'].value"></span>
+      </td>
     </tr>
   </tbody>
 
