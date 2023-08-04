@@ -1,15 +1,27 @@
-<div [formGroup]="searchForm" class="mb-3 pt-2">
-  <input class="form-control" (input)="searchIt()" type="text" placeholder="search" formControlName="search">
+<div class="search-pagination">
+    <div [formGroup]="searchForm" class="mb-3 pt-2">
+      <input class="form-control" (input)="searchIt()" type="text" placeholder="search" formControlName="search">
+    </div>
+  {{getSearchValue()}}
+  <div class="pagination-container">
+    <app-pagination
+      [pageSize]="pageSize"
+      [totalRows]="getSearchValue() === '' ? tableDataMaster.data.length : tableDataCurr.data.length"
+      (onPageChange)="onPageChange($event)">
+    </app-pagination>
+  </div>
 </div>
+
+
 
 <table class="table table-striped">
   <thead>
     <tr>
-      <th scope="col" *ngFor="let rec of tableData.header">{{rec}}</th>
+      <th scope="col" *ngFor="let rec of tableDataCurr.header">{{rec}}</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let rec of tableData.data; trackBy: trackByIndex">
+    <tr *ngFor="let rec of tableDataCurr.data; trackBy: trackByIndex">
       <td *ngFor="let rec2 of rec">
         <span
           [innerHtml]="rec2 | stringmatcher: this.searchForm.controls['search'].value"></span>
@@ -19,3 +31,4 @@
 
 
 </table>
+

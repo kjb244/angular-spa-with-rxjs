@@ -32,6 +32,7 @@ import { CheckboxesComponent } from './components/checkboxes/checkboxes.componen
 import { InnerCheckboxComponent } from './components/checkboxes/inner-checkbox/inner-checkbox.component';
 import { AddressformatterPipe } from './pipes/addressformatter.pipe';
 import { TableComponent } from './components/table/table.component';
+import { PaginationComponent } from './components/pagination/pagination.component';
 
 const appRoutes: Routes = [
   {path: 'view1',  component: View1Component, data: { animationState: 'One' }},
@@ -74,7 +75,8 @@ const appRoutes: Routes = [
     CheckboxesComponent,
     InnerCheckboxComponent,
     AddressformatterPipe,
-    TableComponent
+    TableComponent,
+    PaginationComponent
   ],
   imports: [
     BrowserModule,

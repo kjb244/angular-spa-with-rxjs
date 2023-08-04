@@ -1,5 +1,6 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {FormBuilder} from "@angular/forms";
+import {TableDataService} from "../../services/table-data.service";
 
 @Component({
   selector: 'app-table',
@@ -9,36 +10,48 @@ import {FormBuilder} from "@angular/forms";
 
 })
 export class TableComponent implements OnInit {
+  public pageSize: number = 50;
 
-  public tableData: any  = {
-    header: ['name','date','age','friend'],
+  public tableDataMaster: any = {
+    header: [],
     data: []
   }
-  private tableDataCopy: any;
+
+  private tableDataCopy: any  = {
+    ...this.tableDataMaster
+  }
+  public tableDataCurr: any = {
+    ...this.tableDataMaster
+  }
 
   public searchForm;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, private tableDataService: TableDataService) {
     this.searchForm = this.formBuilder.group({
       search: ['']
     })
   }
 
   ngOnInit(): void {
-    for(let i=0; i<100; i++){
-      this.tableData.data.push([1,2,3,4].map((e) =>{
-        return this.makeId();
-      }));
-      this.tableDataCopy = this.tableData.data;
-    }
+
+    const tableDataFromService = this.tableDataService.getTableData();
+
+    this.tableDataCopy = tableDataFromService;
+    this.tableDataMaster = tableDataFromService;
+    this.tableDataCurr.data = tableDataFromService.data.slice(0, this.pageSize);
+    this.tableDataCurr.header = tableDataFromService.header;
+  }
+
+  public getSearchValue(){
+    return this.searchForm.controls['search']?.value;
   }
 
   searchIt(){
     const value = this.searchForm.controls['search']?.value;
     if(value === ''){
-      this.tableData.data = this.tableDataCopy;
+      this.tableDataCurr.data = this.tableDataMaster.data.slice(0, this.pageSize);
     } else {
-      this.tableData.data  = this.tableDataCopy.filter((e: any) =>{
+      this.tableDataCurr.data  = this.tableDataMaster.data.filter((e: any) =>{
         return e.some((r: any) =>{
           return r.includes(value);
         })
@@ -51,11 +64,13 @@ export class TableComponent implements OnInit {
     return index;
   };
 
-  private makeId() {
-    const names = ['sarah','sally','john','kevin','harry','mike',
-      'dylan','nathan','nat','brian','sue','baby', 'smitty','abby',
-      'bianca','chris', 'kevin', 'robyn','dexter','sam'];
-    return names[Math.floor(names.length * Math.random())]
+  public onPageChange(event: number){
+    const newPage = event;
+    const start = this.pageSize * newPage - this.pageSize;
+    const end = start + this.pageSize;
+    this.tableDataCurr.data = this.tableDataMaster.data.slice(start, end)
   }
+
+
 
 }

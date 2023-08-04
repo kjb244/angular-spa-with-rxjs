@@ -1,0 +1,12 @@
+<nav  aria-label="Page navigation example">
+  <ul class="pagination">
+    <li class="page-item"><a class="page-link" href="javascript:void(0);" (click)="clickPrev()">Previous</a></li>
+    <li *ngIf="pageData.length === 0" class="page-item disabled">
+      <a class="page-link" href="javascript:void(0);">1</a>
+    </li>
+    <li *ngFor="let rec of pageData; let i=index" class="page-item" [ngClass]="{'active': rec.active === true}">
+      <a class="page-link" href="javascript:void(0);" (click)="clickPageNumber(i)">{{rec.pageNumber}}</a>
+    </li>
+    <li class="page-item"><a class="page-link" href="javascript:void(0);" (click)="clickNext()">Next</a></li>
+  </ul>
+</nav>

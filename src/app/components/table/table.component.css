@@ -1,3 +1,18 @@
 .yellow{
   background-color: yellow;
 }
+
+.search-pagination{
+  display: flex;
+  justify-content: space-between;
+}
+
+.pagination-container{
+  padding-top: 10px;
+}
+
+@media (max-width: 767px)  {
+  .search-pagination{
+    flex-direction: column;
+  }
+}
