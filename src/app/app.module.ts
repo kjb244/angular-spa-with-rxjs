@@ -10,7 +10,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { View1Component } from './components/view1/view1.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {NgbDropdownModule, NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { CurrencyComponent } from './components/currency/currency.component';
 import { ButtonsComponent } from './components/buttons/buttons.component';
 import { View2Component } from './components/view2/view2.component';
@@ -82,6 +82,7 @@ const appRoutes: Routes = [
     BrowserModule,
     AppRoutingModule,
     NgbModule,
+    NgbDropdownModule,
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,

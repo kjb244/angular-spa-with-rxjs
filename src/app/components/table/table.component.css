@@ -2,12 +2,16 @@
   background-color: yellow;
 }
 
+.form-check{
+  margin-left: 10px;
+}
+
 .search-pagination{
   display: flex;
   justify-content: space-between;
 }
 
-.pagination-container{
+.pagination-container, .dropdown-container{
   padding-top: 10px;
 }
 

@@ -1,12 +1,27 @@
 <div class="search-pagination">
-    <div [formGroup]="searchForm" class="mb-3 pt-2">
-      <input class="form-control" (input)="searchIt()" type="text" placeholder="search" formControlName="search">
+  <div [formGroup]="form" class="mb-3 pt-2">
+    <input class="form-control" (input)="searchIt()" type="text" placeholder="search" formControlName="search">
+  </div>
+  <div class="dropdown-container">
+    <div ngbDropdown class="d-inline-block">
+      <button type="button" class="btn btn-primary" id="dropDownFilter" ngbDropdownToggle>
+        Filter Results <span class="badge badge-light">{{getFilteredIds().length}}</span>
+      </button>
+      <div ngbDropdownMenu aria-labelledby="dropDownFilter">
+        <ng-container *ngFor="let rec of filterTypes">
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" [value]="rec.id" id="checkbox{rec.id}" (change)="onCheckboxChange($event)">
+            <label class="form-check-label" for="checkbox{rec.id}">{{rec.value}}</label>
+          </div>
+        </ng-container>
+      </div>
     </div>
-  {{getSearchValue()}}
+  </div>
+
   <div class="pagination-container">
     <app-pagination
       [pageSize]="pageSize"
-      [totalRows]="getSearchValue() === '' ? tableDataMaster.data.length : tableDataCurr.data.length"
+      [totalRows]="totalSearchResults"
       (onPageChange)="onPageChange($event)">
     </app-pagination>
   </div>
@@ -24,7 +39,7 @@
     <tr *ngFor="let rec of tableDataCurr.data; trackBy: trackByIndex">
       <td *ngFor="let rec2 of rec">
         <span
-          [innerHtml]="rec2 | stringmatcher: this.searchForm.controls['search'].value"></span>
+          [innerHtml]="rec2 | stringmatcher: this.form.controls['search'].value"></span>
       </td>
     </tr>
   </tbody>

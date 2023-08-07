@@ -23,11 +23,15 @@ export class PaginationComponent implements OnInit {
 
   private determinePageData(){
     this.pageData = [];
-    const pages: number = Math.floor(this.totalRows/this.pageSize) +
-      (this.totalRows % this.pageSize > 0 ? 1 : 0);
+    const pages: number = this.numberOfPages();
     for(let i=0; i<pages; i++){
       this.pageData.push({pageNumber: i+1, active: i === 0})
     }
+  }
+
+  public numberOfPages(){
+    return Math.floor(this.totalRows/this.pageSize) +
+      (this.totalRows % this.pageSize > 0 ? 1 : 0);
   }
 
   ngOnChanges(changes: SimpleChanges) {

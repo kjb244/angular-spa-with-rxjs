@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
-import {FormBuilder} from "@angular/forms";
+import {FormArray, FormBuilder, FormControl} from "@angular/forms";
 import {TableDataService} from "../../services/table-data.service";
 
 @Component({
@@ -11,24 +11,25 @@ import {TableDataService} from "../../services/table-data.service";
 })
 export class TableComponent implements OnInit {
   public pageSize: number = 50;
+  public totalSearchResults: number;
+  public filterTypes: any[];
 
   public tableDataMaster: any = {
     header: [],
     data: []
   }
 
-  private tableDataCopy: any  = {
-    ...this.tableDataMaster
-  }
   public tableDataCurr: any = {
     ...this.tableDataMaster
   }
 
-  public searchForm;
+  public form;
+  private currPage: number = 1;
 
   constructor(private formBuilder: FormBuilder, private tableDataService: TableDataService) {
-    this.searchForm = this.formBuilder.group({
-      search: ['']
+    this.form = this.formBuilder.group({
+      search: [''],
+      filterType: this.formBuilder.array([])
     })
   }
 
@@ -36,28 +37,42 @@ export class TableComponent implements OnInit {
 
     const tableDataFromService = this.tableDataService.getTableData();
 
-    this.tableDataCopy = tableDataFromService;
     this.tableDataMaster = tableDataFromService;
     this.tableDataCurr.data = tableDataFromService.data.slice(0, this.pageSize);
     this.tableDataCurr.header = tableDataFromService.header;
+    this.totalSearchResults = this.tableDataMaster.data.length;
+    this.filterTypes = this.getFilteredTypes().map((e, i) =>{
+      return {id: i+1 + '', value: e}
+    })
+
+  }
+  private getFilteredTypes() {
+    const arrOfTypes = this.tableDataMaster.data.map((row:any) =>{
+      return row[3];
+    });
+    const set = new Set(arrOfTypes);
+    return Array.from(set).sort();
   }
 
+  public onCheckboxChange(event: any){
+    const filterChoices: FormArray = this.form.get('filterType') as FormArray;
+
+    if(event.target.checked){
+      filterChoices.push(new FormControl(event.target.value))
+    } else {
+      const index = filterChoices.controls.findIndex(x => x.value === event.target.value);
+      filterChoices.removeAt(index);
+    }
+
+    this.searchAndFilter();
+
+  }
   public getSearchValue(){
-    return this.searchForm.controls['search']?.value;
+    return this.form.controls['search']?.value;
   }
 
   searchIt(){
-    const value = this.searchForm.controls['search']?.value;
-    if(value === ''){
-      this.tableDataCurr.data = this.tableDataMaster.data.slice(0, this.pageSize);
-    } else {
-      this.tableDataCurr.data  = this.tableDataMaster.data.filter((e: any) =>{
-        return e.some((r: any) =>{
-          return r.includes(value);
-        })
-      })
-    }
-
+    this.searchAndFilter();
   }
 
   trackByIndex = (index: number): number => {
@@ -66,9 +81,35 @@ export class TableComponent implements OnInit {
 
   public onPageChange(event: number){
     const newPage = event;
-    const start = this.pageSize * newPage - this.pageSize;
+    this.currPage = newPage;
+    this.searchAndFilter();
+
+  }
+
+  public getFilteredIds(){
+    const filterChoices: FormArray = this.form.get('filterType') as FormArray;
+    return filterChoices.controls.map((r:any) => r.value);
+  }
+
+  private searchAndFilter(){
+    const searchValue = this.getSearchValue();
+    const currPage = this.currPage;
+    const start = this.pageSize * currPage - this.pageSize;
     const end = start + this.pageSize;
-    this.tableDataCurr.data = this.tableDataMaster.data.slice(start, end)
+    const filterIds = this.getFilteredIds();
+    const filterTypes = this.filterTypes.filter(e => filterIds.includes(e.id)).map(e => e.value)
+
+    const filteredResults = this.tableDataMaster.data.filter((e: any) =>{
+      const searchResults = e.some((r: any) =>{
+        const searchResultsInner =  searchValue.length ?  r.includes(searchValue) : true;
+        return searchResultsInner;
+      });
+      const filterResults = filterTypes.length?  filterTypes.includes(e[3]): true;
+      return searchResults && filterResults;
+    });
+    this.totalSearchResults = filteredResults.length;
+    this.tableDataCurr.data = filteredResults.slice(start, end);
+
   }
 
 
