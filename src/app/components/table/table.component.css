@@ -20,3 +20,7 @@
     flex-direction: column;
   }
 }
+
+thead th{
+  cursor:pointer;
+}

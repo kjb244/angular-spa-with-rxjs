@@ -76,7 +76,7 @@ const appRoutes: Routes = [
     InnerCheckboxComponent,
     AddressformatterPipe,
     TableComponent,
-    PaginationComponent
+    PaginationComponent,
   ],
   imports: [
     BrowserModule,
