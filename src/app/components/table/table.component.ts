@@ -109,7 +109,7 @@ export class TableComponent implements OnInit {
   public onPageChange(event: number){
     const newPage = event;
     this.currPage = newPage;
-    this.searchAndFilter();
+    this.searchAndFilter(true);
 
   }
 
@@ -118,7 +118,7 @@ export class TableComponent implements OnInit {
     return filterChoices.controls.map((r:any) => r.value);
   }
 
-  private searchAndFilter(){
+  private searchAndFilter(pageChange = false){
     const searchValue = this.getSearchValue();
     const currPage = this.currPage;
     const start = this.pageSize * currPage - this.pageSize;
@@ -135,7 +135,9 @@ export class TableComponent implements OnInit {
       return searchResults && filterResults;
     });
     this.totalSearchResults = filteredResults.length;
-    this.tableDataCurr.data = filteredResults.slice(start, end);
+    const filteredStartEnd = filteredResults.slice(start,end);
+    const filteredZeroPageSize = filteredResults.slice(0, this.pageSize);
+    this.tableDataCurr.data = pageChange ? filteredStartEnd : filteredZeroPageSize;
 
   }
 
