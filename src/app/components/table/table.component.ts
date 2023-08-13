@@ -1,6 +1,8 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {FormArray, FormBuilder, FormControl} from "@angular/forms";
 import {TableDataService} from "../../services/table-data.service";
+import {Data, FilterType, SortingMap, TableData} from "../../models/table.model";
+
 
 @Component({
   selector: 'app-table',
@@ -9,21 +11,22 @@ import {TableDataService} from "../../services/table-data.service";
   encapsulation: ViewEncapsulation.None,
 
 })
+
 export class TableComponent implements OnInit {
   public pageSize: number = 50;
   public totalSearchResults: number;
-  public filterTypes: any[];
+  public filterTypes: FilterType[];
 
-  public tableDataMaster: any = {
+  public tableDataMaster: TableData = {
     header: [],
     data: []
   }
 
-  public tableDataCurr: any = {
+  public tableDataCurr: TableData = {
     ...this.tableDataMaster
   }
 
-  public sortingMap: any;
+  public sortingMap: SortingMap;
 
   public form;
   private currPage: number = 1;
@@ -46,7 +49,7 @@ export class TableComponent implements OnInit {
     this.filterTypes = this.getFilteredTypes().map((e, i) =>{
       return {id: i+1 + '', value: e}
     });
-    this.sortingMap = this.tableDataMaster.header.reduce((accum:any,e:any,i: number)=>{
+    this.sortingMap = this.tableDataMaster.header.reduce((accum:any,e:string,i: number)=>{
       accum[i] = {direction: null};
       return accum;
     },{})
@@ -57,7 +60,7 @@ export class TableComponent implements OnInit {
   }
 
   public sort(index: number){
-    const sign = this.sortingMap[index].direction === 'ascending'? -1 : 1;
+    const sign: number = this.sortingMap[index].direction === 'ascending'? -1 : 1;
     this.tableDataMaster.data.sort((a: any,b: any) =>{
       return sign * (a[index]+'').localeCompare(b[index] + '');
     });
@@ -73,7 +76,7 @@ export class TableComponent implements OnInit {
     })
     this.searchAndFilter();
   }
-  private getFilteredTypes() {
+  private getFilteredTypes(): string[] {
     const arrOfTypes = this.tableDataMaster.data.map((row:any) =>{
       return row[3];
     });
@@ -81,7 +84,7 @@ export class TableComponent implements OnInit {
     return Array.from(set).sort();
   }
 
-  public onCheckboxChange(event: any){
+  public onCheckboxChange(event: any): void{
     const filterChoices: FormArray = this.form.get('filterType') as FormArray;
 
     if(event.target.checked){
@@ -94,11 +97,11 @@ export class TableComponent implements OnInit {
     this.searchAndFilter();
 
   }
-  public getSearchValue(){
-    return this.form.controls['search']?.value;
+  public getSearchValue(): string{
+    return this.form.controls['search']?.value + '';
   }
 
-  searchIt(){
+  searchIt(): void{
     this.searchAndFilter();
   }
 
@@ -107,36 +110,34 @@ export class TableComponent implements OnInit {
   };
 
   public onPageChange(event: number){
-    const newPage = event;
-    this.currPage = newPage;
+    this.currPage = event;
     this.searchAndFilter(true);
 
   }
 
-  public getFilteredIds(){
+  public getFilteredIds(): string[]{
     const filterChoices: FormArray = this.form.get('filterType') as FormArray;
     return filterChoices.controls.map((r:any) => r.value);
   }
 
-  private searchAndFilter(pageChange = false){
-    const searchValue = this.getSearchValue();
-    const currPage = this.currPage;
-    const start = this.pageSize * currPage - this.pageSize;
-    const end = start + this.pageSize;
-    const filterIds = this.getFilteredIds();
-    const filterTypes = this.filterTypes.filter(e => filterIds.includes(e.id)).map(e => e.value)
+  private searchAndFilter(pageChange = false): void{
+    const searchValue: string = this.getSearchValue();
+    const currPage: number = this.currPage;
+    const start: number = this.pageSize * currPage - this.pageSize;
+    const end:number = start + this.pageSize;
+    const filterIds: string[] = this.getFilteredIds();
+    const filterTypes: string[] = this.filterTypes.filter(e => filterIds.includes(e.id)).map(e => e.value)
 
-    const filteredResults = this.tableDataMaster.data.filter((e: any) =>{
+    const filteredResults: Data[] = this.tableDataMaster.data.filter((e: any) =>{
       const searchResults = e.some((r: any) =>{
-        const searchResultsInner =  searchValue.length ?  r.includes(searchValue) : true;
-        return searchResultsInner;
+        return  searchValue.length ?  r.includes(searchValue) : true;
       });
       const filterResults = filterTypes.length?  filterTypes.includes(e[3]): true;
       return searchResults && filterResults;
     });
     this.totalSearchResults = filteredResults.length;
-    const filteredStartEnd = filteredResults.slice(start,end);
-    const filteredZeroPageSize = filteredResults.slice(0, this.pageSize);
+    const filteredStartEnd: Data[] = filteredResults.slice(start,end);
+    const filteredZeroPageSize: Data[] = filteredResults.slice(0, this.pageSize);
     this.tableDataCurr.data = pageChange ? filteredStartEnd : filteredZeroPageSize;
 
   }
