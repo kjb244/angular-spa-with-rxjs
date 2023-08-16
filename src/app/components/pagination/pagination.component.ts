@@ -41,7 +41,7 @@ export class PaginationComponent implements OnInit {
 
   }
 
-  private getCurrPage(){
+  public getCurrPage(){
     return this.pageData.findIndex(x => x.active)
   }
 
@@ -69,6 +69,8 @@ export class PaginationComponent implements OnInit {
     this.pageData[pageNumber].active = true;
     this.emitPageChange();
   }
+
+
 
   private emitPageChange(){
     this.onPageChange.emit(this.getCurrPage()+1);

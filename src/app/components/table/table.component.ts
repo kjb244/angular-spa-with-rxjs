@@ -13,7 +13,7 @@ import {Data, FilterType, SortingMap, TableData} from "../../models/table.model"
 })
 
 export class TableComponent implements OnInit {
-  public pageSize: number = 50;
+  public pageSize: number = 15;
   public totalSearchResults: number;
   public filterTypes: FilterType[];
 
