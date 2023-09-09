@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
-import {FormArray, FormBuilder, FormControl} from "@angular/forms";
+import {AbstractControl, FormArray, FormBuilder, FormControl} from "@angular/forms";
 import {TableDataService} from "../../services/table-data.service";
 import {Data, FilterType, SortingMap, TableData} from "../../models/table.model";
 
@@ -13,7 +13,7 @@ import {Data, FilterType, SortingMap, TableData} from "../../models/table.model"
 })
 
 export class TableComponent implements OnInit {
-  public pageSize: number = 15;
+  public pageSize: number = 100;
   public totalSearchResults: number;
   public filterTypes: FilterType[];
 
@@ -49,7 +49,7 @@ export class TableComponent implements OnInit {
     this.filterTypes = this.getFilteredTypes().map((e, i) =>{
       return {id: i+1 + '', value: e}
     });
-    this.sortingMap = this.tableDataMaster.header.reduce((accum:any,e:string,i: number)=>{
+    this.sortingMap = this.tableDataMaster.header.reduce((accum:SortingMap,e:string,i: number)=>{
       accum[i] = {direction: null};
       return accum;
     },{})
@@ -61,7 +61,7 @@ export class TableComponent implements OnInit {
 
   public sort(index: number){
     const sign: number = this.sortingMap[index].direction === 'ascending'? -1 : 1;
-    this.tableDataMaster.data.sort((a: any,b: any) =>{
+    this.tableDataMaster.data.sort((a: Data,b: Data) =>{
       return sign * (a[index]+'').localeCompare(b[index] + '');
     });
     Object.keys(this.sortingMap).forEach((e,i) =>{
@@ -77,7 +77,7 @@ export class TableComponent implements OnInit {
     this.searchAndFilter();
   }
   private getFilteredTypes(): string[] {
-    const arrOfTypes = this.tableDataMaster.data.map((row:any) =>{
+    const arrOfTypes = this.tableDataMaster.data.map((row: string[]) =>{
       return row[3];
     });
     const set = new Set(arrOfTypes);
@@ -117,7 +117,7 @@ export class TableComponent implements OnInit {
 
   public getFilteredIds(): string[]{
     const filterChoices: FormArray = this.form.get('filterType') as FormArray;
-    return filterChoices.controls.map((r:any) => r.value);
+    return filterChoices.controls.map((r: AbstractControl) => r.value);
   }
 
   private searchAndFilter(pageChange = false): void{
@@ -128,8 +128,8 @@ export class TableComponent implements OnInit {
     const filterIds: string[] = this.getFilteredIds();
     const filterTypes: string[] = this.filterTypes.filter(e => filterIds.includes(e.id)).map(e => e.value)
 
-    const filteredResults: Data[] = this.tableDataMaster.data.filter((e: any) =>{
-      const searchResults = e.some((r: any) =>{
+    const filteredResults: Data[] = this.tableDataMaster.data.filter((e: Data) =>{
+      const searchResults = e.some((r: string) =>{
         return  searchValue.length ?  r.includes(searchValue) : true;
       });
       const filterResults = filterTypes.length?  filterTypes.includes(e[3]): true;
