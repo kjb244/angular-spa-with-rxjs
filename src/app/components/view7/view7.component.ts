@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {MockService} from "../../services/mock.service";
 import * as _ from 'underscore';
-import {StringmatcherPipe} from '../../pipes/stringmatcher.pipe';
+import {debounceTime, mergeMap, switchMap} from "rxjs";
 
 interface AddressData{
   addressString: string;
@@ -45,6 +45,26 @@ export class View7Component implements OnInit {
   }
 
   ngOnInit(): void {
+    this.view7Form.controls['search'].valueChanges.pipe(
+      debounceTime(200),
+      mergeMap(() => this.mockService.getAddressData())
+    ).subscribe({
+      next: (payload: any) =>{
+        payload = _.shuffle(payload);
+        this.addressData = payload.reduce((accum: AddressData[], e: any) =>{
+          const obj:AddressData = {line1: '', city: '', state: '', zip: '', addressString: ''};
+          const {line1, city, state, zip} = e;
+          obj.addressString =  `${line1} ${city} ${state} ${zip}`;
+          obj.line1 = line1;
+          obj.city = city;
+          obj.state = state;
+          obj.zip = zip;
+          accum.push(obj);
+          return accum;
+
+        },[]);
+      }
+    })
 
   }
   get checkMe() {
@@ -66,24 +86,7 @@ export class View7Component implements OnInit {
   }
 
   searchIt(): void {
-    const searchValue = this.view7Form.value.search;
-    this.mockService.getAddressData().subscribe((payload) =>{
-      payload = _.shuffle(payload);
-      this.addressData = payload.reduce((accum: AddressData[], e: any) =>{
-        const obj:AddressData = {line1: '', city: '', state: '', zip: '', addressString: ''};
-        const {line1, city, state, zip} = e;
-        obj.addressString =  `${line1} ${city} ${state} ${zip}`;
-        obj.line1 = line1;
-        obj.city = city;
-        obj.state = state;
-        obj.zip = zip;
-        accum.push(obj);
-        return accum;
 
-      },[]);
-
-
-    })
 
   }
 
