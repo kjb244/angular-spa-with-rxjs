@@ -1,0 +1,18 @@
+<div class="row">
+  <div class="col-sm-12 col-md-8">
+    <p>Left Container</p>
+    <ng-content></ng-content>
+  </div>
+  <div class="col-sm-12 col-md-4">
+    <p>Right Container</p>
+  </div>
+</div>
+
+<div class="row mt-5">
+  <div class="col-sm-12">
+    <ng-content select="[slot=foo]">
+    </ng-content>
+  </div>
+
+</div>
+
