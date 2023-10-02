@@ -62,6 +62,10 @@ export class TableComponent implements OnInit {
   public sort(index: number){
     const sign: number = this.sortingMap[index].direction === 'ascending'? -1 : 1;
     this.tableDataMaster.data.sort((a: Data,b: Data) =>{
+      const isNum = /^\d+$/.test(a[index]+'');
+      if (isNum){
+        return sign * (parseInt(a[index]) - parseInt(b[index]));
+      }
       return sign * (a[index]+'').localeCompare(b[index] + '');
     });
     Object.keys(this.sortingMap).forEach((e,i) =>{
