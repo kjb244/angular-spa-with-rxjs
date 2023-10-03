@@ -9,6 +9,7 @@ export class PaginationComponent implements OnInit {
 
   @Input() pageSize: number;
   @Input() totalRows: number;
+  @Input() firstPageActive: boolean;
   @Output() onPageChange: EventEmitter<number> = new EventEmitter();
 
   public pageData: any[] = [];
@@ -38,6 +39,22 @@ export class PaginationComponent implements OnInit {
     if(changes['totalRows'] && changes['totalRows'].previousValue){
       this.determinePageData();
     }
+    if(changes['firstPageActive']){
+      if(typeof changes['firstPageActive'].previousValue !== 'undefined'
+        && changes['firstPageActive'].currentValue !== changes['firstPageActive'].previousValue){
+        this.setFirstPageActive();
+
+      }
+    }
+
+
+  }
+
+  private setFirstPageActive(){
+    const currPage = this.getCurrPage();
+    this.pageData[currPage].active=false;
+    this.pageData[0].active=true;
+    this.emitPageChange();
 
   }
 

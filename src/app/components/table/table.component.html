@@ -22,6 +22,7 @@
     <app-pagination
       [pageSize]="pageSize"
       [totalRows]="totalSearchResults"
+      [firstPageActive]="sortingClicked"
       (onPageChange)="onPageChange($event)">
     </app-pagination>
   </div>
@@ -32,7 +33,7 @@
   <thead>
     <tr>
       <ng-container *ngFor="let rec of tableDataCurr.header; let i=index;">
-        <th scope="col" (click)="sort(i)">
+        <th scope="col" (click)="sort(i);">
           <i *ngIf="sortingMap[i].direction === 'ascending'" class="fa fa-arrow-up"></i>
           <i *ngIf="sortingMap[i].direction === 'descending'"  class="fa fa-arrow-down"></i>
           <span>{{rec}}</span>

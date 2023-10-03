@@ -12,7 +12,7 @@ export class TableDataService {
   }
 
   constructor() {
-    for(let i=0; i<2500; i++){
+    for(let i=0; i<200; i++){
       this.tableData.data.push([this.makeName(), this.makeDate(), this.makeAge(), this.makeType()])
     };
   }

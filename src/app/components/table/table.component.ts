@@ -13,7 +13,7 @@ import {Data, FilterType, SortingMap, TableData} from "../../models/table.model"
 })
 
 export class TableComponent implements OnInit {
-  public pageSize: number = 100;
+  public pageSize: number = 50;
   public totalSearchResults: number;
   public filterTypes: FilterType[];
 
@@ -27,6 +27,7 @@ export class TableComponent implements OnInit {
   }
 
   public sortingMap: SortingMap;
+  public sortingClicked: boolean = false;
 
   public form;
   private currPage: number = 1;
@@ -60,6 +61,7 @@ export class TableComponent implements OnInit {
   }
 
   public sort(index: number){
+    this.sortingClicked = !this.sortingClicked;
     const sign: number = this.sortingMap[index].direction === 'ascending'? -1 : 1;
     this.tableDataMaster.data.sort((a: Data,b: Data) =>{
       const isNum = /^\d+$/.test(a[index]+'');
@@ -78,7 +80,6 @@ export class TableComponent implements OnInit {
       this.sortingMap[i].direction = direction;
 
     })
-    this.searchAndFilter();
   }
   private getFilteredTypes(): string[] {
     const arrOfTypes = this.tableDataMaster.data.map((row: string[]) =>{
