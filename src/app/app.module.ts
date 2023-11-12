@@ -34,6 +34,8 @@ import { AddressformatterPipe } from './pipes/addressformatter.pipe';
 import { TableComponent } from './components/table/table.component';
 import { PaginationComponent } from './components/pagination/pagination.component';
 import { FlowPageComponent } from './components/flow-page/flow-page.component';
+import { SearchItComponent } from './components/search/search-it/search-it.component';
+import { DropdownComponent } from './components/search/dropdown/dropdown.component';
 
 const appRoutes: Routes = [
   {path: 'view1',  component: View1Component, data: { animationState: 'One' }},
@@ -48,6 +50,7 @@ const appRoutes: Routes = [
   {path: 'splash', component: SplashComponent, data: { animationState: 'Splash' }},
   {path: 'cart', component: CartComponent },
   {path: 'checkboxes', component: CheckboxesComponent },
+  {path: 'searchit', component: SearchItComponent},
   {path: '', redirectTo: '/splash', pathMatch: 'full' },
 
 ];
@@ -79,6 +82,8 @@ const appRoutes: Routes = [
     TableComponent,
     PaginationComponent,
     FlowPageComponent,
+    SearchItComponent,
+    DropdownComponent,
   ],
   imports: [
     BrowserModule,

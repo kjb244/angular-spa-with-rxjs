@@ -1,0 +1,11 @@
+.search-wrapper{
+  background-color: aliceblue;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  display: flex;
+}
+
+.search-wrapper input{
+  width: 33%;
+  margin-right: 1%;
+}
