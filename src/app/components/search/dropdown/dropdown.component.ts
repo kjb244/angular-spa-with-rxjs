@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FilterSearchEnum, SearchFilterSubject} from "../store/store";
+import {SearchFilterSubject} from "../store/store";
 
 interface CheckboxModel {
   age: string,
@@ -30,10 +30,10 @@ export class DropdownComponent implements OnInit {
   onCheckboxChange(index: number){
     this.checkBoxes[index].checked = !this.checkBoxes[index].checked;
     const ageArray: string[]  = this.checkBoxes.filter(e => e.checked).map(e => e.age + '');
-    const mergedRecord = {...SearchFilterSubject.getValue(), [FilterSearchEnum.FILTER_AGE]: ageArray};
+    const currentSearchRecord = SearchFilterSubject.getValue();
 
 
-    SearchFilterSubject.next(mergedRecord);
+    SearchFilterSubject.next({...currentSearchRecord, age: ageArray});
   }
 
 }

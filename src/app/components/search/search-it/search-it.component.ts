@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
-import {FilterSearchEnum, SearchFilter, SearchFilterSubject} from "../store/store";
+import {SearchFilter, SearchFilterSubject} from "../store/store";
 
 interface PersonData {
   name: string,
@@ -41,9 +41,9 @@ export class SearchItComponent implements OnInit {
 
   emitSearchNext(){
     const value = this.form.controls['search'].value;
-    const mergedRecord = {...SearchFilterSubject.getValue(), [FilterSearchEnum.SEARCH]: [value]};
+    const currentSearchRecord = SearchFilterSubject.getValue();
 
-    SearchFilterSubject.next(mergedRecord);
+    SearchFilterSubject.next({...currentSearchRecord, search: value});
   }
 
 
@@ -52,18 +52,15 @@ export class SearchItComponent implements OnInit {
     this.friends = this.friendCopy.filter((personData: PersonData)=>{
       let filterAge: boolean = true;
       let search: boolean = true;
-      // @ts-ignore
-      const filterByAgeRecord = searchFilter[FilterSearchEnum.FILTERAGE];
+      const filterByAgeRecord = searchFilter.age;
       if(filterByAgeRecord){
         filterAge =  filterByAgeRecord.includes(personData.age+'');
       };
-      // @ts-ignore
-      const searchRecord = searchFilter[FilterSearchEnum.SEARCH];
+      const searchRecord = searchFilter.search
       if(searchRecord){
-        const searchString = searchRecord.join('');
-        search = searchString === '' ? true : Object.keys(personData).some((key) =>{
+        search = searchRecord === '' ? true : Object.keys(personData).some((key) =>{
           const value = personData[key as keyof typeof personData] + '';
-          const re = new RegExp(searchString,'i');
+          const re = new RegExp(searchRecord,'i');
           return re.test(value);
         });
       }
