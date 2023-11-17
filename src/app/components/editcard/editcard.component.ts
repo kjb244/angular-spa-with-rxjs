@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {eventDispatcher, store} from "../../store/index";
 import {Actions} from "../../store/actions";
-import {FormArray, FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {UntypedFormArray, UntypedFormBuilder, UntypedFormGroup, Validators} from "@angular/forms";
 import {Benes, InitialState} from "../../models/state";
 import {Router} from "@angular/router";
 
@@ -13,11 +13,11 @@ import {Router} from "@angular/router";
 export class EditcardComponent implements OnInit, OnDestroy {
 
   sub: any;
-  editForm: FormGroup;
+  editForm: UntypedFormGroup;
   loadingForm: boolean = true;
   error: boolean[] = [];
 
-  constructor(private formBuilder: FormBuilder, private router: Router) {
+  constructor(private formBuilder: UntypedFormBuilder, private router: Router) {
 
     this.sub = store.subscribe((initialState: InitialState) =>{
       const account = initialState.accounts.find(e => e.editing === true);
@@ -48,7 +48,7 @@ export class EditcardComponent implements OnInit, OnDestroy {
   }
 
   get benes() {
-    return this.editForm.controls['benes'] as FormArray;
+    return this.editForm.controls['benes'] as UntypedFormArray;
 
   }
 

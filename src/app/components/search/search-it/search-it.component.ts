@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {UntypedFormBuilder, UntypedFormGroup} from "@angular/forms";
 import {SearchFilter, SearchFilterSubject} from "../store/store";
 
 interface PersonData {
@@ -20,10 +20,10 @@ export class SearchItComponent implements OnInit {
     {name: 'sue', birthday: '01/01/1995', age: 25},
   ];
   public friendCopy: PersonData[] = [...this.friends];
-  public form: FormGroup;
+  public form: UntypedFormGroup;
   public ages: string[];
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: UntypedFormBuilder) {
 
   }
 

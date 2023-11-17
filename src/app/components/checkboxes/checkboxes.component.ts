@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormArray, FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import {UntypedFormArray, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup} from "@angular/forms";
 
 @Component({
   selector: 'app-checkboxes',
@@ -37,26 +37,26 @@ export class CheckboxesComponent implements OnInit {
   ]
 
   private indexToAccount: any = {};
-  public formGroup: FormGroup;
-  constructor(private formBuilder: FormBuilder) {
+  public formGroup: UntypedFormGroup;
+  constructor(private formBuilder: UntypedFormBuilder) {
 
   }
 
   ngOnInit(): void {
-    const checkBoxArr = new FormArray([]);
+    const checkBoxArr = new UntypedFormArray([]);
     let index=-1;
     this.addressToAccounts.forEach((e: any) =>{
       if(e.id === this.selectedAddressId){
         e.accounts.forEach((e2: any) =>{
           this.indexToAccount[++index] = e2;
-          checkBoxArr.push(new FormControl(true))
+          checkBoxArr.push(new UntypedFormControl(true))
 
         })
       }
       else {
         e.accounts.forEach((e2: any) =>{
           this.indexToAccount[++index] = e2;
-          checkBoxArr.push(new FormControl(false))
+          checkBoxArr.push(new UntypedFormControl(false))
 
         })
       }
@@ -65,7 +65,7 @@ export class CheckboxesComponent implements OnInit {
   }
 
   getControls() {
-    return (this.formGroup.get('entries') as FormArray).controls;
+    return (this.formGroup.get('entries') as UntypedFormArray).controls;
   }
 
   getSelectedAddress(i: number){

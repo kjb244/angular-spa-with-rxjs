@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
-import {AbstractControl, FormArray, FormBuilder, FormControl} from "@angular/forms";
+import {AbstractControl, UntypedFormArray, UntypedFormBuilder, UntypedFormControl} from "@angular/forms";
 import {TableDataService} from "../../services/table-data.service";
 import {Data, FilterType, SortingMap, TableData} from "../../models/table.model";
 
@@ -32,7 +32,7 @@ export class TableComponent implements OnInit {
   public form;
   private currPage: number = 1;
 
-  constructor(private formBuilder: FormBuilder, private tableDataService: TableDataService) {
+  constructor(private formBuilder: UntypedFormBuilder, private tableDataService: TableDataService) {
     this.form = this.formBuilder.group({
       search: [''],
       filterType: this.formBuilder.array([])
@@ -90,10 +90,10 @@ export class TableComponent implements OnInit {
   }
 
   public onCheckboxChange(event: any): void{
-    const filterChoices: FormArray = this.form.get('filterType') as FormArray;
+    const filterChoices: UntypedFormArray = this.form.get('filterType') as UntypedFormArray;
 
     if(event.target.checked){
-      filterChoices.push(new FormControl(event.target.value))
+      filterChoices.push(new UntypedFormControl(event.target.value))
     } else {
       const index = filterChoices.controls.findIndex(x => x.value === event.target.value);
       filterChoices.removeAt(index);
@@ -121,7 +121,7 @@ export class TableComponent implements OnInit {
   }
 
   public getFilteredIds(): string[]{
-    const filterChoices: FormArray = this.form.get('filterType') as FormArray;
+    const filterChoices: UntypedFormArray = this.form.get('filterType') as UntypedFormArray;
     return filterChoices.controls.map((r: AbstractControl) => r.value);
   }
 

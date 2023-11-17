@@ -8,7 +8,7 @@ import { View6Component } from './view6.component';
 import {MockService} from "../../services/mock.service";
 import {of} from "rxjs";
 import {HttpClientTestingModule} from "@angular/common/http/testing";
-import {FormBuilder, ReactiveFormsModule} from "@angular/forms";
+import {UntypedFormBuilder, ReactiveFormsModule} from "@angular/forms";
 import {delay} from "rxjs/operators";
 import * as Rx from 'rxjs';
 import {By} from "@angular/platform-browser";
@@ -68,7 +68,7 @@ describe('View6Component', () => {
       ],
       providers : [
         MockService,
-        FormBuilder,
+        UntypedFormBuilder,
       ]
     }).compileComponents();
   }));

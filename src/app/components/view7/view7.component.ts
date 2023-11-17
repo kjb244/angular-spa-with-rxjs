@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {UntypedFormBuilder, UntypedFormGroup} from "@angular/forms";
 import {MockService} from "../../services/mock.service";
 import * as _ from 'underscore';
 import {debounceTime, mergeMap, switchMap} from "rxjs";
@@ -30,9 +30,9 @@ export class View7Component implements OnInit {
   stateList: string[] = ['AK','AR'];
   zip: string = '';
   addressData: AddressData[] = [];
-  view7Form: FormGroup;
+  view7Form: UntypedFormGroup;
 
-  constructor(private formBuilder: FormBuilder, private mockService: MockService) {
+  constructor(private formBuilder: UntypedFormBuilder, private mockService: MockService) {
     this.view7Form = formBuilder.group({
       'search': [this.search],
       'line1': [this.line1],

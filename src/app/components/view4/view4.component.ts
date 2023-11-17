@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
-import {Form, FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {Form, UntypedFormArray, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators} from '@angular/forms';
 import {BeControllersService} from "../../services/be-controllers.service";
 import {Router} from "@angular/router";
 import {GetPayload} from "../../models/getpayload";
@@ -20,7 +20,7 @@ export class View4Component implements OnInit, OnDestroy {
 
 
   sub: any;
-  view4Form: FormGroup = this.formBuilder.group({});
+  view4Form: UntypedFormGroup = this.formBuilder.group({});
   levels: string[] = ['beginner','intermediate', 'advanced'];
   formData: { [key: string]: any } = {};
   loadingForm: boolean = true;
@@ -28,13 +28,13 @@ export class View4Component implements OnInit, OnDestroy {
 
 
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private beControllersService: BeControllersService) {
+  constructor(private formBuilder: UntypedFormBuilder, private router: Router, private beControllersService: BeControllersService) {
     this.sub = store.subscribe((state) => {
       const { currRoute, formData, type } = state;
       if(type === Actions.NEXT_VIEW){
         this.router.navigateByUrl('/' + currRoute);
       } else if (type === Actions.GET_DATA){
-        const formGroupMaster: FormGroup = this.formBuilder.group({});
+        const formGroupMaster: UntypedFormGroup = this.formBuilder.group({});
         this.view4Form = formGroupMaster;
         if (formData && Object.keys(formData).length){
           for(let key in formData){
@@ -47,7 +47,7 @@ export class View4Component implements OnInit, OnDestroy {
                 Object.keys(e).forEach((k) =>{
                   freshObj[k] = [e[k], Validators.required];
                 });
-                const control = this.view4Form.controls[key] as FormArray;
+                const control = this.view4Form.controls[key] as UntypedFormArray;
                 control.push(this.formBuilder.group(freshObj));
               })
 
@@ -94,11 +94,11 @@ export class View4Component implements OnInit, OnDestroy {
   }
 
   get lessons() {
-    return this.view4Form.controls['lessons'] as FormArray;
+    return this.view4Form.controls['lessons'] as UntypedFormArray;
 
   }
 
-  getTitleControls(lesson: any): FormControl {
+  getTitleControls(lesson: any): UntypedFormControl {
     return lesson.controls.title;
   }
 

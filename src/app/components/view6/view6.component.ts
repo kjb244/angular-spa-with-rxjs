@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {MockService} from "../../services/mock.service";
 import {Brewery} from '../../models/breweries';
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {UntypedFormBuilder, FormControl, UntypedFormGroup, Validators} from "@angular/forms";
 
 interface Breweries{
   name: string;
@@ -18,9 +18,9 @@ export class View6Component implements OnInit {
 
   breweries: Breweries[] = [];
   search: string = '';
-  view6Form: FormGroup;
+  view6Form: UntypedFormGroup;
 
-  constructor(private mockService: MockService, private formBuilder: FormBuilder) { }
+  constructor(private mockService: MockService, private formBuilder: UntypedFormBuilder) { }
 
   ngOnInit(): void {
     this.mockService.getRealData().subscribe((payload: Brewery[]) =>{
