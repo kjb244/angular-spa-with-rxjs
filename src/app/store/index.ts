@@ -1,5 +1,5 @@
 
-import {Subject} from 'rxjs';
+import {BehaviorSubject, Subject} from 'rxjs';
 import { Actions } from './actions';
 import { InitialState } from '../models/state';
 
@@ -45,7 +45,7 @@ interface Event {
   payload?: object;
 }
 
-export const store = new Subject<InitialState>();
+export const store = new BehaviorSubject<InitialState>(state);
 export const eventDispatcher = new Subject<Event>();
 
 

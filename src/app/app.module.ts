@@ -36,13 +36,14 @@ import { PaginationComponent } from './components/pagination/pagination.componen
 import { FlowPageComponent } from './components/flow-page/flow-page.component';
 import { SearchItComponent } from './components/search/search-it/search-it.component';
 import { DropdownComponent } from './components/search/dropdown/dropdown.component';
+import {authGuard} from "./guards/auth.guard";
 
 const appRoutes: Routes = [
-  {path: 'view1',  component: View1Component, data: { animationState: 'One' }},
-  {path: 'view2', component: View2Component, data: { animationState: 'Two' }},
-  {path: 'view3', component: View3Component, data: { animationState: 'Three'}},
-  {path: 'view4', component: View4Component, data: { animationState: 'Four'}},
-  {path: 'view5', component: View5Component, data: { animationState: 'Five'}},
+  {path: 'view1',  component: View1Component, data: { animationState: 'One' }, canActivate: [authGuard]},
+  {path: 'view2', component: View2Component, data: { animationState: 'Two' }, canActivate: [authGuard]},
+  {path: 'view3', component: View3Component, data: { animationState: 'Three'}, canActivate: [authGuard]},
+  {path: 'view4', component: View4Component, data: { animationState: 'Four'}, canActivate: [authGuard]},
+  {path: 'view5', component: View5Component, data: { animationState: 'Five'}, canActivate: [authGuard]},
   {path: 'view6', component: View6Component },
   {path: 'view7', component: View7Component },
   {path: 'view8', component: TableComponent},
