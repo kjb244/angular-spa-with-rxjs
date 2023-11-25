@@ -35,10 +35,11 @@ export class MockService {
       return promise;
   }
 
-  getRealData(): Observable<Brewery[]>{
+  getBreweryData(): Observable<Brewery[]>{
     return this.http.get<Brewery[]>('https://api.openbrewerydb.org/breweries');
 
   }
+
 
   getAddressData(): Observable<any[]>{
     const payload = [
@@ -67,7 +68,7 @@ export class MockService {
         zip: '19311'
       },
     ];
-    const obs: Observable<any[]> = of(payload).pipe(delay(100));
+    const obs: Observable<any[]> = of(payload).pipe(delay(1000));
     return obs;
   }
 }

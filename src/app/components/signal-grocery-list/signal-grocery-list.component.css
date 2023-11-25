@@ -1,0 +1,25 @@
+.add-item{
+  display: flex;
+}
+
+.add-item .btn{
+  margin-left: 10px;
+}
+
+.checkbox-container > section:first-child{
+  margin-top: 5px;
+}
+
+.checkbox-container label{
+  margin-left: 10px;
+}
+
+.checkbox-container section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+i {
+  font-size: 20px;
+}

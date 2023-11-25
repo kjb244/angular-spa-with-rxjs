@@ -26,7 +26,7 @@ describe('mock service example', () => {
     // It is a good idea to re-initiate the spy instance after each run so you do not face any weird side-effects.
     // That way you also do not need to call `mySpy = TestBed.inject(MyService);`
     mockServiceSpy = createSpyObj('MockService', ['getRealData']);
-    mockServiceSpy.getRealData.and.returnValue(of(breweriesMock));
+    mockServiceSpy.getBreweryData.and.returnValue(of(breweriesMock));
 
     TestBed.configureTestingModule({
       providers: [
@@ -43,7 +43,7 @@ describe('mock service example', () => {
   });
 
   it('should return values', ()=>{
-    service.getRealData().subscribe((e) =>{
+    service.getBreweryData().subscribe((e) =>{
       expect(e[0].name).toEqual("test brewery");
       expect(e.length).toEqual(2);
     })

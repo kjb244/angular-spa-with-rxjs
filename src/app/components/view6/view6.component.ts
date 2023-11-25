@@ -23,7 +23,7 @@ export class View6Component implements OnInit {
   constructor(private mockService: MockService, private formBuilder: UntypedFormBuilder) { }
 
   ngOnInit(): void {
-    this.mockService.getRealData().subscribe((payload: Brewery[]) =>{
+    this.mockService.getBreweryData().subscribe((payload: Brewery[]) =>{
       this.breweries = payload.slice(0,20).map((e:Brewery) =>{
         return {
           name: e.name,
