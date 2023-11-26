@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {UntypedFormBuilder, UntypedFormGroup} from "@angular/forms";
 import {MockService} from "../../services/mock.service";
 import * as _ from 'underscore';
-import {debounceTime, mergeMap, switchMap} from "rxjs";
+import {debounceTime, filter, mergeMap} from "rxjs";
 
 interface AddressData{
   addressString: string;
@@ -47,6 +47,12 @@ export class View7Component implements OnInit {
   ngOnInit(): void {
     this.view7Form.controls['search'].valueChanges.pipe(
       debounceTime(200),
+      filter((value: string) => {
+        if(value.length <= 3){
+          this.addressData = [];
+        }
+        return value.length > 3
+      }),
       mergeMap(() => this.mockService.getAddressData())
     ).subscribe({
       next: (payload: any) =>{

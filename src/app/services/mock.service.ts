@@ -68,7 +68,7 @@ export class MockService {
         zip: '19311'
       },
     ];
-    const obs: Observable<any[]> = of(payload).pipe(delay(1000));
+    const obs: Observable<any[]> = of(payload).pipe(delay(200));
     return obs;
   }
 }
