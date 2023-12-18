@@ -46,6 +46,8 @@
       </div>
     </div>
   </div>
-  <div slot="foo">foo</div>
+  <div slot="overridefaq">
+    <p *ngFor="let rec of overrideFaqs">{{rec}}</p>
+  </div>
 </app-flow-page>
 

@@ -10,8 +10,13 @@
 
 <div class="row mt-5">
   <div class="col-sm-12">
-    <ng-content select="[slot=foo]">
+    <ng-content select="[slot=overridefaq]">
     </ng-content>
+
+    <div class="default-faq">
+      <p *ngFor="let rec of defaultFaqs">{{rec}}</p>
+    </div>
+
   </div>
 
 </div>

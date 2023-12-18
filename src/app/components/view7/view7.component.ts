@@ -3,6 +3,7 @@ import {UntypedFormBuilder, UntypedFormGroup} from "@angular/forms";
 import {MockService} from "../../services/mock.service";
 import * as _ from 'underscore';
 import {debounceTime, filter, mergeMap} from "rxjs";
+import {FlowPageComponent} from "../flow-page/flow-page.component";
 
 interface AddressData{
   addressString: string;
@@ -20,7 +21,8 @@ interface AddressData{
 })
 
 
-export class View7Component implements OnInit {
+export class View7Component extends FlowPageComponent implements OnInit {
+  public overrideFaqs: string[] = ['override 1', 'override 2'];
   showContainer: boolean = true;
   search: string = '';
   line1: string = '';
@@ -33,6 +35,8 @@ export class View7Component implements OnInit {
   view7Form: UntypedFormGroup;
 
   constructor(private formBuilder: UntypedFormBuilder, private mockService: MockService) {
+    super();
+    this.defaultFaqs = ['override 1', 'override 2'];
     this.view7Form = formBuilder.group({
       'search': [this.search],
       'line1': [this.line1],
@@ -44,7 +48,7 @@ export class View7Component implements OnInit {
     })
   }
 
-  ngOnInit(): void {
+  override ngOnInit(): void {
     this.view7Form.controls['search'].valueChanges.pipe(
       debounceTime(200),
       filter((value: string) => {
