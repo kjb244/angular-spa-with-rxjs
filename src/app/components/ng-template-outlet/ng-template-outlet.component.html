@@ -1,0 +1,17 @@
+<ng-template #byKey let-record="record">
+  <div *ngFor="let item of record | keyvalue">
+    {{item.key}}
+  </div>
+</ng-template>
+
+<ng-template #byValue let-record="record">
+  <div *ngFor="let item of record | keyvalue">
+    {{item.value}}
+  </div>
+</ng-template>
+
+<h3>By Key</h3>
+<ng-container *ngTemplateOutlet="byKey,context:{record:keyValueRecord}" ></ng-container>
+
+<h3>By Value</h3>
+<ng-container *ngTemplateOutlet="byValue,context:{record:keyValueRecord}" ></ng-container>

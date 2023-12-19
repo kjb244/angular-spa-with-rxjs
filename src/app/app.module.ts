@@ -38,6 +38,7 @@ import { SearchItComponent } from './components/search/search-it/search-it.compo
 import { DropdownComponent } from './components/search/dropdown/dropdown.component';
 import {authGuard} from "./guards/auth.guard";
 import { SignalGroceryListComponent } from './components/signal-grocery-list/signal-grocery-list.component';
+import { NgTemplateOutletComponent } from './components/ng-template-outlet/ng-template-outlet.component';
 
 const appRoutes: Routes = [
   {path: 'view1',  component: View1Component, data: { animationState: 'One' }, canActivate: [authGuard]},
@@ -54,6 +55,7 @@ const appRoutes: Routes = [
   {path: 'checkboxes', component: CheckboxesComponent },
   {path: 'searchit', component: SearchItComponent},
   {path: 'signal-grocery-list', component: SignalGroceryListComponent},
+  {path: 'ng-template-outlet', component: NgTemplateOutletComponent},
   {path: '', redirectTo: '/splash', pathMatch: 'full' },
 
 ];
@@ -88,6 +90,7 @@ const appRoutes: Routes = [
     SearchItComponent,
     DropdownComponent,
     SignalGroceryListComponent,
+    NgTemplateOutletComponent,
   ],
   imports: [
     BrowserModule,
