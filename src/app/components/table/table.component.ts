@@ -2,6 +2,7 @@ import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {AbstractControl, UntypedFormArray, UntypedFormBuilder, UntypedFormControl} from "@angular/forms";
 import {TableDataService} from "../../services/table-data.service";
 import {Data, FilterType, SortingMap, TableData} from "../../models/table.model";
+import {TableSearchService} from "../../services/table-search.service";
 
 
 @Component({
@@ -13,6 +14,8 @@ import {Data, FilterType, SortingMap, TableData} from "../../models/table.model"
 })
 
 export class TableComponent implements OnInit {
+  public inSqlMode: boolean = false;
+  public validSql: boolean = true;
   public pageSize: number = 50;
   public totalSearchResults: number;
   public filterTypes: FilterType[];
@@ -32,7 +35,9 @@ export class TableComponent implements OnInit {
   public form;
   private currPage: number = 1;
 
-  constructor(private formBuilder: UntypedFormBuilder, private tableDataService: TableDataService) {
+  constructor(private formBuilder: UntypedFormBuilder,
+              private tableDataService: TableDataService,
+              private tableSearchService: TableSearchService) {
     this.form = this.formBuilder.group({
       search: [''],
       filterType: this.formBuilder.array([])
@@ -133,18 +138,34 @@ export class TableComponent implements OnInit {
     const filterIds: string[] = this.getFilteredIds();
     const filterTypes: string[] = this.filterTypes.filter(e => filterIds.includes(e.id)).map(e => e.value)
 
-    const filteredResults: Data[] = this.tableDataMaster.data.filter((e: Data) =>{
-      const searchResults = e.some((r: string) =>{
-        return  searchValue.length ?  r.includes(searchValue) : true;
-      });
-      const filterResults = filterTypes.length?  filterTypes.includes(e[3]): true;
-      return searchResults && filterResults;
-    });
+    const filteredResults: Data[] = this.filteredResults(searchValue, filterTypes);
+
     this.totalSearchResults = filteredResults.length;
     const filteredStartEnd: Data[] = filteredResults.slice(start,end);
     const filteredZeroPageSize: Data[] = filteredResults.slice(0, this.pageSize);
     this.tableDataCurr.data = pageChange ? filteredStartEnd : filteredZeroPageSize;
 
+  }
+
+  private filteredResults(searchValue: string, filterTypes: string[]): Data[]{
+    this.inSqlMode = this.tableSearchService.inSqlMode(searchValue);
+    let filteredResults: Data[] = this.tableDataMaster.data;
+    if(this.inSqlMode){
+      const results = this.tableSearchService.executeSql(searchValue, filteredResults);
+      this.validSql = results.valid;
+      console.log(results);
+    } else {
+      filteredResults = this.tableDataMaster.data.filter((e: Data) =>{
+        const searchResults = e.some((r: string) =>{
+          return  searchValue.length ?  r.includes(searchValue) : true;
+        });
+        const filterResults = filterTypes.length?  filterTypes.includes(e[3]): true;
+        return searchResults && filterResults;
+      });
+    }
+
+
+    return filteredResults;
   }
 
 

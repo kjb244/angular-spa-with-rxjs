@@ -1,7 +1,10 @@
+<div [formGroup]="form" class="mb-3 pt-2">
+  <input class="form-control" (input)="searchIt()" type="text" placeholder="search" formControlName="search">
+  <div *ngIf="inSqlMode">In sql mode <span *ngIf="!validSql">invalid sql</span></div>
+</div>
+
 <div class="search-pagination">
-  <div [formGroup]="form" class="mb-3 pt-2">
-    <input class="form-control" (input)="searchIt()" type="text" placeholder="search" formControlName="search">
-  </div>
+
   <div class="dropdown-container">
     <div ngbDropdown class="d-inline-block">
       <button type="button" class="btn btn-primary" id="dropDownFilter" ngbDropdownToggle>
@@ -44,8 +47,8 @@
   <tbody>
     <tr *ngFor="let rec of tableDataCurr.data; trackBy: trackByIndex">
       <td *ngFor="let rec2 of rec">
-        <span
-          [innerHtml]="rec2 | stringmatcher: this.form.controls['search'].value"></span>
+        <span *ngIf="!inSqlMode" [innerHtml]="rec2 | stringmatcher: this.form.controls['search'].value"></span>
+        <span *ngIf="inSqlMode">{{rec2}}</span>
       </td>
     </tr>
   </tbody>
