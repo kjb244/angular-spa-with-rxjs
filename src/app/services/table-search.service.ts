@@ -58,9 +58,6 @@ export class TableSearchService {
     },sqlCommand).trim();
   }
 
-  private areMultipleChoicesArrayOrNumber(search: string){
-
-  }
 
   private isStringAValidDateOrNumber(search: string){
     const validDate: boolean =
@@ -176,6 +173,22 @@ export class TableSearchService {
 
   }
 
+  private greaterThan(base: string, compare: string){
+    return Number(base.replace(/[^\d]/g,'')) > Number(compare.replace(/[^\d]/g,''));
+  }
+
+  private greaterThanEqual(base: string, compare: string){
+    return Number(base.replace(/[^\d]/g,'')) >= Number(compare.replace(/[^\d]/g,''));
+  }
+
+  private lessThan(base: string, compare: string){
+    return Number(base.replace(/[^\d]/g,'')) < Number(compare.replace(/[^\d]/g,''));
+  }
+
+  private lessThanEqual(base: string, compare: string){
+    return Number(base.replace(/[^\d]/g,'')) <= Number(compare.replace(/[^\d]/g,''));
+  }
+
   // =name = 'baby' and types in ('complete','in process')
   public executeSql(searchStatement: string, dataArray: Data[]): SqlResults{
     let valid = false;
@@ -238,16 +251,17 @@ export class TableSearchService {
             if(comparisonType === ComparisonType.EQUALS || comparisonType === ComparisonType.IN){
               return searchArray.some(e => e === data[indexToSearch]);
             } else if(comparisonType === ComparisonType.BETWEEN){
-              return data[indexToSearch] >= searchArray[0] && data[indexToSearch] <= searchArray[1];
+              return this.greaterThanEqual(data[indexToSearch], searchArray[0]) &&
+                this.lessThanEqual(data[indexToSearch], searchArray[1])
             } else if (comparisonType === ComparisonType.LESS_THAN_GREATER_THAN_EQUALS) {
               if(command.includes(ValidKeywords.GREATER_THAN_EQUALS)){
-                return searchArray.some(e => data[indexToSearch] >= e);
+                return searchArray.some(e => this.greaterThanEqual(data[indexToSearch], e));
               } else if (command.includes(ValidKeywords.LESS_THAN_EQUALS)){
-                return searchArray.some(e => data[indexToSearch] <= e);
+                return searchArray.some(e => this.lessThanEqual(data[indexToSearch], e));
               } else if (command.includes(ValidKeywords.GREATER_THAN)){
-                return searchArray.some(e => data[indexToSearch] > e);
+                return searchArray.some(e => this.greaterThan(data[indexToSearch], e));
               } else if (command.includes(ValidKeywords.LESS_THAN)){
-                return searchArray.some(e => data[indexToSearch] < e);
+                return searchArray.some(e => this.lessThan(data[indexToSearch], e));
               } else {
                 return false;
               }

@@ -153,7 +153,7 @@ export class TableComponent implements OnInit {
     if(this.inSqlMode){
       const results = this.tableSearchService.executeSql(searchValue, filteredResults);
       this.validSql = results.valid;
-      console.log(results);
+      filteredResults = results.data || [];
     } else {
       filteredResults = this.tableDataMaster.data.filter((e: Data) =>{
         const searchResults = e.some((r: string) =>{

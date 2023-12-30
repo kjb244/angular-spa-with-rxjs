@@ -1,6 +1,12 @@
 <div [formGroup]="form" class="mb-3 pt-2">
   <input class="form-control" (input)="searchIt()" type="text" placeholder="search" formControlName="search">
-  <div *ngIf="inSqlMode">In sql mode <span *ngIf="!validSql">invalid sql</span></div>
+
+  <ngb-alert class="mt-1" *ngIf="inSqlMode && validSql" [type]="'info'" [dismissible]="false" >
+    <span>valid sql</span>
+  </ngb-alert>
+  <ngb-alert class="mt-1" *ngIf="inSqlMode && !validSql" [type]="'warning'" [dismissible]="false" >
+    <span>invalid sql</span>
+  </ngb-alert>
 </div>
 
 <div class="search-pagination">
