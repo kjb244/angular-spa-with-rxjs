@@ -22,3 +22,9 @@ export interface SqlResults  {
   valid: boolean;
   data?: Data[];
 }
+
+export enum ValidPlusMinus {
+  TODAY = 'TODAY',
+  TODAY_PlUS_MINUS = 'TODAY_PLUS_MINUS',
+  NULL = 'NULL'
+}

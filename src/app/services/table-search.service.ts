@@ -1,6 +1,8 @@
 import {Injectable} from '@angular/core';
 import {Data} from "../models/table.model";
-import {ComparisonType, SqlResults, ValidKeywords} from "../models/table-search.model";
+import {ComparisonType, SqlResults, ValidKeywords, ValidPlusMinus} from "../models/table-search.model";
+import * as moment from 'moment';
+
 
 @Injectable({
   providedIn: 'root'
@@ -102,7 +104,8 @@ export class TableSearchService {
           valid = valid && rightSide === "''";
           const passedInAtIndex: string = passedInSearch.substring(1).split('and')[i];
           const rightSidePassedIn = this.getRightHandSide(gtLtPossibilities, passedInAtIndex);
-          valid = valid && this.isStringAValidDateOrNumber(rightSidePassedIn);
+          valid = valid && (this.isStringAValidDateOrNumber(rightSidePassedIn) ||
+            [ValidPlusMinus.TODAY, ValidPlusMinus.TODAY_PlUS_MINUS].includes(this.validPlusMinus(rightSidePassedIn)));
         } else if (betweenPossibilities.find(x => command.includes(x))){
           atLeastOneCommandHit = true;
           const rightSide = this.getRightHandSide(betweenPossibilities, command);
@@ -152,7 +155,7 @@ export class TableSearchService {
         currWord += char;
       }
 
-      if(numQuotes === 2 && skipIndexes.includes(i) && skipIndexes[skipIndexes.length-1] === i){
+      if(numQuotes >0 && numQuotes %2 === 0 && skipIndexes.includes(i) && skipIndexes[skipIndexes.length-1] === i){
 
         returnSearchArray.push(currWord.toLowerCase().trim());
         currWord = '';
@@ -167,9 +170,43 @@ export class TableSearchService {
     return returnSearchArray;
   }
 
+  private validPlusMinus(input: string): ValidPlusMinus{
+    input = input.replace(/"'"/g,'').replace(/'/g,'');
+    const todayRegex = /^today\(\)$/;
+    const todayPlusMinusRegex = /^today\(-?\d+(m|d)\)$/;
+    const isToday = todayRegex.test(input.trim());
+    const isTodayPlusMinus = todayPlusMinusRegex.test(input.trim());
+    if(isToday){
+      return ValidPlusMinus.TODAY
+    } else if (isTodayPlusMinus){
+      return ValidPlusMinus.TODAY_PlUS_MINUS
+    } else {
+      return ValidPlusMinus.NULL
+    }
+  }
+
+  private todayMinusPlus(input: string){
+    const validPlusMinus: ValidPlusMinus = this.validPlusMinus(input);
+    if(validPlusMinus === ValidPlusMinus.TODAY){
+      return moment(new Date()).format('YYYY-MM-DD');
+    } else if (validPlusMinus === ValidPlusMinus.TODAY_PlUS_MINUS){
+      const timesSign: number = input.includes('-') ? -1 : 1;
+      const day: boolean = /\d+d/.test(input);
+      const unit: string = (input.match(/\d+/) || ['0'])[0];
+      const addMonthsOrDays = day ? moment(new Date()).add(timesSign * Number(unit), 'd') :
+        moment(new Date()).add(timesSign * Number(unit), 'M');
+      return moment(addMonthsOrDays).format('YYYY-MM-DD');
+    }
+    return input;
+  }
+
   private getSearchArray(searchStatement: string): string[]{
     searchStatement = searchStatement.trim().replace(/^(\()(.*)(\))$/,'\$2');
-    return this.splitIgnoreInParenthesis(searchStatement, ",").map(e => e.replace(/'/g,''));
+    return this.splitIgnoreInParenthesis(searchStatement, ",").map((e: string) => {
+      const cleaned: string = e.replace(/'/g,'');
+      return this.todayMinusPlus(cleaned);
+
+    })
 
   }
 
