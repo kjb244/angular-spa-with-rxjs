@@ -1,0 +1,11 @@
+<ng-container *ngFor="let rec of tasks; let i = index">
+  <div class="item mt-3">
+    <input type="checkbox" class="form-check-input" (change)="editingCheckbox(i)"  [checked]="rec.completed" id="checkbox{{i}}" >
+    <label *ngIf="!editings[i]" class="form-check-label" for="checkbox{{i}}">{{rec.description}}</label>
+    <button *ngIf="!editings![i]"  type="button" (click)="editingClicked(i)" class="btn btn-primary">Edit</button>
+    <input *ngIf="editings[i]" type="text" [(ngModel)]="descriptions[i]" class="form-control"/>
+    <button *ngIf="editings[i]"  type="button" (click)="saveClicked(i)" class="btn btn-primary">Save</button>
+
+  </div>
+
+</ng-container>

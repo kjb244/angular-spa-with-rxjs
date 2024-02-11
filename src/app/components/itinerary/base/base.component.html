@@ -1,0 +1,7 @@
+<h3>Prague Itinerary</h3>
+<app-add-task (onAddTask)="addTask($event)"></app-add-task>
+<app-show-tasks (onEditTask)="editTask($event)" [tasks]="todoItems" ></app-show-tasks>
+
+<code>
+  <pre>{{todoItems |json}}</pre>
+</code>

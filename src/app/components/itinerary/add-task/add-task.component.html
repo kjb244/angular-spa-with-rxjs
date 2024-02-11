@@ -1,0 +1,5 @@
+<div class="parent">
+  <input type="text" [(ngModel)]="task" placeholder="add a task" id="task" class="form-control">
+  <button  (click)="addTask()" [disabled]="task.length <1"  type="button" class="btn btn-primary">Add</button>
+</div>
+

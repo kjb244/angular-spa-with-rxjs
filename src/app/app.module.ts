@@ -39,6 +39,9 @@ import { DropdownComponent } from './components/search/dropdown/dropdown.compone
 import {authGuard} from "./guards/auth.guard";
 import { SignalGroceryListComponent } from './components/signal-grocery-list/signal-grocery-list.component';
 import { NgTemplateOutletComponent } from './components/ng-template-outlet/ng-template-outlet.component';
+import { BaseComponent } from './components/itinerary/base/base.component';
+import { AddTaskComponent } from './components/itinerary/add-task/add-task.component';
+import { ShowTasksComponent } from './components/itinerary/show-tasks/show-tasks.component';
 
 const appRoutes: Routes = [
   {path: 'view1',  component: View1Component, data: { animationState: 'One' }, canActivate: [authGuard]},
@@ -49,6 +52,7 @@ const appRoutes: Routes = [
   {path: 'view6', component: View6Component },
   {path: 'view7', component: View7Component },
   {path: 'view8', component: TableComponent},
+  {path: 'itinerary', component: BaseComponent},
   {path: 'editcard', component: EditcardComponent, data: { animationState: 'EditCard'}},
   {path: 'splash', component: SplashComponent, data: { animationState: 'Splash' }},
   {path: 'cart', component: CartComponent },
@@ -91,6 +95,9 @@ const appRoutes: Routes = [
     DropdownComponent,
     SignalGroceryListComponent,
     NgTemplateOutletComponent,
+    BaseComponent,
+    AddTaskComponent,
+    ShowTasksComponent,
   ],
   imports: [
     BrowserModule,
