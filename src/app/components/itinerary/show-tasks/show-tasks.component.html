@@ -1,10 +1,15 @@
-<ng-container *ngFor="let rec of tasks; let i = index">
+<ng-container *ngFor="let rec of tasksModel; let i = index">
   <div class="item mt-3">
-    <input type="checkbox" class="form-check-input" (change)="editingCheckbox(i)"  [checked]="rec.completed" id="checkbox{{i}}" >
+    <input type="checkbox" class="form-check-input mr-10" (change)="editingCheckbox(i)"  [checked]="tasksModel[i].completed" id="checkbox{{i}}" >
+
     <label *ngIf="!editings[i]" class="form-check-label" for="checkbox{{i}}">{{rec.description}}</label>
-    <button *ngIf="!editings![i]"  type="button" (click)="editingClicked(i)" class="btn btn-primary">Edit</button>
-    <input *ngIf="editings[i]" type="text" [(ngModel)]="descriptions[i]" class="form-control"/>
-    <button *ngIf="editings[i]"  type="button" (click)="saveClicked(i)" class="btn btn-primary">Save</button>
+    <button *ngIf="!editings![i]"  type="button" (click)="editingClicked(i)" class="btn btn-primary ml-5">Edit</button>
+
+    <input *ngIf="editings[i]" type="text" [(ngModel)]="tasksModel[i].description" class="form-control"/>
+    <button *ngIf="editings[i]"  type="button" (click)="saveClicked(i)" class="btn btn-primary ml-5">Save</button>
+
+    <button  type="button" (click)="deleteClicked(i)" class="btn btn-primary ml-5">Delete</button>
+
 
   </div>
 

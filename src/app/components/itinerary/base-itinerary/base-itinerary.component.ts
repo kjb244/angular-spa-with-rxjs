@@ -3,11 +3,11 @@ import {TodoItem} from "../models/itinerary.models";
 
 
 @Component({
-  selector: 'app-base',
-  templateUrl: './base.component.html',
-  styleUrls: ['./base.component.css']
+  selector: 'app-base-itinerary',
+  templateUrl: './base-itinerary.component.html',
+  styleUrls: ['./base-itinerary.component.css']
 })
-export class BaseComponent {
+export class BaseItineraryComponent {
 
   public todoItems: TodoItem[] = [
     {id: 0 ,description: 'visit museum', completed: true},
@@ -29,6 +29,10 @@ export class BaseComponent {
       item.completed = e.completed;
     }
 
+  }
+
+  public deleteTask(id: number){
+    this.todoItems = this.todoItems.filter((e) => e.id !== id);
   }
 
 }
