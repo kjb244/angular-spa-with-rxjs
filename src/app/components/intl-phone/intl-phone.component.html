@@ -1,0 +1,13 @@
+<section class="mt-4" [formGroup]="form">
+  <select class="form-select" formControlName="select">
+    <option *ngFor="let rec of countries"  [value]="rec">{{rec}}</option>
+  </select>
+
+  <input type="text" formControlName="phone" id="phone" class="form-control" value="" (input)="phoneInput($event)"/>
+
+  <div class="field-error" *ngIf="requiredError() else validationTemplate">Field is required</div>
+
+  <ng-template #validationTemplate>
+    <div class="field-error" *ngIf="validationError()">Field pattern validation failed</div>
+  </ng-template>
+</section>
