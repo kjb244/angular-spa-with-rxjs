@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {catchError, forkJoin, map, of, switchMap} from "rxjs";
+import {catchError, forkJoin, map, of, switchMap, zip} from "rxjs";
 
 @Component({
   selector: 'app-ng-template-outlet',
@@ -16,30 +16,36 @@ export class NgTemplateOutletComponent implements OnInit{
 
   ngOnInit(): void {
 
-    const firstCalls = forkJoin(
+    //zip is like promise all settled
+    const firstCalls = zip(
       [
-        this.http.get('https://meowfacts.herokuapp.com/?count=1'),
-        this.http.get('https://meowfacts.herokuapp.com/?count=2'),
+        this.http.get('https://meowfacts.herokuapp.com/?count=1').pipe(
+          catchError(() =>{
+            return of({data: []});
+          })
+        ),
+        this.http.get('https://meowfacts.herokuapp.com/?count=2').pipe(
+          catchError(() =>{
+            return of ({data: []});
+          })
+        ),
       ])
 
     //first call even if doesn't succeed goes into 2nd call
     firstCalls.pipe(
-      catchError(() =>{
-        return of([{data:null},{data: null}])
-      }),
       switchMap((firstResult: any[]) =>{
-        return forkJoin({
-            firstCalls: of(!firstResult[0].data ? []: [...firstResult[0].data, ...firstResult[1].data]),
-            secondCalls: this.http.get('https://meowfacts.herokuapp.com/?count=3')
+        return forkJoin([
+            of([...firstResult[0].data, ...firstResult[1].data]),
+            this.http.get('https://meowfacts.herokuapp.com/?count=3')
               .pipe(
                 map((payload: any) =>{
                   return payload.data;
                 })
-              )
-
-          }
+              )]
         )
-
+      }),
+      map((payload: any[]) =>{
+        return [...payload[0], ...payload[1]]
       })
     ).subscribe({
       next: (val) =>{
