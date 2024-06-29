@@ -43,6 +43,10 @@ import { BaseItineraryComponent } from './components/itinerary/base-itinerary/ba
 import { AddTaskComponent } from './components/itinerary/add-task/add-task.component';
 import { ShowTasksComponent } from './components/itinerary/show-tasks/show-tasks.component';
 import { IntlPhoneComponent } from './components/intl-phone/intl-phone.component';
+import { StoreModule } from '@ngrx/store';
+import {cartFeature} from "./ngrx-store/cart.reducer";
+import { NgrxProductsComponent } from './components/ngrx-products/ngrx-products.component';
+import { NgrxCartComponent } from './components/ngrx-products/ngrx-cart/ngrx-cart.component';
 
 const appRoutes: Routes = [
   {path: 'view1',  component: View1Component, data: { animationState: 'One' }, canActivate: [authGuard]},
@@ -62,6 +66,7 @@ const appRoutes: Routes = [
   {path: 'signal-grocery-list', component: SignalGroceryListComponent},
   {path: 'intl-phone', component: IntlPhoneComponent},
   {path: 'ng-template-outlet', component: NgTemplateOutletComponent},
+  {path: 'ngrx-products', component: NgrxProductsComponent},
   {path: '', redirectTo: '/splash', pathMatch: 'full' },
 
 ];
@@ -101,6 +106,8 @@ const appRoutes: Routes = [
     AddTaskComponent,
     ShowTasksComponent,
     IntlPhoneComponent,
+    NgrxProductsComponent,
+    NgrxCartComponent,
   ],
   imports: [
     BrowserModule,
@@ -112,7 +119,9 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
     CommonModule,
     BrowserAnimationsModule,
-    RouterModule.forRoot(appRoutes ,{enableTracing: false})
+    RouterModule.forRoot(appRoutes ,{enableTracing: false}),
+    StoreModule.forRoot({}),
+    StoreModule.forFeature(cartFeature)
   ],
   providers: [],
   bootstrap: [AppComponent]
