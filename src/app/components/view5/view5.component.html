@@ -1,7 +1,16 @@
 <div class="row">
   <div class="xs-12 sm-10 cols">
-    <app-card *ngFor="let rec of accounts; let i = index;" [accountInfo]="rec" [accountId]="i"></app-card>
-    <button  (click)="clickButton('prev')" type="button" class="btn btn-primary mt-4">Previous</button>
-
+    <app-card
+      *ngFor="let rec of accounts; let i = index"
+      [accountInfo]="rec"
+      [accountId]="i"
+    ></app-card>
+    <button
+      (click)="clickButton('prev')"
+      type="button"
+      class="btn btn-primary mt-4"
+    >
+      Previous
+    </button>
   </div>
 </div>

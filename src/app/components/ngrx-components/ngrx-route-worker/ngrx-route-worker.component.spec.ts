@@ -8,7 +8,7 @@ describe('NgrxRouteWorkerComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [NgrxRouteWorkerComponent]
+      declarations: [NgrxRouteWorkerComponent],
     });
     fixture = TestBed.createComponent(NgrxRouteWorkerComponent);
     component = fixture.componentInstance;

@@ -1,3 +1,3 @@
-export interface PostResponse{
+export interface PostResponse {
   nextRoute: string;
 }

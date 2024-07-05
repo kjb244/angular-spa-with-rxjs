@@ -1,39 +1,39 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {SearchFilterSubject} from "../store/store";
+import { Component, Input, OnInit } from '@angular/core';
+import { SearchFilterSubject } from '../store/store';
 
 interface CheckboxModel {
-  age: string,
+  age: string;
   checked: boolean;
 }
 
 @Component({
   selector: 'app-dropdown',
   templateUrl: './dropdown.component.html',
-  styleUrls: ['./dropdown.component.css']
+  styleUrls: ['./dropdown.component.css'],
 })
 export class DropdownComponent implements OnInit {
   @Input() ages: string[];
   public checkBoxes: CheckboxModel[];
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit(): void {
-    this.checkBoxes = this.ages.map((age: string) =>{
-      return {age, checked: true}
-    })
+    this.checkBoxes = this.ages.map((age: string) => {
+      return { age, checked: true };
+    });
   }
 
-  numberOfResults(){
-    return this.checkBoxes.filter(e => e.checked).length;
+  numberOfResults() {
+    return this.checkBoxes.filter((e) => e.checked).length;
   }
 
-  onCheckboxChange(index: number){
+  onCheckboxChange(index: number) {
     this.checkBoxes[index].checked = !this.checkBoxes[index].checked;
-    const ageArray: string[]  = this.checkBoxes.filter(e => e.checked).map(e => e.age + '');
+    const ageArray: string[] = this.checkBoxes
+      .filter((e) => e.checked)
+      .map((e) => e.age + '');
     const currentSearchRecord = SearchFilterSubject.getValue();
 
-
-    SearchFilterSubject.next({...currentSearchRecord, age: ageArray});
+    SearchFilterSubject.next({ ...currentSearchRecord, age: ageArray });
   }
-
 }

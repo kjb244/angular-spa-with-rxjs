@@ -1,26 +1,55 @@
 <div [formGroup]="form" class="mb-3 pt-2">
-  <input class="form-control" (input)="searchIt()" type="text" placeholder="search" formControlName="search">
+  <input
+    class="form-control"
+    (input)="searchIt()"
+    type="text"
+    placeholder="search"
+    formControlName="search"
+  />
 
-  <ngb-alert class="mt-1" *ngIf="inSqlMode && validSql" [type]="'info'" [dismissible]="false" >
+  <ngb-alert
+    class="mt-1"
+    *ngIf="inSqlMode && validSql"
+    [type]="'info'"
+    [dismissible]="false"
+  >
     <span>valid sql</span>
   </ngb-alert>
-  <ngb-alert class="mt-1" *ngIf="inSqlMode && !validSql" [type]="'warning'" [dismissible]="false" >
+  <ngb-alert
+    class="mt-1"
+    *ngIf="inSqlMode && !validSql"
+    [type]="'warning'"
+    [dismissible]="false"
+  >
     <span>invalid sql</span>
   </ngb-alert>
 </div>
 
 <div class="search-pagination">
-
   <div class="dropdown-container">
     <div ngbDropdown class="d-inline-block">
-      <button type="button" class="btn btn-primary" id="dropDownFilter" ngbDropdownToggle>
-        Filter Results <span class="badge badge-light">{{getFilteredIds().length}}</span>
+      <button
+        type="button"
+        class="btn btn-primary"
+        id="dropDownFilter"
+        ngbDropdownToggle
+      >
+        Filter Results
+        <span class="badge badge-light">{{ getFilteredIds().length }}</span>
       </button>
       <div ngbDropdownMenu aria-labelledby="dropDownFilter">
         <ng-container *ngFor="let rec of filterTypes">
           <div class="form-check">
-            <input type="checkbox" class="form-check-input" [value]="rec.id" id="checkbox{rec.id}" (change)="onCheckboxChange($event)">
-            <label class="form-check-label" for="checkbox{rec.id}">{{rec.value}}</label>
+            <input
+              type="checkbox"
+              class="form-check-input"
+              [value]="rec.id"
+              id="checkbox{rec.id}"
+              (change)="onCheckboxChange($event)"
+            />
+            <label class="form-check-label" for="checkbox{rec.id}">{{
+              rec.value
+            }}</label>
           </div>
         </ng-container>
       </div>
@@ -32,20 +61,26 @@
       [pageSize]="pageSize"
       [totalRows]="totalSearchResults"
       [firstPageActive]="sortingClicked"
-      (onPageChange)="onPageChange($event)">
+      (onPageChange)="onPageChange($event)"
+    >
     </app-pagination>
   </div>
 </div>
 
-
 <table class="table table-striped">
   <thead>
     <tr>
-      <ng-container *ngFor="let rec of tableDataCurr.header; let i=index;">
-        <th scope="col" (click)="sort(i);">
-          <i *ngIf="sortingMap[i].direction === 'ascending'" class="fa fa-arrow-up"></i>
-          <i *ngIf="sortingMap[i].direction === 'descending'"  class="fa fa-arrow-down"></i>
-          <span>{{rec}}</span>
+      <ng-container *ngFor="let rec of tableDataCurr.header; let i = index">
+        <th scope="col" (click)="sort(i)">
+          <i
+            *ngIf="sortingMap[i].direction === 'ascending'"
+            class="fa fa-arrow-up"
+          ></i>
+          <i
+            *ngIf="sortingMap[i].direction === 'descending'"
+            class="fa fa-arrow-down"
+          ></i>
+          <span>{{ rec }}</span>
         </th>
       </ng-container>
     </tr>
@@ -53,12 +88,12 @@
   <tbody>
     <tr *ngFor="let rec of tableDataCurr.data; trackBy: trackByIndex">
       <td *ngFor="let rec2 of rec">
-        <span *ngIf="!inSqlMode" [innerHtml]="rec2 | stringmatcher: this.form.controls['search'].value"></span>
-        <span *ngIf="inSqlMode">{{rec2}}</span>
+        <span
+          *ngIf="!inSqlMode"
+          [innerHtml]="rec2 | stringmatcher: this.form.controls['search'].value"
+        ></span>
+        <span *ngIf="inSqlMode">{{ rec2 }}</span>
       </td>
     </tr>
   </tbody>
-
-
 </table>
-

@@ -1,26 +1,27 @@
-.yellow{
+.yellow {
   background-color: yellow;
 }
 
-.form-check{
+.form-check {
   margin-left: 10px;
 }
 
-.search-pagination{
+.search-pagination {
   display: flex;
   justify-content: space-between;
 }
 
-.pagination-container, .dropdown-container{
+.pagination-container,
+.dropdown-container {
   padding-top: 10px;
 }
 
-@media (max-width: 767px)  {
-  .search-pagination{
+@media (max-width: 767px) {
+  .search-pagination {
     flex-direction: column;
   }
 }
 
-thead th{
-  cursor:pointer;
+thead th {
+  cursor: pointer;
 }

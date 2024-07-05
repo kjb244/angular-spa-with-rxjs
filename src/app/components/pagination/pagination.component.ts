@@ -1,12 +1,18 @@
-import {Component, EventEmitter, Input, OnInit, Output, SimpleChanges} from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 
 @Component({
   selector: 'app-pagination',
-  templateUrl:'./pagination.component.html',
-  styleUrls: ['./pagination.component.css']
+  templateUrl: './pagination.component.html',
+  styleUrls: ['./pagination.component.css'],
 })
 export class PaginationComponent implements OnInit {
-
   @Input() pageSize: number;
   @Input() totalRows: number;
   @Input() firstPageActive: boolean;
@@ -14,83 +20,79 @@ export class PaginationComponent implements OnInit {
 
   public pageData: any[] = [];
 
-
-
-  constructor() { }
+  constructor() {}
 
   ngOnInit(): void {
     this.determinePageData();
   }
 
-  private determinePageData(){
+  private determinePageData() {
     this.pageData = [];
     const pages: number = this.numberOfPages();
-    for(let i=0; i<pages; i++){
-      this.pageData.push({pageNumber: i+1, active: i === 0})
+    for (let i = 0; i < pages; i++) {
+      this.pageData.push({ pageNumber: i + 1, active: i === 0 });
     }
   }
 
-  public numberOfPages(){
-    return Math.floor(this.totalRows/this.pageSize) +
-      (this.totalRows % this.pageSize > 0 ? 1 : 0);
+  public numberOfPages() {
+    return (
+      Math.floor(this.totalRows / this.pageSize) +
+      (this.totalRows % this.pageSize > 0 ? 1 : 0)
+    );
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if(changes['totalRows'] && changes['totalRows'].previousValue){
+    if (changes['totalRows'] && changes['totalRows'].previousValue) {
       this.determinePageData();
     }
-    if(changes['firstPageActive']){
-      if(typeof changes['firstPageActive'].previousValue !== 'undefined'
-        && changes['firstPageActive'].currentValue !== changes['firstPageActive'].previousValue){
+    if (changes['firstPageActive']) {
+      if (
+        typeof changes['firstPageActive'].previousValue !== 'undefined' &&
+        changes['firstPageActive'].currentValue !==
+          changes['firstPageActive'].previousValue
+      ) {
         this.setFirstPageActive();
-
       }
     }
-
-
   }
 
-  private setFirstPageActive(){
+  private setFirstPageActive() {
     const currPage = this.getCurrPage();
-    this.pageData[currPage].active=false;
-    this.pageData[0].active=true;
+    this.pageData[currPage].active = false;
+    this.pageData[0].active = true;
     this.emitPageChange();
-
   }
 
-  public getCurrPage(){
-    return this.pageData.findIndex(x => x.active)
+  public getCurrPage() {
+    return this.pageData.findIndex((x) => x.active);
   }
 
-  public clickPrev(){
+  public clickPrev() {
     const currPage = this.getCurrPage();
-    if (currPage - 1 >-1){
+    if (currPage - 1 > -1) {
       this.pageData[currPage].active = false;
-      this.pageData[currPage -1].active = true;
+      this.pageData[currPage - 1].active = true;
       this.emitPageChange();
     }
   }
 
-  public clickNext(){
+  public clickNext() {
     const currPage = this.getCurrPage();
-    if (currPage + 1 < this.pageData.length){
+    if (currPage + 1 < this.pageData.length) {
       this.pageData[currPage].active = false;
-      this.pageData[currPage +1].active = true
+      this.pageData[currPage + 1].active = true;
       this.emitPageChange();
     }
   }
 
-  public clickPageNumber(pageNumber: number){
+  public clickPageNumber(pageNumber: number) {
     const currPage = this.getCurrPage();
     this.pageData[currPage].active = false;
     this.pageData[pageNumber].active = true;
     this.emitPageChange();
   }
 
-
-
-  private emitPageChange(){
-    this.onPageChange.emit(this.getCurrPage()+1);
+  private emitPageChange() {
+    this.onPageChange.emit(this.getCurrPage() + 1);
   }
-
 }

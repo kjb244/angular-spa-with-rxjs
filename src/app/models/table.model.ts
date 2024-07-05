@@ -1,4 +1,3 @@
-
 export interface FilterType {
   id: string;
   value: string;
@@ -7,14 +6,14 @@ export interface FilterType {
 export type Data = string[];
 
 export interface TableData {
-  header: string[],
-  data: Data[]
+  header: string[];
+  data: Data[];
 }
 
 export type SortingDirection = {
-  direction: string|null;
-}
+  direction: string | null;
+};
 
 export interface SortingMap {
-  [key: number] : SortingDirection
+  [key: number]: SortingDirection;
 }

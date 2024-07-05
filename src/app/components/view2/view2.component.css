@@ -1,8 +1,8 @@
-.friend-container{
+.friend-container {
   display: flex;
   align-items: center;
 }
 
-.button-container{
+.button-container {
   margin-left: 8px;
 }

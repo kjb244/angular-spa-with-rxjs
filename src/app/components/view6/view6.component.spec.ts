@@ -1,25 +1,40 @@
-import {ComponentFixture, TestBed, async, fakeAsync, tick, flush} from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestBed,
+  async,
+  fakeAsync,
+  tick,
+  flush,
+} from '@angular/core/testing';
 
 import createSpyObj = jasmine.createSpyObj;
 import SpyObj = jasmine.SpyObj;
 
-
 import { View6Component } from './view6.component';
-import {MockService} from "../../services/mock.service";
-import {of} from "rxjs";
-import {HttpClientTestingModule} from "@angular/common/http/testing";
-import {UntypedFormBuilder, ReactiveFormsModule} from "@angular/forms";
-import {delay} from "rxjs/operators";
+import { MockService } from '../../services/mock.service';
+import { of } from 'rxjs';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { UntypedFormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { delay } from 'rxjs/operators';
 import * as Rx from 'rxjs';
-import {By} from "@angular/platform-browser";
-
+import { By } from '@angular/platform-browser';
 
 describe('mock service example', () => {
   let service: MockService;
   let mockServiceSpy: SpyObj<MockService>;
   let breweriesMock = [
-    {id: '1', brewery_type: 'test', name: 'test brewery', state: 'pennsylvania'},
-    {id: '2', brewery_type: 'test2', name: 'james brewing', state: 'west virginia'}
+    {
+      id: '1',
+      brewery_type: 'test',
+      name: 'test brewery',
+      state: 'pennsylvania',
+    },
+    {
+      id: '2',
+      brewery_type: 'test2',
+      name: 'james brewing',
+      state: 'west virginia',
+    },
   ];
 
   beforeEach(() => {
@@ -31,7 +46,7 @@ describe('mock service example', () => {
     TestBed.configureTestingModule({
       providers: [
         MockService,
-        {provide: MockService, useValue: mockServiceSpy}
+        { provide: MockService, useValue: mockServiceSpy },
       ],
     });
 
@@ -42,34 +57,23 @@ describe('mock service example', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should return values', ()=>{
-    service.getBreweryData().subscribe((e) =>{
-      expect(e[0].name).toEqual("test brewery");
+  it('should return values', () => {
+    service.getBreweryData().subscribe((e) => {
+      expect(e[0].name).toEqual('test brewery');
       expect(e.length).toEqual(2);
-    })
-  })
+    });
+  });
 });
 
-
 describe('View6Component', () => {
-
   let view6Component: View6Component;
   let view6Fixture: ComponentFixture<View6Component>;
 
-
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        HttpClientTestingModule,
-        ReactiveFormsModule
-      ],
-      declarations: [
-        View6Component
-      ],
-      providers : [
-        MockService,
-        UntypedFormBuilder,
-      ]
+      imports: [HttpClientTestingModule, ReactiveFormsModule],
+      declarations: [View6Component],
+      providers: [MockService, UntypedFormBuilder],
     }).compileComponents();
   }));
 
@@ -80,15 +84,12 @@ describe('View6Component', () => {
   });
 
   it('should create the app', () => {
-
     expect(view6Component).toBeTruthy();
   });
 
-
   it('should call make get call returning 0 results', fakeAsync(() => {
-
     const service = view6Fixture.debugElement.injector.get(MockService);
-    let spy_getPosts = spyOn(service,"getRealData").and.callFake(() => {
+    let spy_getPosts = spyOn(service, 'getRealData').and.callFake(() => {
       return Rx.of([]).pipe(delay(100));
     });
     view6Component.ngOnInit();
@@ -98,11 +99,21 @@ describe('View6Component', () => {
 
   it('should call make get call returning 2 results', fakeAsync(() => {
     let breweriesMock = [
-      {id: '1', brewery_type: 'test', name: 'test brewery', state: 'pennsylvania'},
-      {id: '2', brewery_type: 'test2', name: 'james brewing', state: 'west virginia'}
+      {
+        id: '1',
+        brewery_type: 'test',
+        name: 'test brewery',
+        state: 'pennsylvania',
+      },
+      {
+        id: '2',
+        brewery_type: 'test2',
+        name: 'james brewing',
+        state: 'west virginia',
+      },
     ];
     const service = view6Fixture.debugElement.injector.get(MockService);
-    let spy_getPosts = spyOn(service,"getRealData").and.callFake(() => {
+    let spy_getPosts = spyOn(service, 'getRealData').and.callFake(() => {
       return Rx.of(breweriesMock).pipe(delay(100));
     });
     view6Component.ngOnInit();
@@ -110,17 +121,25 @@ describe('View6Component', () => {
     expect(view6Component.breweries.length).toEqual(2);
   }));
 
-
-
   it('typing in the search box filters the results', fakeAsync(() => {
     let breweriesMock = [
-      {id: '1', brewery_type: 'test', name: 'test brewery', state: 'pennsylvania'},
-      {id: '2', brewery_type: 'test2', name: 'james brewing', state: 'west virginia'}
+      {
+        id: '1',
+        brewery_type: 'test',
+        name: 'test brewery',
+        state: 'pennsylvania',
+      },
+      {
+        id: '2',
+        brewery_type: 'test2',
+        name: 'james brewing',
+        state: 'west virginia',
+      },
     ];
     const fixture = TestBed.createComponent(View6Component);
     const component = fixture.debugElement.componentInstance;
     const service = fixture.debugElement.injector.get(MockService);
-    let spy_getPosts = spyOn(service,"getRealData").and.callFake(() => {
+    let spy_getPosts = spyOn(service, 'getRealData').and.callFake(() => {
       return Rx.of(breweriesMock).pipe(delay(100));
     });
     component.ngOnInit();
@@ -149,13 +168,6 @@ describe('View6Component', () => {
     expect(tr.length).toEqual(2);
     tick(100);
 
-
     flush();
-
   }));
-
-
-
-
 });
-

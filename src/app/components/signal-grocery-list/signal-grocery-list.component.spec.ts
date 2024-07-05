@@ -8,7 +8,7 @@ describe('SignalGroceryListComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [SignalGroceryListComponent]
+      declarations: [SignalGroceryListComponent],
     });
     fixture = TestBed.createComponent(SignalGroceryListComponent);
     component = fixture.componentInstance;

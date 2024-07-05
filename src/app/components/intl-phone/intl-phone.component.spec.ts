@@ -8,7 +8,7 @@ describe('IntlPhoneComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [IntlPhoneComponent]
+      declarations: [IntlPhoneComponent],
     });
     fixture = TestBed.createComponent(IntlPhoneComponent);
     component = fixture.componentInstance;

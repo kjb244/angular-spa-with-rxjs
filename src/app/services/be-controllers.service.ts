@@ -1,56 +1,57 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {Observable} from "rxjs";
-import {GetPayload} from '../models/getpayload';
-import {PostPayload} from '../models/postpayload';
-import {PostResponse} from '../models/postresponse';
-import {Router} from "@angular/router";
-import {of} from "rxjs";
-
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { GetPayload } from '../models/getpayload';
+import { PostPayload } from '../models/postpayload';
+import { PostResponse } from '../models/postresponse';
+import { Router } from '@angular/router';
+import { of } from 'rxjs';
 
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json',
-  })
+  }),
 };
 
-const routeMapping: {[key: string]: any} = {
+const routeMapping: { [key: string]: any } = {
   splash: {
     next: 'view1',
     prev: null,
-    formData: {}
+    formData: {},
   },
   view1: {
     next: 'view2',
     prev: null,
-    formData: {}
+    formData: {},
   },
   view2: {
     next: 'view3',
     prev: 'view1',
-    formData: {}
+    formData: {},
   },
   view3: {
     next: 'view4',
     prev: 'view2',
-    formData: {}
+    formData: {},
   },
   view4: {
     next: 'view5',
     prev: 'view3',
-    formData: {}
-  }
+    formData: {},
+  },
 };
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class BeControllersService {
   getUrl: string = 'http://localhost:3000/v1/getRouteData';
   postUrl: string = 'http://localhost:3000/v1/postRouteData';
 
-  constructor(private http: HttpClient, private router: Router) {
-  }
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+  ) {}
 
   getRouteData(): Observable<GetPayload> {
     if (this.isLocal()) {
@@ -67,7 +68,6 @@ export class BeControllersService {
       const nextRouteObj = this.getLocalNextRoute(postPayload);
       const obs: Observable<Object> = of(nextRouteObj);
       return obs;
-
     }
     return this.http.post<PostPayload>(this.postUrl, postPayload, httpOptions);
   }
@@ -76,22 +76,22 @@ export class BeControllersService {
     return document.cookie.includes('mock=true');
   }
 
-  private getLocalNextRoute(postPayload: PostPayload) : object {
-    const {formData, currRoute, forward} = postPayload;
+  private getLocalNextRoute(postPayload: PostPayload): object {
+    const { formData, currRoute, forward } = postPayload;
     const routeMappingInner = routeMapping[currRoute] || {};
-    const nextRoute = forward == true ? routeMappingInner.next : routeMappingInner.prev;
+    const nextRoute =
+      forward == true ? routeMappingInner.next : routeMappingInner.prev;
     routeMappingInner.formData = formData;
-    return {nextRoute: nextRoute};
-
+    return { nextRoute: nextRoute };
   }
 
-  private getLocalGetPayload() : GetPayload{
-    const currRoute = this.router.url.replace('/','');
+  private getLocalGetPayload(): GetPayload {
+    const currRoute = this.router.url.replace('/', '');
     const routeMappingInner = routeMapping[currRoute] || {};
     return {
       formData: routeMappingInner.formData,
       showNext: !!(routeMappingInner.next || '').length,
-      showPrev: !!(routeMappingInner.prev || '').length
-    }
+      showPrev: !!(routeMappingInner.prev || '').length,
+    };
   }
 }

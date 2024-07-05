@@ -1,9 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import {MockService} from "../../services/mock.service";
-import {Brewery} from '../../models/breweries';
-import {UntypedFormBuilder, FormControl, UntypedFormGroup, Validators} from "@angular/forms";
+import { MockService } from '../../services/mock.service';
+import { Brewery } from '../../models/breweries';
+import {
+  UntypedFormBuilder,
+  FormControl,
+  UntypedFormGroup,
+  Validators,
+} from '@angular/forms';
 
-interface Breweries{
+interface Breweries {
   name: string;
   state: string;
   shown: boolean;
@@ -12,37 +17,40 @@ interface Breweries{
 @Component({
   selector: 'app-view6',
   templateUrl: './view6.component.html',
-  styleUrls: ['./view6.component.css']
+  styleUrls: ['./view6.component.css'],
 })
 export class View6Component implements OnInit {
-
   breweries: Breweries[] = [];
   search: string = '';
   view6Form: UntypedFormGroup;
 
-  constructor(private mockService: MockService, private formBuilder: UntypedFormBuilder) { }
+  constructor(
+    private mockService: MockService,
+    private formBuilder: UntypedFormBuilder,
+  ) {}
 
   ngOnInit(): void {
-    this.mockService.getBreweryData().subscribe((payload: Brewery[]) =>{
-      this.breweries = payload.slice(0,20).map((e:Brewery) =>{
+    this.mockService.getBreweryData().subscribe((payload: Brewery[]) => {
+      this.breweries = payload.slice(0, 20).map((e: Brewery) => {
         return {
           name: e.name,
           state: e.state,
-          shown: true
-        }
-      })
+          shown: true,
+        };
+      });
     });
     this.view6Form = this.formBuilder.group({
-      "search": [this.search]
-    })
+      search: [this.search],
+    });
   }
 
-  searchIt(){
-    const value:string = this.view6Form.value.search.toLowerCase();
-    this.breweries = this.breweries.map((e: Breweries)=>{
-        const found: boolean = e.name.toLocaleLowerCase().includes(value) || e.state.toLowerCase().includes(value);
-        return {...e, shown: found};
-      })
+  searchIt() {
+    const value: string = this.view6Form.value.search.toLowerCase();
+    this.breweries = this.breweries.map((e: Breweries) => {
+      const found: boolean =
+        e.name.toLocaleLowerCase().includes(value) ||
+        e.state.toLowerCase().includes(value);
+      return { ...e, shown: found };
+    });
   }
-
 }

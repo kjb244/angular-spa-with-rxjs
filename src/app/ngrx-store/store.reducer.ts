@@ -1,38 +1,34 @@
-import {createFeature, createReducer, on} from '@ngrx/store';
-import {StoreActions} from "./store.actions";
-
+import { createFeature, createReducer, on } from '@ngrx/store';
+import { StoreActions } from './store.actions';
 
 export interface State {
   route: string;
-  products: Product[]
-  familyInfo: Record<string, FamilyDetails>,
-  loading: boolean,
+  products: Product[];
+  familyInfo: Record<string, FamilyDetails>;
+  loading: boolean;
   apiCalls: {
     core: {
-      accounts: Account[],
-      restrictions: Restriction[]
-    }
-  }
-
+      accounts: Account[];
+      restrictions: Restriction[];
+    };
+  };
 }
 
-
-
-export interface Restriction{
+export interface Restriction {
   id: number;
   limited: boolean;
 }
-export interface Account{
+export interface Account {
   id: number;
   description: string;
 }
 
-export interface FamilyDetails{
+export interface FamilyDetails {
   hairColor: string;
   age: number;
 }
 
-export interface Product{
+export interface Product {
   name: string;
   inCart: boolean;
 }
@@ -40,18 +36,18 @@ export interface Product{
 const initialState: State = {
   route: 'ngrx-spinner',
   products: [
-    {name: 'iphone', inCart: false},
-    {name: 'android', inCart: false}
+    { name: 'iphone', inCart: false },
+    { name: 'android', inCart: false },
   ],
   familyInfo: {
     nick: {
       age: 30,
-      hairColor: 'brown'
+      hairColor: 'brown',
     },
     harry: {
       age: 20,
-      hairColor: 'red'
-    }
+      hairColor: 'red',
+    },
   },
   loading: false,
   apiCalls: {
@@ -68,24 +64,21 @@ const initialState: State = {
         {
           id: 54533,
           description: 'yet another test account',
-        }
+        },
       ],
       restrictions: [
         {
           id: 1233,
-          limited: true
+          limited: true,
         },
         {
           id: 54533,
-          limited: true
-        }
-      ]
-    }
-  }
-
+          limited: true,
+        },
+      ],
+    },
+  },
 };
-
-
 
 export const cartFeature = createFeature({
   name: 'cart',
@@ -94,28 +87,28 @@ export const cartFeature = createFeature({
     on(StoreActions.addToCart, (state, { productName }) => {
       return {
         ...state,
-        products: state.products.map((product) =>{
-          const rtnEle = {...product};
-          if(rtnEle.name === productName){
+        products: state.products.map((product) => {
+          const rtnEle = { ...product };
+          if (rtnEle.name === productName) {
             rtnEle.inCart = true;
           }
           return rtnEle;
-        })
-      }
-      }),
+        }),
+      };
+    }),
     on(StoreActions.removeFromCart, (state, { productName }) => {
       return {
         ...state,
-        products: state.products.map((product) =>{
-          const rtnEle = {...product};
-          if(rtnEle.name === productName){
+        products: state.products.map((product) => {
+          const rtnEle = { ...product };
+          if (rtnEle.name === productName) {
             rtnEle.inCart = false;
           }
           return rtnEle;
-        })
-      }
+        }),
+      };
     }),
-    on(StoreActions.incrementAge, (state, { name }) =>{
+    on(StoreActions.incrementAge, (state, { name }) => {
       const currFamilyInfo = state.familyInfo[name];
       return {
         ...state,
@@ -123,40 +116,40 @@ export const cartFeature = createFeature({
           ...state.familyInfo,
           [name]: {
             ...currFamilyInfo,
-            age: currFamilyInfo.age + 1
-          }
-        }
-      }
+            age: currFamilyInfo.age + 1,
+          },
+        },
+      };
     }),
-    on(StoreActions.setLoading, (state, { loading }) =>{
+    on(StoreActions.setLoading, (state, { loading }) => {
       return {
         ...state,
-        loading
-      }
+        loading,
+      };
     }),
-    on(StoreActions.setRoute, (state, { route }) =>{
+    on(StoreActions.setRoute, (state, { route }) => {
       return {
         ...state,
-        route
-      }
+        route,
+      };
     }),
-    on(StoreActions.removeRestriction, (state, { id  }) =>{
+    on(StoreActions.removeRestriction, (state, { id }) => {
       return {
         ...state,
         apiCalls: {
           ...state.apiCalls,
           core: {
             ...state.apiCalls.core,
-            restrictions: state.apiCalls.core.restrictions.filter((restriction) =>{
-              return restriction.id !== id;
-            })
-          }
-        }
-
-      }
-    })
+            restrictions: state.apiCalls.core.restrictions.filter(
+              (restriction) => {
+                return restriction.id !== id;
+              },
+            ),
+          },
+        },
+      };
+    }),
   ),
-
 });
 
 export const {
@@ -164,7 +157,5 @@ export const {
   reducer, // feature reducer
   selectLoading, // feature selector
   selectRoute, //feature selector
-  selectApiCalls
+  selectApiCalls,
 } = cartFeature;
-
-

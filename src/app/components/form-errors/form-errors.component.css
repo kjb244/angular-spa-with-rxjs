@@ -1,11 +1,11 @@
 .error {
   margin-top: 6px;
   color: red;
-  background-image: url('/assets/images/error_icon.png');
+  background-image: url("/assets/images/error_icon.png");
   background-repeat: no-repeat;
   background-position: 0px 2px;
 }
 
-.error  .field-error{
+.error .field-error {
   margin-left: 25px;
 }

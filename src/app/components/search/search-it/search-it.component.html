@@ -2,16 +2,22 @@
   <div class="row mt-4">
     <div class="col-12">
       <div class="search-wrapper">
-        <input type="text" placeholder="search it" formControlName="search" class="form-control" (input)="emitSearchNext()"/>
+        <input
+          type="text"
+          placeholder="search it"
+          formControlName="search"
+          class="form-control"
+          (input)="emitSearchNext()"
+        />
         <app-dropdown [ages]="ages"></app-dropdown>
       </div>
       <div class="row mt-4">
         <div class="col-12">
-          <div *ngFor="let rec of friends">{{rec.name}} {{rec.birthday}} {{rec.age}}</div>
+          <div *ngFor="let rec of friends">
+            {{ rec.name }} {{ rec.birthday }} {{ rec.age }}
+          </div>
         </div>
       </div>
     </div>
   </div>
-
-
 </form>

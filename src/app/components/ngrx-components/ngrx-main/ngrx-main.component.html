@@ -1,22 +1,39 @@
 <section>
   <div class="card mt-3" *ngFor="let account of accounts$ | async">
     <div class="card-body">
-      <p>{{account.description}}</p>
-      <button *ngIf="hasRestriction(account.id)" (click)="openModal(content, account.id)" type="button" class="btn btn-primary">Remove Restriction</button>
+      <p>{{ account.description }}</p>
+      <button
+        *ngIf="hasRestriction(account.id)"
+        (click)="openModal(content, account.id)"
+        type="button"
+        class="btn btn-primary"
+      >
+        Remove Restriction
+      </button>
     </div>
   </div>
-
 </section>
 
 <ng-template #content let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Please confirm removal of restriction</h4>
-    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    <h4 class="modal-title" id="modal-basic-title">
+      Please confirm removal of restriction
+    </h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
   </div>
-  <div class="modal-body">
-
-  </div>
+  <div class="modal-body"></div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-secondary" (click)="modal.close()">Yes Please Remove</button>
+    <button
+      type="button"
+      class="btn btn-outline-secondary"
+      (click)="modal.close()"
+    >
+      Yes Please Remove
+    </button>
   </div>
 </ng-template>

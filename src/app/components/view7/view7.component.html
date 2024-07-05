@@ -2,52 +2,77 @@
   <div class="row" [formGroup]="view7Form">
     <div class="col-xs-12">
       <div class="search-container">
-        <input placeholder="search"
-               class="form-control"
-               type="text"
-               formControlName="search"
-               (blur)="focusOut()"
-               (focus)="focusIn()"
-               (input)="searchIt()"/>
+        <input
+          placeholder="search"
+          class="form-control"
+          type="text"
+          formControlName="search"
+          (blur)="focusOut()"
+          (focus)="focusIn()"
+          (input)="searchIt()"
+        />
         <div [hidden]="!showContainer" class="items">
-          <div *ngFor="let item of addressData; let i=index;">
-            <span [innerHtml]="item.addressString | stringmatcher: this.view7Form.value.search" (click)="clickAddress(i)"></span>
+          <div *ngFor="let item of addressData; let i = index">
+            <span
+              [innerHtml]="
+                item.addressString | stringmatcher: this.view7Form.value.search
+              "
+              (click)="clickAddress(i)"
+            ></span>
           </div>
-
         </div>
       </div>
       <div class="row address-info">
         <div class="col-xs-12 col-sm-6">
           <label for="addressLine1">Address Line 1</label>
-          <input type="text" id="addressLine1" class="form-control" formControlName="line1"/>
+          <input
+            type="text"
+            id="addressLine1"
+            class="form-control"
+            formControlName="line1"
+          />
         </div>
         <div class="col-xs-12 col-sm-6">
           <label for="addressLine2">Address Line 2</label>
-          <input type="text" id="addressLine2" class="form-control" formControlName="line2"/>
+          <input
+            type="text"
+            id="addressLine2"
+            class="form-control"
+            formControlName="line2"
+          />
         </div>
         <div class="col-xs-12 col-sm-6">
           <label for="city">City</label>
-          <input type="text" id="city" class="form-control" formControlName="city"/>
+          <input
+            type="text"
+            id="city"
+            class="form-control"
+            formControlName="city"
+          />
         </div>
         <div class="col-xs-12 col-sm-6">
           <label for="state">State</label>
           <select id="state" formControlName="state" class="form-select">
-            <option *ngFor="let opt of stateList">{{opt}}</option>
+            <option *ngFor="let opt of stateList">{{ opt }}</option>
           </select>
         </div>
         <div class="col-xs-12 col-sm-6">
           <label for="zip">Zip</label>
-          <input type="text" id="zip" class="form-control" formControlName="zip"/>
+          <input
+            type="text"
+            id="zip"
+            class="form-control"
+            formControlName="zip"
+          />
         </div>
         <div class="col-xs-12 col-sm-6">
           <label for="checkme">check</label>
-          <input type="checkbox" id="checkme" formControlName="checkMe"/>
+          <input type="checkbox" id="checkme" formControlName="checkMe" />
         </div>
       </div>
     </div>
   </div>
   <div slot="overridefaq">
-    <p *ngFor="let rec of overrideFaqs">{{rec}}</p>
+    <p *ngFor="let rec of overrideFaqs">{{ rec }}</p>
   </div>
 </app-flow-page>
-

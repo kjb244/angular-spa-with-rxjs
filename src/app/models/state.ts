@@ -12,10 +12,10 @@ interface AccountInfo {
 interface InitialState {
   type: string | null;
   currRoute: string | null;
-  formData: { [key: string]: any};
+  formData: { [key: string]: any };
   showPrev: boolean;
   showNext: boolean;
   accounts: AccountInfo[];
 }
 
-export {Benes, AccountInfo, InitialState}
+export { Benes, AccountInfo, InitialState };

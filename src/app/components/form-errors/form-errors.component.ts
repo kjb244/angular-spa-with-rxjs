@@ -6,23 +6,13 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./form-errors.component.css'],
 })
 export class FormErrorsComponent implements OnInit {
+  @Input() formError: { [key: string]: any };
 
+  constructor() {}
 
-  @Input() formError: {[key: string]: any};
+  ngOnInit(): void {}
 
-
-
-  constructor() { }
-
-  ngOnInit(): void {
-
-  }
-
-  getFirstKey(property: any){
+  getFirstKey(property: any) {
     return Object.keys(property.errors || {})[0];
   }
-
-
-
-
 }

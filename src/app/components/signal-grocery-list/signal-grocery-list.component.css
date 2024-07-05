@@ -1,16 +1,16 @@
-.add-item{
+.add-item {
   display: flex;
 }
 
-.add-item .btn{
+.add-item .btn {
   margin-left: 10px;
 }
 
-.checkbox-container > section:first-child{
+.checkbox-container > section:first-child {
   margin-top: 5px;
 }
 
-.checkbox-container label{
+.checkbox-container label {
   margin-left: 10px;
 }
 

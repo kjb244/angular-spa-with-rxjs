@@ -8,7 +8,7 @@ describe('NgTemplateOutletComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [NgTemplateOutletComponent]
+      declarations: [NgTemplateOutletComponent],
     });
     fixture = TestBed.createComponent(NgTemplateOutletComponent);
     component = fixture.componentInstance;

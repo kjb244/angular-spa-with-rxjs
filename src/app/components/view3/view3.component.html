@@ -1,37 +1,51 @@
 <div class="row mt-4">
   <div class="col-xs-12">
-    <div *ngIf="showSpinner" class="spinner-border text-primary" role="status"></div>
+    <div
+      *ngIf="showSpinner"
+      class="spinner-border text-primary"
+      role="status"
+    ></div>
 
-    <input *ngIf="!showSpinner" type="text" placeholder="search" class="form-control" [(ngModel)]="search" (ngModelChange)="searchIt($event)"/>
+    <input
+      *ngIf="!showSpinner"
+      type="text"
+      placeholder="search"
+      class="form-control"
+      [(ngModel)]="search"
+      (ngModelChange)="searchIt($event)"
+    />
 
     <table *ngIf="!showSpinner" class="table table-striped">
-
       <thead>
-      <tr>
-        <th>id</th>
-        <th>description</th>
-        <th>friend</th>
-      </tr>
+        <tr>
+          <th>id</th>
+          <th>description</th>
+          <th>friend</th>
+        </tr>
       </thead>
 
       <tbody>
-      <tr *ngFor="let item of filteredData" [ngClass]="{show: item.show === true}">
-        <td>{{item.id}}</td>
-        <td>{{item.description}}</td>
-        <td>{{item.friend}}</td>
-      </tr>
+        <tr
+          *ngFor="let item of filteredData"
+          [ngClass]="{ show: item.show === true }"
+        >
+          <td>{{ item.id }}</td>
+          <td>{{ item.description }}</td>
+          <td>{{ item.friend }}</td>
+        </tr>
       </tbody>
-
     </table>
 
     <div class="links">
-      <a *ngFor="let link of links; let i = index;"
-         href="javascript:void(0)"
-         (click)="clickLink(i)"
-         [ngClass]="{active: currentView == i+1 }">
-        {{link+1}}</a>
+      <a
+        *ngFor="let link of links; let i = index"
+        href="javascript:void(0)"
+        (click)="clickLink(i)"
+        [ngClass]="{ active: currentView == i + 1 }"
+      >
+        {{ link + 1 }}</a
+      >
     </div>
-
   </div>
 </div>
 
@@ -40,4 +54,3 @@
     <app-buttons></app-buttons>
   </div>
 </div>
-

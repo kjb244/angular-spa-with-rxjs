@@ -1,10 +1,9 @@
-import {BehaviorSubject} from "rxjs";
+import { BehaviorSubject } from 'rxjs';
 
-
-export interface SearchFilter  {
+export interface SearchFilter {
   search?: string;
   age?: string[];
-  date?: string
+  date?: string;
 }
 
 export const SearchFilterSubject = new BehaviorSubject<SearchFilter>({});

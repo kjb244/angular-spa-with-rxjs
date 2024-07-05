@@ -1,22 +1,19 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {TodoItem} from "../models/itinerary.models";
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { TodoItem } from '../models/itinerary.models';
 
 @Component({
   selector: 'app-add-task',
   templateUrl: './add-task.component.html',
-  styleUrls: ['./add-task.component.css']
+  styleUrls: ['./add-task.component.css'],
 })
-export class AddTaskComponent implements  OnInit{
-
+export class AddTaskComponent implements OnInit {
   public task: string = '';
   @Output() onAddTask: EventEmitter<TodoItem> = new EventEmitter();
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
-  public addTask(){
-    this.onAddTask.emit({id: -1, description: this.task, completed: false});
+  public addTask() {
+    this.onAddTask.emit({ id: -1, description: this.task, completed: false });
     this.task = '';
   }
-
 }

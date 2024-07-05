@@ -1,10 +1,6 @@
-
-import {BehaviorSubject, Subject} from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { Actions } from './actions';
 import { InitialState } from '../models/state';
-
-
-
 
 let state: InitialState = {
   type: null,
@@ -19,13 +15,13 @@ let state: InitialState = {
       benes: [
         {
           type: 'test',
-          name: 'john b'
+          name: 'john b',
         },
         {
           type: 'test',
-          name: 'harry'
-        }
-      ]
+          name: 'harry',
+        },
+      ],
     },
     {
       name: 'ret 2',
@@ -33,11 +29,11 @@ let state: InitialState = {
       benes: [
         {
           type: 'test',
-          name: 'harry h'
-        }
-      ]
+          name: 'harry h',
+        },
+      ],
     },
-  ]
+  ],
 };
 
 interface Event {
@@ -48,19 +44,17 @@ interface Event {
 export const store = new BehaviorSubject<InitialState>(state);
 export const eventDispatcher = new Subject<Event>();
 
-
-eventDispatcher.subscribe((data: {[key: string]: any}) => {
+eventDispatcher.subscribe((data: { [key: string]: any }) => {
   switch (data['type']) {
-
     case Actions.NEXT_VIEW:
-      state = {...state};
+      state = { ...state };
       state.type = Actions.NEXT_VIEW;
       state.currRoute = data['payload'].nextRoute;
       store.next(state);
       break;
 
     case Actions.GET_DATA:
-      state = {...state};
+      state = { ...state };
       state.type = Actions.GET_DATA;
       state.formData = data['payload'].formData;
       state.showNext = data['payload'].showNext;
@@ -69,31 +63,28 @@ eventDispatcher.subscribe((data: {[key: string]: any}) => {
       break;
 
     case Actions.GET_BUTTON_DATA:
-      state = {...state};
+      state = { ...state };
       state.type = Actions.GET_BUTTON_DATA;
       store.next(state);
       break;
 
-
     case Actions.GET_ACCOUNT_INFO:
-      state = {...state};
+      state = { ...state };
       state.type = Actions.GET_ACCOUNT_INFO;
       store.next(state);
       break;
 
     case Actions.EDIT_CARD:
-      state = {...state};
+      state = { ...state };
       state.type = Actions.EDIT_CARD;
       const accounts = state.accounts.map((e) => {
-        return {...e, editing: false};
+        return { ...e, editing: false };
       });
       const accountId = data['payload'].accountId;
       accounts[accountId].editing = true;
       state.accounts = accounts;
       store.next(state);
       break;
-
-
 
     default:
       break;

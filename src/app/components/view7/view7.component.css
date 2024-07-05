@@ -1,24 +1,24 @@
-.search-container{
+.search-container {
   position: relative;
 }
 
-.items{
+.items {
   border: 1px solid #d2cdcd;
   position: absolute;
-  width:100%;
+  width: 100%;
   background-color: white;
 }
 
-.items > div{
+.items > div {
   padding-left: 8px;
   height: 40px;
   padding-top: 4px;
 }
 
-.items > div:hover{
+.items > div:hover {
   background-color: #f3f3f3;
 }
 
-.items > div:not(:last-child){
+.items > div:not(:last-child) {
   border-bottom: 1px solid #d2cdcd;
 }

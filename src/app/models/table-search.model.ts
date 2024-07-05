@@ -1,4 +1,4 @@
-import {Data} from "./table.model";
+import { Data } from './table.model';
 
 export enum ValidKeywords {
   LESS_THAN = '<',
@@ -7,7 +7,7 @@ export enum ValidKeywords {
   GREATER_THAN_EQUALS = '>=',
   EQUALS = '=',
   BETWEEN = 'between',
-  IN = 'in'
+  IN = 'in',
 }
 
 export enum ComparisonType {
@@ -15,10 +15,10 @@ export enum ComparisonType {
   EQUALS = 'EQUALS',
   IN = 'IN',
   BETWEEN = 'BETWEEN',
-  NULL = 'NULL'
+  NULL = 'NULL',
 }
 
-export interface SqlResults  {
+export interface SqlResults {
   valid: boolean;
   data?: Data[];
 }
@@ -26,5 +26,5 @@ export interface SqlResults  {
 export enum ValidPlusMinus {
   TODAY = 'TODAY',
   TODAY_PlUS_MINUS = 'TODAY_PLUS_MINUS',
-  NULL = 'NULL'
+  NULL = 'NULL',
 }

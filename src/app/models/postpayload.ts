@@ -1,4 +1,4 @@
-export interface PostPayload{
+export interface PostPayload {
   formData: {
     object?: any;
   };

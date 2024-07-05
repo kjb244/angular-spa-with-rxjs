@@ -1,12 +1,24 @@
 <div class="row mt-4">
   <div class="col-xs-12 col-sm-10 friend-container">
     <div class="form-group">
-      <input type="text" [(ngModel)]="formData['friend']" placeholder="Enter friend" name="friend" id="friend" class="form-control"/>
-
+      <input
+        type="text"
+        [(ngModel)]="formData['friend']"
+        placeholder="Enter friend"
+        name="friend"
+        id="friend"
+        class="form-control"
+      />
     </div>
     <div class="button-container">
-      <button [disabled]="formData['friend'].length < 1" (click)="clickAddFriend()" type="button" class="btn btn-primary next-button">Add Friend</button>
-
+      <button
+        [disabled]="formData['friend'].length < 1"
+        (click)="clickAddFriend()"
+        type="button"
+        class="btn btn-primary next-button"
+      >
+        Add Friend
+      </button>
     </div>
   </div>
 </div>
@@ -14,7 +26,7 @@
 <div class="row mt-4">
   <div class="col-xs-12 col-sm-10">
     <p *ngFor="let rec of formData['friends']; let i = index">
-      <ngb-alert type="info" (closed)="closeAlert(i)">{{rec}}</ngb-alert>
+      <ngb-alert type="info" (closed)="closeAlert(i)">{{ rec }}</ngb-alert>
     </p>
   </div>
 </div>
@@ -24,5 +36,3 @@
     <app-buttons [formData]="formData"></app-buttons>
   </div>
 </div>
-
-

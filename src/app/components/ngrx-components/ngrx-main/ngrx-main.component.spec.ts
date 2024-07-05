@@ -8,7 +8,7 @@ describe('NgrxMainComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [NgrxMainComponent]
+      declarations: [NgrxMainComponent],
     });
     fixture = TestBed.createComponent(NgrxMainComponent);
     component = fixture.componentInstance;

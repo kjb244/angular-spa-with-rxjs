@@ -8,7 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { View1Component } from './components/view1/view1.component';
-import {NgbDropdownModule, NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbDropdownModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CurrencyComponent } from './components/currency/currency.component';
 import { ButtonsComponent } from './components/buttons/buttons.component';
 import { View2Component } from './components/view2/view2.component';
@@ -34,7 +34,7 @@ import { PaginationComponent } from './components/pagination/pagination.componen
 import { FlowPageComponent } from './components/flow-page/flow-page.component';
 import { SearchItComponent } from './components/search/search-it/search-it.component';
 import { DropdownComponent } from './components/search/dropdown/dropdown.component';
-import {authGuard} from "./guards/auth.guard";
+import { authGuard } from './guards/auth.guard';
 import { SignalGroceryListComponent } from './components/signal-grocery-list/signal-grocery-list.component';
 import { NgTemplateOutletComponent } from './components/ng-template-outlet/ng-template-outlet.component';
 import { BaseItineraryComponent } from './components/itinerary/base-itinerary/base-itinerary.component';
@@ -42,33 +42,65 @@ import { AddTaskComponent } from './components/itinerary/add-task/add-task.compo
 import { ShowTasksComponent } from './components/itinerary/show-tasks/show-tasks.component';
 import { IntlPhoneComponent } from './components/intl-phone/intl-phone.component';
 import { StoreModule } from '@ngrx/store';
-import {cartFeature} from "./ngrx-store/store.reducer";
+import { cartFeature } from './ngrx-store/store.reducer';
 import { NgrxSpinnerComponent } from './components/ngrx-components/ngrx-spinner/ngrx-spinner.component';
 import { NgrxRouteWorkerComponent } from './components/ngrx-components/ngrx-route-worker/ngrx-route-worker.component';
 import { NgrxMainComponent } from './components/ngrx-components/ngrx-main/ngrx-main.component';
 
 const appRoutes: Routes = [
-  {path: 'view1',  component: View1Component, data: { animationState: 'One' }, canActivate: [authGuard]},
-  {path: 'view2', component: View2Component, data: { animationState: 'Two' }, canActivate: [authGuard]},
-  {path: 'view3', component: View3Component, data: { animationState: 'Three'}, canActivate: [authGuard]},
-  {path: 'view4', component: View4Component, data: { animationState: 'Four'}, canActivate: [authGuard]},
-  {path: 'view5', component: View5Component, data: { animationState: 'Five'}, canActivate: [authGuard]},
-  {path: 'view6', component: View6Component },
-  {path: 'view7', component: View7Component },
-  {path: 'view8', component: TableComponent},
-  {path: 'itinerary', component: BaseItineraryComponent},
-  {path: 'editcard', component: EditcardComponent, data: { animationState: 'EditCard'}},
-  {path: 'splash', component: SplashComponent, data: { animationState: 'Splash' }},
-  {path: 'cart', component: CartComponent },
-  {path: 'checkboxes', component: CheckboxesComponent },
-  {path: 'searchit', component: SearchItComponent},
-  {path: 'signal-grocery-list', component: SignalGroceryListComponent},
-  {path: 'intl-phone', component: IntlPhoneComponent},
-  {path: 'ng-template-outlet', component: NgTemplateOutletComponent},
-  {path: 'ngrx-spinner', component: NgrxSpinnerComponent},
-  {path: 'ngrx-main', component: NgrxMainComponent},
-  {path: '', redirectTo: '/splash', pathMatch: 'full' },
-
+  {
+    path: 'view1',
+    component: View1Component,
+    data: { animationState: 'One' },
+    canActivate: [authGuard],
+  },
+  {
+    path: 'view2',
+    component: View2Component,
+    data: { animationState: 'Two' },
+    canActivate: [authGuard],
+  },
+  {
+    path: 'view3',
+    component: View3Component,
+    data: { animationState: 'Three' },
+    canActivate: [authGuard],
+  },
+  {
+    path: 'view4',
+    component: View4Component,
+    data: { animationState: 'Four' },
+    canActivate: [authGuard],
+  },
+  {
+    path: 'view5',
+    component: View5Component,
+    data: { animationState: 'Five' },
+    canActivate: [authGuard],
+  },
+  { path: 'view6', component: View6Component },
+  { path: 'view7', component: View7Component },
+  { path: 'view8', component: TableComponent },
+  { path: 'itinerary', component: BaseItineraryComponent },
+  {
+    path: 'editcard',
+    component: EditcardComponent,
+    data: { animationState: 'EditCard' },
+  },
+  {
+    path: 'splash',
+    component: SplashComponent,
+    data: { animationState: 'Splash' },
+  },
+  { path: 'cart', component: CartComponent },
+  { path: 'checkboxes', component: CheckboxesComponent },
+  { path: 'searchit', component: SearchItComponent },
+  { path: 'signal-grocery-list', component: SignalGroceryListComponent },
+  { path: 'intl-phone', component: IntlPhoneComponent },
+  { path: 'ng-template-outlet', component: NgTemplateOutletComponent },
+  { path: 'ngrx-spinner', component: NgrxSpinnerComponent },
+  { path: 'ngrx-main', component: NgrxMainComponent },
+  { path: '', redirectTo: '/splash', pathMatch: 'full' },
 ];
 
 @NgModule({
@@ -120,11 +152,11 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
     CommonModule,
     BrowserAnimationsModule,
-    RouterModule.forRoot(appRoutes ,{enableTracing: false}),
+    RouterModule.forRoot(appRoutes, { enableTracing: false }),
     StoreModule.forRoot({}),
-    StoreModule.forFeature(cartFeature)
+    StoreModule.forFeature(cartFeature),
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

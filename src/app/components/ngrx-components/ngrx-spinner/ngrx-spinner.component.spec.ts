@@ -8,7 +8,7 @@ describe('NgrxSpinnerComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [NgrxSpinnerComponent]
+      declarations: [NgrxSpinnerComponent],
     });
     fixture = TestBed.createComponent(NgrxSpinnerComponent);
     component = fixture.componentInstance;

@@ -1,14 +1,13 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {FormControl} from "@angular/forms";
-import {AddressformatterPipe} from '../../../pipes/addressformatter.pipe'
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { AddressformatterPipe } from '../../../pipes/addressformatter.pipe';
 
 @Component({
   selector: 'app-inner-checkbox',
   templateUrl: './inner-checkbox.component.html',
-  styleUrls: ['./inner-checkbox.component.css']
+  styleUrls: ['./inner-checkbox.component.css'],
 })
 export class InnerCheckboxComponent implements OnInit {
-
   @Input() editedAddress: any;
   @Input() selectedAddress: any;
   @Input() control: any;
@@ -16,18 +15,17 @@ export class InnerCheckboxComponent implements OnInit {
   @Output() onCheckboxChange: EventEmitter<string> = new EventEmitter();
   public addressToShow: any;
 
-
-
-  constructor() { }
+  constructor() {}
 
   ngOnInit(): void {
-    this.addressToShow = this.control.value ? this.editedAddress : this.selectedAddress;
+    this.addressToShow = this.control.value
+      ? this.editedAddress
+      : this.selectedAddress;
   }
 
-  checkboxChange(event: any){
+  checkboxChange(event: any) {
     this.onCheckboxChange.emit('');
     const checked = event.target.checked;
     this.addressToShow = checked ? this.editedAddress : this.selectedAddress;
   }
-
 }

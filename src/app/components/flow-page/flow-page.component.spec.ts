@@ -8,9 +8,8 @@ describe('FlowPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FlowPageComponent ]
-    })
-    .compileComponents();
+      declarations: [FlowPageComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

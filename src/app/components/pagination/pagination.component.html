@@ -1,40 +1,95 @@
-<nav *ngIf="numberOfPages() <= 8"  aria-label="Page navigation example">
+<nav *ngIf="numberOfPages() <= 8" aria-label="Page navigation example">
   <ul class="pagination">
-    <li class="page-item"><a class="page-link" href="javascript:void(0);" (click)="clickPrev()">Previous</a></li>
+    <li class="page-item">
+      <a class="page-link" href="javascript:void(0);" (click)="clickPrev()"
+        >Previous</a
+      >
+    </li>
     <li *ngIf="pageData.length === 0" class="page-item disabled">
       <a class="page-link" href="javascript:void(0);">1</a>
     </li>
-    <li *ngFor="let rec of pageData; let i=index" class="page-item" [ngClass]="{'active': rec.active === true}">
-      <a class="page-link" href="javascript:void(0);" (click)="clickPageNumber(i)">{{rec.pageNumber}}</a>
+    <li
+      *ngFor="let rec of pageData; let i = index"
+      class="page-item"
+      [ngClass]="{ active: rec.active === true }"
+    >
+      <a
+        class="page-link"
+        href="javascript:void(0);"
+        (click)="clickPageNumber(i)"
+        >{{ rec.pageNumber }}</a
+      >
     </li>
-    <li class="page-item"><a class="page-link" href="javascript:void(0);" (click)="clickNext()">Next</a></li>
+    <li class="page-item">
+      <a class="page-link" href="javascript:void(0);" (click)="clickNext()"
+        >Next</a
+      >
+    </li>
   </ul>
 </nav>
 
-<nav *ngIf="numberOfPages() > 8"  aria-label="Page navigation example">
+<nav *ngIf="numberOfPages() > 8" aria-label="Page navigation example">
   <ul class="pagination">
-    <li class="page-item"><a class="page-link" href="javascript:void(0);" (click)="clickPrev()">Previous</a></li>
+    <li class="page-item">
+      <a class="page-link" href="javascript:void(0);" (click)="clickPrev()"
+        >Previous</a
+      >
+    </li>
 
-    <ng-container *ngIf="getCurrPage() < pageData.length-1">
-      <li  class="page-item active">
-        <a class="page-link" href="javascript:void(0);" (click)="clickPageNumber(getCurrPage())">{{pageData[getCurrPage()].pageNumber}}</a>
+    <ng-container *ngIf="getCurrPage() < pageData.length - 1">
+      <li class="page-item active">
+        <a
+          class="page-link"
+          href="javascript:void(0);"
+          (click)="clickPageNumber(getCurrPage())"
+          >{{ pageData[getCurrPage()].pageNumber }}</a
+        >
       </li>
-      <li class="page-item disabled"><a class="page-link" href="javascript:void(0)">...</a></li>
-      <li  class="page-item">
-        <a class="page-link" href="javascript:void(0);" (click)="clickPageNumber(pageData.length-1)">{{pageData[pageData.length-1].pageNumber}}</a>
+      <li class="page-item disabled">
+        <a class="page-link" href="javascript:void(0)">...</a>
+      </li>
+      <li class="page-item">
+        <a
+          class="page-link"
+          href="javascript:void(0);"
+          (click)="clickPageNumber(pageData.length - 1)"
+          >{{ pageData[pageData.length - 1].pageNumber }}</a
+        >
       </li>
     </ng-container>
 
-    <ng-container *ngIf="getCurrPage() >= pageData.length-1">
-      <li  class="page-item" [ngClass]="{'active': getCurrPage() === pageData.length-2}">
-        <a class="page-link" href="javascript:void(0);" (click)="clickPageNumber(getCurrPage()-1)">{{pageData[getCurrPage()-1].pageNumber}}</a>
+    <ng-container *ngIf="getCurrPage() >= pageData.length - 1">
+      <li
+        class="page-item"
+        [ngClass]="{ active: getCurrPage() === pageData.length - 2 }"
+      >
+        <a
+          class="page-link"
+          href="javascript:void(0);"
+          (click)="clickPageNumber(getCurrPage() - 1)"
+          >{{ pageData[getCurrPage() - 1].pageNumber }}</a
+        >
       </li>
-      <li class="page-item disabled"><a class="page-link" href="javascript:void(0)">...</a></li>
-      <li  class="page-item" [ngClass]="{'active': getCurrPage() === pageData.length-1}">
-        <a class="page-link" href="javascript:void(0);" (click)="clickPageNumber(pageData.length-1)">{{pageData[pageData.length-1].pageNumber}}</a>
+      <li class="page-item disabled">
+        <a class="page-link" href="javascript:void(0)">...</a>
+      </li>
+      <li
+        class="page-item"
+        [ngClass]="{ active: getCurrPage() === pageData.length - 1 }"
+      >
+        <a
+          class="page-link"
+          href="javascript:void(0);"
+          (click)="clickPageNumber(pageData.length - 1)"
+          >{{ pageData[pageData.length - 1].pageNumber }}</a
+        >
       </li>
     </ng-container>
 
-    <li class="page-item"><a class="page-link" href="javascript:void(0);" (click)="clickNext()">Next</a></li>
+    <li class="page-item">
+      <a class="page-link" href="javascript:void(0);" (click)="clickNext()"
+        >Next</a
+      >
+    </li>
   </ul>
 </nav>
