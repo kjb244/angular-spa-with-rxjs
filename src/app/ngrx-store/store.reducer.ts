@@ -1,6 +1,5 @@
 import {createFeature, createReducer, on} from '@ngrx/store';
 import {StoreActions} from "./store.actions";
-import {state} from "@angular/animations";
 
 
 export interface State {
@@ -8,9 +7,16 @@ export interface State {
   products: Product[]
   familyInfo: Record<string, FamilyDetails>,
   loading: boolean,
-  accounts: Account[],
-  restrictions: Restriction[]
+  apiCalls: {
+    core: {
+      accounts: Account[],
+      restrictions: Restriction[]
+    }
+  }
+
 }
+
+
 
 export interface Restriction{
   id: number;
@@ -48,30 +54,35 @@ const initialState: State = {
     }
   },
   loading: false,
-  accounts: [
-    {
-      id: 1233,
-      description: 'test account',
-    },
-    {
-      id: 3343,
-      description: 'another test account',
-    },
-    {
-      id: 54533,
-      description: 'yet another test account',
+  apiCalls: {
+    core: {
+      accounts: [
+        {
+          id: 1233,
+          description: 'test account',
+        },
+        {
+          id: 3343,
+          description: 'another test account',
+        },
+        {
+          id: 54533,
+          description: 'yet another test account',
+        }
+      ],
+      restrictions: [
+        {
+          id: 1233,
+          limited: true
+        },
+        {
+          id: 54533,
+          limited: true
+        }
+      ]
     }
-  ],
-  restrictions: [
-    {
-      id: 1233,
-      limited: true
-    },
-    {
-      id: 54533,
-      limited: true
-    }
-  ]
+  }
+
 };
 
 
@@ -132,9 +143,16 @@ export const cartFeature = createFeature({
     on(StoreActions.removeRestriction, (state, { id  }) =>{
       return {
         ...state,
-        restrictions: state.restrictions.filter((restriction) =>{
-          return restriction.id !== id;
-        })
+        apiCalls: {
+          ...state.apiCalls,
+          core: {
+            ...state.apiCalls.core,
+            restrictions: state.apiCalls.core.restrictions.filter((restriction) =>{
+              return restriction.id !== id;
+            })
+          }
+        }
+
       }
     })
   ),
@@ -144,12 +162,9 @@ export const cartFeature = createFeature({
 export const {
   name, // feature name
   reducer, // feature reducer
-  selectProducts, // feature selector
-  selectFamilyInfo, // feature selector
   selectLoading, // feature selector
-  selectAccounts, // feature selector
   selectRoute, //feature selector
-  selectRestrictions
+  selectApiCalls
 } = cartFeature;
 
 

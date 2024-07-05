@@ -5,8 +5,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { View1Component } from './components/view1/view1.component';
@@ -45,8 +43,6 @@ import { ShowTasksComponent } from './components/itinerary/show-tasks/show-tasks
 import { IntlPhoneComponent } from './components/intl-phone/intl-phone.component';
 import { StoreModule } from '@ngrx/store';
 import {cartFeature} from "./ngrx-store/store.reducer";
-import { NgrxProductsComponent } from './components/ngrx-components/ngrx-products/ngrx-products.component';
-import { NgrxCartComponent } from './components/ngrx-components/ngrx-cart/ngrx-cart.component';
 import { NgrxSpinnerComponent } from './components/ngrx-components/ngrx-spinner/ngrx-spinner.component';
 import { NgrxRouteWorkerComponent } from './components/ngrx-components/ngrx-route-worker/ngrx-route-worker.component';
 import { NgrxMainComponent } from './components/ngrx-components/ngrx-main/ngrx-main.component';
@@ -69,7 +65,6 @@ const appRoutes: Routes = [
   {path: 'signal-grocery-list', component: SignalGroceryListComponent},
   {path: 'intl-phone', component: IntlPhoneComponent},
   {path: 'ng-template-outlet', component: NgTemplateOutletComponent},
-  {path: 'ngrx-products', component: NgrxProductsComponent},
   {path: 'ngrx-spinner', component: NgrxSpinnerComponent},
   {path: 'ngrx-main', component: NgrxMainComponent},
   {path: '', redirectTo: '/splash', pathMatch: 'full' },
@@ -111,8 +106,6 @@ const appRoutes: Routes = [
     AddTaskComponent,
     ShowTasksComponent,
     IntlPhoneComponent,
-    NgrxProductsComponent,
-    NgrxCartComponent,
     NgrxSpinnerComponent,
     NgrxRouteWorkerComponent,
     NgrxMainComponent,

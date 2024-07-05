@@ -1,8 +1,0 @@
-.flex-product{
-  display: flex;
-  align-items: center;
-}
-
-.flex-product > button{
-  margin-left: 10px;
-}
