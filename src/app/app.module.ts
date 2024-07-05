@@ -44,9 +44,12 @@ import { AddTaskComponent } from './components/itinerary/add-task/add-task.compo
 import { ShowTasksComponent } from './components/itinerary/show-tasks/show-tasks.component';
 import { IntlPhoneComponent } from './components/intl-phone/intl-phone.component';
 import { StoreModule } from '@ngrx/store';
-import {cartFeature} from "./ngrx-store/cart.reducer";
-import { NgrxProductsComponent } from './components/ngrx-products/ngrx-products.component';
-import { NgrxCartComponent } from './components/ngrx-products/ngrx-cart/ngrx-cart.component';
+import {cartFeature} from "./ngrx-store/store.reducer";
+import { NgrxProductsComponent } from './components/ngrx-components/ngrx-products/ngrx-products.component';
+import { NgrxCartComponent } from './components/ngrx-components/ngrx-cart/ngrx-cart.component';
+import { NgrxSpinnerComponent } from './components/ngrx-components/ngrx-spinner/ngrx-spinner.component';
+import { NgrxRouteWorkerComponent } from './components/ngrx-components/ngrx-route-worker/ngrx-route-worker.component';
+import { NgrxMainComponent } from './components/ngrx-components/ngrx-main/ngrx-main.component';
 
 const appRoutes: Routes = [
   {path: 'view1',  component: View1Component, data: { animationState: 'One' }, canActivate: [authGuard]},
@@ -67,6 +70,8 @@ const appRoutes: Routes = [
   {path: 'intl-phone', component: IntlPhoneComponent},
   {path: 'ng-template-outlet', component: NgTemplateOutletComponent},
   {path: 'ngrx-products', component: NgrxProductsComponent},
+  {path: 'ngrx-spinner', component: NgrxSpinnerComponent},
+  {path: 'ngrx-main', component: NgrxMainComponent},
   {path: '', redirectTo: '/splash', pathMatch: 'full' },
 
 ];
@@ -108,6 +113,9 @@ const appRoutes: Routes = [
     IntlPhoneComponent,
     NgrxProductsComponent,
     NgrxCartComponent,
+    NgrxSpinnerComponent,
+    NgrxRouteWorkerComponent,
+    NgrxMainComponent,
   ],
   imports: [
     BrowserModule,
