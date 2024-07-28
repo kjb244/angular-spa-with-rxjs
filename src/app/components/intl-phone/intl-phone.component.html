@@ -1,5 +1,5 @@
 <section class="mt-4" [formGroup]="form">
-  <select class="form-select" formControlName="select">
+  <select class="form-select" formControlName="select" (change)="newCountryChange()">
     <option *ngFor="let rec of countries" [value]="rec">{{ rec }}</option>
   </select>
 
@@ -7,18 +7,26 @@
     type="text"
     formControlName="phone"
     id="phone"
-    class="form-control"
+    class="form-control mt-4"
+    [placeholder]="placeholderPhone"
     value=""
     (input)="phoneInput($event)"
   />
 
-  <div class="field-error" *ngIf="requiredError(); else validationTemplate">
+  <div class="field-error" *ngIf="requiredError(); else maxLengthErrorTemplate">
     Field is required
   </div>
 
-  <ng-template #validationTemplate>
-    <div class="field-error" *ngIf="validationError()">
+  <ng-template #phoneAytErrorTemplate>
+    <div class="field-error" *ngIf="phoneAytError()">
       Field pattern validation failed
     </div>
   </ng-template>
+
+  <ng-template #maxLengthErrorTemplate>
+    <div class="field-error" *ngIf="phoneMaxLengthError(); else phoneAytErrorTemplate">
+      Max length problem
+    </div>
+  </ng-template>
+
 </section>
