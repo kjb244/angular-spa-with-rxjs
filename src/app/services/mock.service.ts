@@ -23,10 +23,10 @@ export class MockService {
   }
 
   getData() {
-    const promise = new Promise((resolve) => {
+    const promise = new Promise((resolve, reject) => {
       setTimeout(() => {
         resolve(this.dummyData);
-      }, 700);
+      }, 2000);
     });
 
     return promise;
