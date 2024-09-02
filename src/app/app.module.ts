@@ -46,7 +46,7 @@ import { cartFeature } from './ngrx-store/store.reducer';
 import { NgrxSpinnerComponent } from './components/ngrx-components/ngrx-spinner/ngrx-spinner.component';
 import { NgrxRouteWorkerComponent } from './components/ngrx-components/ngrx-route-worker/ngrx-route-worker.component';
 import { NgrxMainComponent } from './components/ngrx-components/ngrx-main/ngrx-main.component';
-import {masterGuard} from "./guards/master.guard";
+import {MasterSynchGuard} from "./guards/synchronous/master.synch.guard";
 
 const appRoutes: Routes = [
   {
@@ -79,7 +79,7 @@ const appRoutes: Routes = [
     data: { animationState: 'Five' },
     canActivate: [authGuard],
   },
-  { path: 'view6', component: View6Component, canActivate: [masterGuard] },
+  { path: 'view6', component: View6Component, canActivate: [MasterSynchGuard] },
   { path: 'view7', component: View7Component },
   { path: 'view8', component: TableComponent },
   { path: 'itinerary', component: BaseItineraryComponent },
