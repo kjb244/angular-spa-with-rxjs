@@ -15,8 +15,8 @@ export class StoreEffects {
   loadCoreData$ = createEffect(() =>
     this.actions.pipe(
       ofType(StoreActions.getCoreData),
-      switchMap(() =>
-        forkJoin([
+      switchMap(() => {
+        return forkJoin([
           this.storeMockService.getAccounts(),
           this.storeMockService.getRestrictions(),
         ]).pipe(
@@ -25,9 +25,8 @@ export class StoreEffects {
               coreData: { accounts: success[0], restrictions: success[1] },
             }),
           ),
-        ),
-      ),
-      switchMap((res) => [StoreActions.setLoading({ loading: true })]),
+        );
+      }),
     ),
   );
 }
