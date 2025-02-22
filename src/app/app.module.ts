@@ -46,8 +46,10 @@ import { cartFeature } from './ngrx-store/store.reducer';
 import { NgrxSpinnerComponent } from './components/ngrx-components/ngrx-spinner/ngrx-spinner.component';
 import { NgrxRouteWorkerComponent } from './components/ngrx-components/ngrx-route-worker/ngrx-route-worker.component';
 import { NgrxMainComponent } from './components/ngrx-components/ngrx-main/ngrx-main.component';
-import {MasterSynchGuard} from "./guards/synchronous/master.synch.guard";
-import {MasterAsynchGuard} from "./guards/asynchronous/master.asynch.guard";
+import { MasterSynchGuard } from './guards/synchronous/master.synch.guard';
+import { MasterAsynchGuard } from './guards/asynchronous/master.asynch.guard';
+import { EffectsModule, provideEffects } from '@ngrx/effects';
+import { StoreEffects } from './ngrx-store/store.effects';
 
 const appRoutes: Routes = [
   {
@@ -81,7 +83,11 @@ const appRoutes: Routes = [
     canActivate: [authGuard],
   },
   { path: 'view6', component: View6Component, canActivate: [MasterSynchGuard] },
-  { path: 'view7', component: View7Component, canActivate: [MasterAsynchGuard] },
+  {
+    path: 'view7',
+    component: View7Component,
+    canActivate: [MasterAsynchGuard],
+  },
   { path: 'view8', component: TableComponent },
   { path: 'itinerary', component: BaseItineraryComponent },
   {
@@ -157,6 +163,7 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes, { enableTracing: false }),
     StoreModule.forRoot({}),
     StoreModule.forFeature(cartFeature),
+    EffectsModule.forRoot([StoreEffects]),
   ],
   providers: [],
   bootstrap: [AppComponent],

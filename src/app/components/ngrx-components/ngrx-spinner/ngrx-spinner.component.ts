@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, of, tap } from 'rxjs';
+import { filter, Observable, of, tap } from 'rxjs';
 import { delay } from 'rxjs/operators';
-import { Store } from '@ngrx/store';
+import { ActionsSubject, Store } from '@ngrx/store';
 import { StoreActions } from '../../../ngrx-store/store.actions';
 import { selectLoading } from '../../../ngrx-store/store.reducer';
+import { Actions, ofType } from '@ngrx/effects';
 
 @Component({
   selector: 'app-ngrx-spinner',
@@ -15,23 +16,7 @@ export class NgrxSpinnerComponent implements OnInit {
   constructor(private store: Store) {}
 
   ngOnInit(): void {
-    of(undefined)
-      .pipe(
-        tap({
-          next: () => {
-            this.store.dispatch(StoreActions.setLoading({ loading: true }));
-          },
-        }),
-        delay(2000),
-        tap({
-          next: () => {
-            this.store.dispatch(StoreActions.setLoading({ loading: false }));
-            this.store.dispatch(StoreActions.setRoute({ route: 'ngrx-main' }));
-          },
-        }),
-      )
-      .subscribe();
-
     this.loading$ = this.store.select(selectLoading);
+    this.store.dispatch(StoreActions.getCoreData());
   }
 }

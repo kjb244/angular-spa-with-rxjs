@@ -7,13 +7,14 @@ export interface State {
   familyInfo: Record<string, FamilyDetails>;
   loading: boolean;
   apiCalls: {
-    core: {
-      accounts: Account[];
-      restrictions: Restriction[];
-    };
+    core: CoreData;
   };
 }
 
+export interface CoreData {
+  accounts: Account[];
+  restrictions: Restriction[];
+}
 export interface Restriction {
   id: number;
   limited: boolean;
@@ -52,30 +53,8 @@ const initialState: State = {
   loading: false,
   apiCalls: {
     core: {
-      accounts: [
-        {
-          id: 1233,
-          description: 'test account',
-        },
-        {
-          id: 3343,
-          description: 'another test account',
-        },
-        {
-          id: 54533,
-          description: 'yet another test account',
-        },
-      ],
-      restrictions: [
-        {
-          id: 1233,
-          limited: true,
-        },
-        {
-          id: 54533,
-          limited: true,
-        },
-      ],
+      accounts: [],
+      restrictions: [],
     },
   },
 };
@@ -84,6 +63,17 @@ export const cartFeature = createFeature({
   name: 'cart',
   reducer: createReducer(
     initialState,
+    on(StoreActions.getCoreDataSuccess, (state, { coreData }) => {
+      return {
+        ...state,
+        apiCalls: {
+          ...state.apiCalls,
+          core: {
+            ...coreData,
+          },
+        },
+      };
+    }),
     on(StoreActions.addToCart, (state, { productName }) => {
       return {
         ...state,
