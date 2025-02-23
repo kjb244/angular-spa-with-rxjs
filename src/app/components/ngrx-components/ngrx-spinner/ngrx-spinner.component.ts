@@ -13,9 +13,21 @@ import { Actions, ofType } from '@ngrx/effects';
 })
 export class NgrxSpinnerComponent implements OnInit {
   public loading$: Observable<boolean>;
-  constructor(private store: Store) {}
+  constructor(
+    private store: Store,
+    private actions$: Actions,
+  ) {}
 
   ngOnInit(): void {
+    this.actions$
+      .pipe(
+        filter(
+          (action) => action.type === StoreActions.getCoreDataSuccess.type,
+        ),
+      )
+      .subscribe((data: any) => {
+        this.store.dispatch(StoreActions.setRoute({ route: 'ngrx-main' }));
+      });
     this.loading$ = this.store.select(selectLoading);
     this.store.dispatch(StoreActions.getCoreData());
   }

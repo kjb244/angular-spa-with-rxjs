@@ -14,6 +14,7 @@ export class NgrxRouteWorkerComponent implements OnInit {
     private router: Router,
   ) {}
 
+  //NOT USED ANYMORE since we do it in effect
   ngOnInit(): void {
     this.store.select(selectRoute).subscribe({
       next: (route: string) => {
