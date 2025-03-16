@@ -18,6 +18,10 @@ export const selectorRestrictions = createSelector(masterSelector, (api) => {
   return api.apiCalls.core.restrictions;
 });
 
+export const selectorCore = createSelector(masterSelector, (api) => {
+  return api.apiCalls.core;
+});
+
 export const getCurrentState = async (store: Store) => {
   let state = await store
     .pipe(select(cartFeature.selectCartState), take(1))

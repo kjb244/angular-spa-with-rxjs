@@ -12,6 +12,7 @@ export interface State {
 }
 
 export interface CoreData {
+  hasData: boolean;
   accounts: Account[];
   restrictions: Restriction[];
 }
@@ -53,6 +54,7 @@ const initialState: State = {
   loading: false,
   apiCalls: {
     core: {
+      hasData: false,
       accounts: [],
       restrictions: [],
     },

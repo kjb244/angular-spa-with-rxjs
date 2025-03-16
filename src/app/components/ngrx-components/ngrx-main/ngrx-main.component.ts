@@ -45,4 +45,8 @@ export class NgrxMainComponent implements OnInit {
       },
     );
   }
+
+  public nextRoute() {
+    this.store.dispatch(StoreActions.setRoute({ route: 'ngrx-form' }));
+  }
 }

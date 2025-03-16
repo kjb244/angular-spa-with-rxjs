@@ -50,6 +50,8 @@ import { MasterSynchGuard } from './guards/synchronous/master.synch.guard';
 import { MasterAsynchGuard } from './guards/asynchronous/master.asynch.guard';
 import { EffectsModule, provideEffects } from '@ngrx/effects';
 import { StoreEffects } from './ngrx-store/store.effects';
+import { NgrxFormComponent } from './components/ngrx-components/ngrx-form/ngrx-form.component';
+import { ngrxMainGuard } from './guards/ngrx/ngrx-main.guard';
 
 const appRoutes: Routes = [
   {
@@ -107,7 +109,16 @@ const appRoutes: Routes = [
   { path: 'intl-phone', component: IntlPhoneComponent },
   { path: 'ng-template-outlet', component: NgTemplateOutletComponent },
   { path: 'ngrx-spinner', component: NgrxSpinnerComponent },
-  { path: 'ngrx-main', component: NgrxMainComponent },
+  {
+    path: 'ngrx-main',
+    component: NgrxMainComponent,
+    canActivate: [ngrxMainGuard],
+  },
+  {
+    path: 'ngrx-form',
+    component: NgrxFormComponent,
+    canActivate: [ngrxMainGuard],
+  },
   { path: '', redirectTo: '/splash', pathMatch: 'full' },
 ];
 
@@ -149,6 +160,7 @@ const appRoutes: Routes = [
     NgrxSpinnerComponent,
     NgrxRouteWorkerComponent,
     NgrxMainComponent,
+    NgrxFormComponent,
   ],
   imports: [
     BrowserModule,

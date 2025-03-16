@@ -37,7 +37,11 @@ export class StoreEffects {
           ]).pipe(
             map((data) => {
               return StoreActions.getCoreDataSuccess({
-                coreData: { accounts: data[0], restrictions: data[1] },
+                coreData: {
+                  accounts: data[0],
+                  restrictions: data[1],
+                  hasData: true,
+                },
               });
             }),
           ),
