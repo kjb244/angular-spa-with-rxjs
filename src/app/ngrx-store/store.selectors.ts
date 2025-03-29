@@ -22,6 +22,10 @@ export const selectorCore = createSelector(masterSelector, (api) => {
   return api.apiCalls.core;
 });
 
+export const selectorFormMain = createSelector(masterSelector, (state) => {
+  return state.formData.formMain;
+});
+
 export const getCurrentState = async (store: Store) => {
   let state = await store
     .pipe(select(cartFeature.selectCartState), take(1))

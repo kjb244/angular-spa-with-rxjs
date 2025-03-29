@@ -9,6 +9,26 @@ export interface State {
   apiCalls: {
     core: CoreData;
   };
+  formData: {
+    formMain: FormMain;
+  };
+}
+
+export interface FormMain {
+  checkboxes: CheckboxField[];
+  aggregateAmount: NumberField;
+  feeAmount: NumberField;
+}
+
+export interface NumberField {
+  label: string;
+  validation: string;
+  help: string;
+  value: string;
+}
+export interface CheckboxField {
+  label: string;
+  checked: boolean;
 }
 
 export interface CoreData {
@@ -57,6 +77,26 @@ const initialState: State = {
       hasData: false,
       accounts: [],
       restrictions: [],
+    },
+  },
+  formData: {
+    formMain: {
+      checkboxes: [
+        { label: 'option 1', checked: false },
+        { label: 'option 2', checked: false },
+      ],
+      aggregateAmount: {
+        label: 'aggregate amount',
+        validation: '',
+        help: 'help text',
+        value: '',
+      },
+      feeAmount: {
+        label: 'aggregate amount',
+        validation: '',
+        help: 'help text',
+        value: '',
+      },
     },
   },
 };
