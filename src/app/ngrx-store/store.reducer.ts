@@ -15,6 +15,7 @@ export interface State {
 }
 
 export interface FormMain {
+  error: string | null;
   checkboxes: CheckboxField[];
   aggregateAmount: NumberField;
   feeAmount: NumberField;
@@ -81,6 +82,7 @@ const initialState: State = {
   },
   formData: {
     formMain: {
+      error: null,
       checkboxes: [
         { label: 'option 1', checked: false },
         { label: 'option 2', checked: false },
@@ -113,6 +115,15 @@ export const cartFeature = createFeature({
           core: {
             ...coreData,
           },
+        },
+      };
+    }),
+    on(StoreActions.formMainChangeSuccess, (state, { form }) => {
+      return {
+        ...state,
+        formData: {
+          ...state.formData,
+          formMain: { ...form },
         },
       };
     }),

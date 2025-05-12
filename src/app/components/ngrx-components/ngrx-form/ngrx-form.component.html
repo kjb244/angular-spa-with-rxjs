@@ -1,6 +1,9 @@
-<form [formGroup]="form">
+<form [formGroup]="form" class="container">
   <div class="row">
     <div class="col-sm-12">
+      <div *ngIf="formStore.error" class="alert alert-warning" role="alert">
+        {{formStore.error}}
+      </div>
       <div formArrayName="checkboxes" class="mt-4">
         <div *ngFor="let control of checkboxControls().controls; let i=index" class="form-check">
           <input class="form-check-input" type="checkbox" value="" id="checkbox{{i}}" [formControl]="$any(control)">
@@ -14,16 +17,18 @@
 
   <div class="row mt-3">
     <div class="col-sm-12">
-      <input class="form-control" placeholder="aggregate amount" formControlName="aggregateAmount"/>
+      <input class="form-control" [placeholder]="formStore.aggregateAmount.label" formControlName="aggregateAmount"/>
+      <small id="aggregateHelp" class="form-text text-muted">{{formStore.aggregateAmount.help}}</small>
     </div>
 
     <div class="col-sm-12 mt-3">
       <input class="form-control" placeholder="fee amount" formControlName="feeAmount"/>
+      <small id="feeHelp" class="form-text text-muted">{{formStore.feeAmount.help}}</small>
     </div>
   </div>
 
 
+  <button type="button" class="btn btn-primary mt-3" (click)="clickMe()">Submit</button>
 
 </form>
-<button type="submit" (click)="clickMe()">Submit</button>
 

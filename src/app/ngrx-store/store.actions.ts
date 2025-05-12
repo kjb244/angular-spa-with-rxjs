@@ -1,5 +1,5 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
-import { CoreData } from './store.reducer';
+import { CoreData, FormMain } from './store.reducer';
 
 export const StoreActions = createActionGroup({
   source: 'Cart',
@@ -12,5 +12,7 @@ export const StoreActions = createActionGroup({
     'Set Loading': props<{ loading: boolean }>(),
     'Set Route': props<{ route: string }>(),
     'Remove Restriction': props<{ id: number }>(),
+    'Form Main Change': props<{ form: FormMain }>(),
+    'Form Main Change Success': props<{ form: FormMain }>(),
   },
 });

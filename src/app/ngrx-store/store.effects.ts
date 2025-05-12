@@ -3,8 +3,8 @@ import { StoreActions } from './store.actions';
 import { concat, concatMap, forkJoin, map, of, switchMap, tap } from 'rxjs';
 import { StoreMockService } from '../services/store-mock.service';
 import { Injectable } from '@angular/core';
-import { CoreData } from './store.reducer';
 import { Router } from '@angular/router';
+import { RulesEngineService } from '../services/rules-engine.service';
 
 @Injectable()
 export class StoreEffects {
@@ -12,6 +12,7 @@ export class StoreEffects {
     private actions: Actions,
     private storeMockService: StoreMockService,
     private router: Router,
+    private rulesEngineService: RulesEngineService,
   ) {}
 
   setRoute$ = createEffect(
@@ -21,6 +22,19 @@ export class StoreEffects {
         tap((action) => this.router.navigateByUrl('/' + action.route)),
       ),
     { dispatch: false },
+  );
+
+  formMainChange$ = createEffect(() =>
+    this.actions.pipe(
+      ofType(StoreActions.formMainChange),
+      switchMap((action) => {
+        return this.rulesEngineService.updateForm(action.form).pipe(
+          map((form) => {
+            return StoreActions.formMainChangeSuccess({ form });
+          }),
+        );
+      }),
+    ),
   );
 
   loadCoreData$ = createEffect(() =>
