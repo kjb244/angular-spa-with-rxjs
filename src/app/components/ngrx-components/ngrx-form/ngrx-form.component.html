@@ -19,11 +19,13 @@
     <div class="col-sm-12">
       <input class="form-control" [placeholder]="formStore.aggregateAmount.label" formControlName="aggregateAmount"/>
       <small id="aggregateHelp" class="form-text text-muted">{{formStore.aggregateAmount.help}}</small>
+      <div *ngIf="formStore.aggregateAmount.errorMessage" class="text-danger">{{formStore.aggregateAmount.errorMessage}}</div>
     </div>
 
     <div class="col-sm-12 mt-3">
       <input class="form-control" placeholder="fee amount" formControlName="feeAmount"/>
       <small id="feeHelp" class="form-text text-muted">{{formStore.feeAmount.help}}</small>
+      <div *ngIf="formStore.feeAmount.errorMessage" class="text-danger">Invalid feedback</div>
     </div>
   </div>
 

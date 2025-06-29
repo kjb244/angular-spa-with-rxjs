@@ -23,7 +23,7 @@ export interface FormMain {
 
 export interface NumberField {
   label: string;
-  validation: string;
+  errorMessage: string;
   help: string;
   value: string;
 }
@@ -89,13 +89,13 @@ const initialState: State = {
       ],
       aggregateAmount: {
         label: 'aggregate amount',
-        validation: '',
+        errorMessage: '',
         help: 'help text',
         value: '',
       },
       feeAmount: {
         label: 'aggregate amount',
-        validation: '',
+        errorMessage: '',
         help: 'help text',
         value: '',
       },
